@@ -1,27 +1,28 @@
 # Working in this repo
 
 nbdev. The notebooks under `nbs/` are the source; `ganapati/*.py` is generated. Edit the notebook,
-run `nbdev_export`, never edit the `.py`. CI runs `nbdev_export` and fails on a diff.
+run `nbdev_export`, never edit the `.py`. `README.md` comes from `nbs/index.ipynb` through
+`nbdev_readme`. CI runs `nbdev_export` and fails on a diff.
 
-## The line with litesearch
+## Dependency direction
 
-litesearch keeps the fold and the FTS5 tokenizer, because those are on for every store and are
-the largest measured retrieval win there. It also keeps `CITE_RE` and `cite_parts`, because
-`tree.py` builds the document tree out of a citation.
+ganapati imports litesearch. Never the reverse: a ganapati import inside litesearch is a cycle.
 
-Everything else about Sanskrit is here. ganapati depends on litesearch, never the reverse: adding
-a litesearch import to this repo is fine, adding a ganapati import to litesearch is a cycle.
-
-## Three modules, in dependency order
+## Three modules, in order
 
 `text` has no ganapati dependencies. `metre` imports `verse_spans` from `text`. `lemma` imports
-from both and holds the litesearch profiles. Keep it that way.
+from both and registers the reader profiles. Keep that order.
 
 ## vidyut is optional and must stay optional
 
 `sanskrit_meta(None)` returns `verse_meta` itself, the same object, so the metre-only path costs
 nothing. Every vidyut and Monier-Williams import is inside the function that needs it and raises
 saying what to install. There are no extras.
+
+## Test with real verses
+
+The metre assertions use Meghadūta 1.1 and Gītā 1.1. A metre detector that passes on invented
+syllables has not been tested.
 
 ## Prose in notebooks
 
@@ -34,13 +35,7 @@ docstring.
 One line. A second sentence only for a measured number or a footgun. Inline comments in a `def`
 signature are nbdev docments and become the API parameter table.
 
-## Test with real verses
-
-The metre assertions use Meghadūta 1.1 and Gītā 1.1, not invented strings. A metre detector that
-passes on made-up syllables has not been tested.
-
 ## evals
 
-`evals/sanskrit_eval.ipynb` is not in `nbs/`, so it is out of the test and docs runs and out of
-the wheel. It is the measurement behind the encoder table in the README. The ONNX encoder it
-compares against lives in litesearch's `evals/onnx.py`, which is also dev-only.
+`evals/sanskrit_eval.ipynb` is outside `nbs/`, so it is out of the test run, the docs build and
+the wheel. It is the measurement behind the encoder table.
