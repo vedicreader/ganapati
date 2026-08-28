@@ -8,7 +8,7 @@ __all__ = ['GANAS', 'METERS', 'VRTTA_EXTRA', 'MATRA_METERS', 'CATURMATRA', 'PADA
 # %% ../nbs/01_metre.ipynb #e0ab60d2a614
 import re
 from fastcore.all import AttrDict, L
-from litesearch.sanskrit import strip_vedic, CITE_RE, _DEVA, _DIGITS, _VIRAMA
+from litesearch.sanskrit import strip_vedic, CITE_RE, DEVANAGARI, DEVA_DIGITS, VIRAMA
 from .text import verse_spans
 
 # %% ../nbs/01_metre.ipynb #49c88ea21c92
@@ -32,14 +32,14 @@ def deva2iast(s:str) -> str:
         if ch in _CI:
             out.append(_CI[ch]); i += 1
             while i < n and s[i] == '़': i += 1
-            if i < n and s[i] == _VIRAMA: i += 1; continue           # bare consonant, no vowel
+            if i < n and s[i] == VIRAMA: i += 1; continue           # bare consonant, no vowel
             if i < n and s[i] in _MV: out.append(_MV[s[i]]); i += 1; continue
             out.append('a'); continue                                # the implicit vowel
         if ch in _IV: out.append(_IV[ch]); i += 1; continue
         if ch in _SI: out.append(_SI[ch]); i += 1; continue
         if ch in _MV: out.append(_MV[ch]); i += 1; continue           # orphan mātrā
-        if ch in _DIGITS: out.append(' '); i += 1; continue           # a verse number is not a syllable
-        if ch == _VIRAMA: i += 1; continue
+        if ch in DEVA_DIGITS: out.append(' '); i += 1; continue           # a verse number is not a syllable
+        if ch == VIRAMA: i += 1; continue
         out.append(ch); i += 1
     return ''.join(out)
 
@@ -54,7 +54,7 @@ _WORDS = re.compile(r'[^\W\d_]+')
 
 def _phones(text:str) -> list:
     "`[('V'|'C', unit)]` for a Sanskrit string, matched word by word so a vowel never fuses across a gap."
-    s = deva2iast(text) if _DEVA.search(text or '') else (text or '')
+    s = deva2iast(text) if DEVANAGARI.search(text or '') else (text or '')
     out = []
     for w in _WORDS.findall(s.lower()):
         i, n = 0, len(w)

@@ -7,7 +7,7 @@ __all__ = ['VERSE_TARGET', 'VERSE_MAX', 'verse_spans', 'chunk_verses', 'VerseChu
 # %% ../nbs/00_text.ipynb #e1773a74bd79
 import re
 from fastcore.all import L, Path
-from litesearch.sanskrit import DANDA, DDANDA, CITE_RE, cite_parts, _DEVA
+from litesearch.sanskrit import DANDA, DDANDA, CITE_RE, cite_parts, DEVANAGARI
 
 # %% ../nbs/00_text.ipynb #3e9c2e430d1e
 # A Devanagari verse number: `॥ १॥` or `॥ 12 ॥`
@@ -273,7 +273,7 @@ _IAST_DIAC = re.compile('[āīūṛṝḷḹṅñṭḍṇśṣṃḥĀĪŪṚ�
 
 def _has_sanskrit(block:str) -> bool:
     'Whether a block carries any Sanskrit signal — script, diacritic, daṇḍa or citation.'
-    return bool(_DEVA.search(block) or _IAST_DIAC.search(block)
+    return bool(DEVANAGARI.search(block) or _IAST_DIAC.search(block)
                 or DANDA in block or DDANDA in block or CITE_RE.search(block))
 
 _SANSKRIT_EXTS = '.xml,.tei,.htm,.html,.conllu,.txt'
@@ -284,7 +284,7 @@ def is_sanskrit(text:str, thresh:float=0.15) -> bool:
     'Whether `text` reads as Sanskrit — by script, by transliteration, or by structure.'
     s = (text or '')[:20000]
     if not s.strip(): return False
-    if len(_DEVA.findall(s)) / max(len(s), 1) > thresh: return True
+    if len(DEVANAGARI.findall(s)) / max(len(s), 1) > thresh: return True
     lines = max(len(s.splitlines()), 1)
     strict = len(CITE_RE.findall(s)) + s.count(DDANDA)
     if strict >= 3 and strict / lines > 0.05: return True

@@ -8,7 +8,7 @@ __all__ = ['MW_URL', 'GLOSS_STOP', 'sanskrit_home', 'vidyut_data', 'to_slp1', 'f
 import re
 from fastcore.all import AttrDict, L, Path, ifnone, patch
 from fastlite import Database
-from litesearch.sanskrit import fold_token, _DEVA
+from litesearch.sanskrit import fold_token, DEVANAGARI
 from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, _detag
 from .metre import metrical_text, verse_meta
 
@@ -37,7 +37,7 @@ def vidyut_data(path=None, force:bool=False) -> Path:
 def to_slp1(text:str) -> str:
     'Any supported script to SLP1, which is what the kosha is keyed on. Needs no downloaded data.'
     from vidyut.lipi import transliterate, Scheme
-    return transliterate(text, Scheme.Devanagari if _DEVA.search(text or '') else Scheme.Iast, Scheme.Slp1)
+    return transliterate(text, Scheme.Devanagari if DEVANAGARI.search(text or '') else Scheme.Iast, Scheme.Slp1)
 
 def from_slp1(text:str, iast:bool=True) -> str:
     'SLP1 back to something readable — IAST by default, Devanagari otherwise.'
@@ -91,7 +91,7 @@ def vidyut_pipe(path=None, split:bool=True):
         out = []
         for w in _TOKEN.findall(text or ''):
             w = w.strip("'’॒॑")
-            if not w or not (_DEVA.search(w) or _IAST_DIAC.search(w) or w.isalpha()): continue
+            if not w or not (DEVANAGARI.search(w) or _IAST_DIAC.search(w) or w.isalpha()): continue
             slps, slp = (), to_slp1(w)
             for k in _pausa_keys(slp):
                 if (slps := lem(k)): break
@@ -133,7 +133,7 @@ def sanskrit_terms(path=None,        # vidyut data dir; None -> `sanskrit_home()
         seen = {}
         for w in _TOKEN.findall(metrical_text(text) or ''):
             w = w.strip("'’॒॑")
-            if len(w) < min_len or not (_DEVA.search(w) or _IAST_DIAC.search(w) or w.isalpha()): continue
+            if len(w) < min_len or not (DEVANAGARI.search(w) or _IAST_DIAC.search(w) or w.isalpha()): continue
             if w in seen: seen[w] += 1; continue
             if nominal(w): seen[w] = 1
         return L(sorted(seen, key=lambda k: -seen[k])[:topk])
