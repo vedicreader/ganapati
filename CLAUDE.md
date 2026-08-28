@@ -38,3 +38,9 @@ signature are nbdev docments and become the API parameter table.
 
 The metre assertions use Meghadūta 1.1 and Gītā 1.1, not invented strings. A metre detector that
 passes on made-up syllables has not been tested.
+
+## evals
+
+`evals/sanskrit_eval.ipynb` is not in `nbs/`, so it is out of the test and docs runs and out of
+the wheel. It is the measurement behind the encoder table in the README. The ONNX encoder it
+compares against lives in litesearch's `evals/onnx.py`, which is also dev-only.
