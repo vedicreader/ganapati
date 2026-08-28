@@ -6,7 +6,8 @@ run `nbdev_export`, never edit the `.py`. `README.md` comes from `nbs/index.ipyn
 
 ## Dependency direction
 
-ganapati imports litesearch. Never the reverse: a ganapati import inside litesearch is a cycle.
+ganapati imports litesearch. Never the reverse, in code or in `pyproject.toml`: litesearch
+naming ganapati in any dependency group, dev included, is a cycle.
 
 ## Three modules, in order
 
