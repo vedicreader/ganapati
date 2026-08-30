@@ -7,13 +7,33 @@ Metre, verse boundaries, citations, and lemmas. `import ganapati` registers the 
 profiles, so a GRETIL or TEI source is chunked by verse and its tree is built from the citations.
 
 ``` python
-import ganapati
 from litesearch import Index
+from ganapati import Meter
 
 ix = Index('vault.db')
-ix.add_file('mahabharata_u.htm')      # verse-sized chunks, a tree built from the citations
-ix.db.by_meter(meter='mandākrāntā')   # every verse in that metre
+ix.add('mahabharata.htm')
+ix.search('dharma')[:3]
+ix.db.by_meter(meter=Meter.ANUSTUBH)[:3]
 ```
+
+    /Users/71293/code/personal/orgs/ganapati/.venv/lib/python3.13/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+      from .autonotebook import tqdm as notebook_tqdm
+
+    [{'content': 'nārāyaṇaṃ namaskṛtya naraṃ caiva narottamam\ndevīṃ sarasvatīṃ caiva tato jayam udīrayet',
+      'metadata': '{"meter": "anuṣṭubh", "variant": "pathyā", "gana": "ta_ra_ga_ga", "pada": "8"}',
+      'node_id': '73a63025c7fc3d14#0',
+      'doc_id': '73a63025c7fc3d14',
+      'page': 0},
+     {'content': 'samāsīnān abhyagacchad brahmarṣīn saṃśitavratān\nvinayāvanato bhūtvā kadā cit sūtanandanaḥ',
+      'metadata': '{"meter": "anuṣṭubh", "variant": "pathyā ra-vipulā", "gana": "ya_ta_ga_ga", "pada": "8"}',
+      'node_id': '73a63025c7fc3d14#0',
+      'doc_id': '73a63025c7fc3d14',
+      'page': 2},
+     {'content': 'tam āśramam anuprāptaṃ naimiṣāraṇyavāsinaḥ\ncitrāḥ śrotuṃ kathās tatra parivavrus tapasvinaḥ',
+      'metadata': '{"meter": "anuṣṭubh", "variant": "pathyā", "gana": "ja_sa_ga_ga", "pada": "8"}',
+      'node_id': '73a63025c7fc3d14#0',
+      'doc_id': '73a63025c7fc3d14',
+      'page': 3}]
 
 Every chunk carries its metre as searchable metadata.
 
@@ -22,11 +42,15 @@ verse_meta('dharmakṣetre kurukṣetre samavetā yuyutsavaḥ '
            'māmakāḥ pāṇḍavāścaiva kimakurvata sañjaya')
 ```
 
+    {'meter': 'anuṣṭubh', 'variant': 'pathyā', 'gana': 'ma_ra_ga_ga', 'pada': '8'}
+
 The scan behind it, and the metre that pattern names:
 
 ``` python
 scan('dharmakṣetre kurukṣetre')     # g for heavy, l for light
 ```
+
+    'gggglggg'
 
 ``` python
 detect_meter('kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ '
@@ -34,6 +58,8 @@ detect_meter('kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ '
              'yakṣaścakre janakatanayāsnānapuṇyodakeṣu '
              'snigdhacchāyātaruṣu vasatiṃ rāmagiryāśrameṣu')['name']
 ```
+
+    <Meter.MANDAKRANTA: 'mandākrāntā'>
 
 ## The three modules
 
