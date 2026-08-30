@@ -15,6 +15,7 @@ _DEVNUM = re.compile(r'॥\s*([\d०-९]+)\s*॥')
 
 _GLOSS = re.compile(r'(?:[ \t]*\n)?[ \t]*>[^\n]*')
 _HEAD  = re.compile(r'^[ \t]*#{1,6}[ \t]+\S', re.M)
+_LINENUM = re.compile(r'^[ \t]*(\d+)(?:[ \t]*(?=\n|$)|(?=[^\W\d_]))', re.M)
 
 def _with_gloss(text:str, end:int) -> int:
     'Extend a cut past the gloss lines that trail it.'
@@ -31,6 +32,12 @@ def verse_spans(text:str) -> L:
     if not cuts:
         for m in re.finditer(r'(?:॥|\|\||//)[ \t]*(?=\n|$)', text):
             cuts.append((_with_gloss(text, m.end()), None))
+    if not cuts and len(nums := list(_LINENUM.finditer(text))) > 1:
+        out = L()
+        for i, m in enumerate(nums):
+            end = nums[i + 1].start() if i + 1 < len(nums) else len(text)
+            if (seg := text[m.end():end]).strip(): out.append((m.end(), end, seg.strip(), m.group(1)))
+        return out
     cuts += [(m.start(), None) for m in _HEAD.finditer(text) if m.start() > 0]
     cuts.sort()
     out, prev = L(), 0
@@ -86,8 +93,6 @@ def chunk_verses(text:str,                 # source text
         if buf: out.append('\n'.join(buf).strip())
         buf, cited = [], False
     for _, _, seg, cite in units:
-        # A heading opens a section; packing across it would put the tail of one section and the
-        # head of the next into a chunk whose breadcrumb can only name one of them.
         if _HEAD.match(seg): flush()
         if len(seg) > max_chars:
             flush()
@@ -97,12 +102,9 @@ def chunk_verses(text:str,                 # source text
                 cur.append(a)
             if cur: out.append('\n'.join(cur))
             continue
-        # close the run *before* it overflows, so packing can never produce a chunk larger than a
-        # unit the embedder was never going to fit
         if buf and _width(buf) + len(seg) > max_chars: flush()
         buf.append(seg)
         if cite: cited = True
-        # a citation closes the unit; otherwise pack forward until the target is reached
         if (cited and not pack_cited) or _width(buf) >= target: flush()
     flush()
     return out.filter(lambda s: s.strip())
@@ -148,7 +150,7 @@ _GRETIL_END = re.compile(r'COPYRIGHT AND TERMS OF USAGE AS FOR SOURCE FILE\.|'
 def _detag(t:str) -> str:
     import html
     t = re.sub(r'<(script|style)[^>]*>.*?</\1>', ' ', t, flags=re.S | re.I)
-    return html.unescape(re.sub(r'<[^>]+>', '', t))
+    return html.unescape(re.sub(r'<[^>]+>', '', t)).replace('\xa0', ' ')
 
 def gretil_parse(src) -> tuple:
     'GRETIL plain-text (`*_u.htm`) to `(pages, meta)`.'

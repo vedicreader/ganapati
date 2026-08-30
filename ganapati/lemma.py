@@ -9,8 +9,8 @@ import re
 from fastcore.all import AttrDict, L, Path, ifnone, patch
 from fastlite import Database
 from litesearch.sanskrit import fold_token, DEVANAGARI
-from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, _detag
-from .metre import metrical_text, verse_meta
+from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, _detag, _LINENUM, _IAST_DIAC
+from .metre import Meter, metrical_text, verse_meta
 
 # %% ../nbs/02_lemma.ipynb #01a6fd0be60f
 _VIDYUT_URL_NOTE = 'https://github.com/ambuda-org/vidyut'   # MIT
@@ -255,7 +255,7 @@ def by_lemma(self:Database,
 
 @patch
 def by_meter(self:Database,
-             meter:str=None,      # metre name, e.g. `mandākrāntā`
+             meter:Meter|str=None, # metre, e.g. `Meter.MANDAKRANTA`
              gana:str=None,       # gaṇa signature, `ma bha na ta ta ga ga` or `ma_bha_na_...`
              store:str='store',
              prefix:str=None,
@@ -263,7 +263,9 @@ def by_meter(self:Database,
              limit:int=50) -> list:
     'Chunks whose verses are in a metre, or share a gaṇa signature. A filter, not a ranking.'
     wh, wa = [], {}
-    if meter: wh.append('metadata like :sa_m'); wa['sa_m'] = f'%"meter": "%{meter}%'
+    if meter:
+        wh.append('metadata like :sa_m')
+        wa['sa_m'] = f'%"meter": "{meter.value if isinstance(meter, Meter) else meter}%'
     if gana:  wh.append('metadata like :sa_g'); wa['sa_g'] = f'%{gana.strip().replace(" ", "_")}%'
     if not wh: return []
     cols = list(dict.fromkeys((columns or ['content']) + ['metadata', 'node_id', 'doc_id', 'page']))
@@ -280,7 +282,9 @@ def _sniff(text:str) -> bool:
     if ('tei-c.org' in raw or '<teiHeader' in raw) and re.search(r'xml:lang=["\'](sa|pi|pra)\b', raw): return True
     t = _detag(raw)
     if re.search(r'^#\s*id\s*=', t, re.M): return True
-    return is_sanskrit(t)
+    numbered = len(_LINENUM.findall(t)) > 1
+    return is_sanskrit(t) or (numbered and bool(DEVANAGARI.search(t)
+                                                or re.search(r'[āīūṛṝḷḹṅñṭḍṇśṣṃḥ]', t)))
 
 def register_profiles(nlp=None, mw:dict=None):
     'Register the Sanskrit profiles. Called on import; safe to call again.'

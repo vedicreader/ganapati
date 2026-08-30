@@ -16,7 +16,6 @@ classifiers = [
     "Intended Audience :: Developers",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: Apache Software License",
-    "Natural Language :: Sanskrit",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
     "Topic :: Text Processing :: Linguistic",
@@ -24,6 +23,7 @@ classifiers = [
 dependencies = [
     "fastcore>=2.2.15",
     "litesearch>=0.1.33",
+    "vidyut"
 ]
 
 [project.urls]
