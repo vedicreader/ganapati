@@ -25,7 +25,8 @@ is called only for the chunks that lack one.
 ## Test with real verses
 
 The metre assertions use Meghadūta 1.1 and Gītā 1.1. A metre detector that passes on invented
-syllables has not been tested.
+syllables has not been tested. `nbs/mahabharata.htm` is GRETIL's Mahābhārata 1.1, 210 verses: the
+end-to-end `Index.add` assertions in `02_lemma` read it, so the test run needs it present.
 
 ## detect_meter has one not-found state
 
