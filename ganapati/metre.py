@@ -294,7 +294,7 @@ def detect_meter(text:str):
     return AttrDict(name=None, variant=None, syllables=n, per_pada=q, halves=None, scan=sc, matras=mt,
                     ganas=' '.join(ganas(sc[:q][:-1] + 'g')) if q else '')
 
-# %% ../nbs/01_metre.ipynb #363eae74
+# %% ../nbs/01_metre.ipynb #f91565a9
 _GL = frozenset('gl')
 
 def _weights(pada:str) -> list:
@@ -331,7 +331,7 @@ def group_verses(lines,             # the lines of a source, or one string of th
     return best
 
 
-# %% ../nbs/01_metre.ipynb #3518a876
+# %% ../nbs/01_metre.ipynb #cffc07bd
 TIMING_TOL = 0.35
 
 def _rates(ts) -> list:

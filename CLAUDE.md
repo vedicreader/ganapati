@@ -35,10 +35,19 @@ partial verse goes through: forced alignment and ASR leave no daṇḍa for `ver
 
 ## Timings travel as text
 
-A litesearch `meta` callable sees a chunk's text and nothing else, so `vr_xml_parse` writes each
-aligned line's span into the line as `[t 0-1800 a1]` and its etymology as a `> etym:` line.
+A litesearch `meta` callable sees a chunk's text and nothing else, so the vedicreader readers write
+each aligned line's span into the line as `[t 0-1800 a1]` and its etymology as a `> etym:` line.
 Brackets and `>` are exactly what `metrical_text` strips, so neither reaches the scansion.
 `time_marker` writes them, `line_times` and `line_etyms` read them back.
+
+## Two vedicreader readers, one shape
+
+`vr_xml_parse` reads the `<lyrics>` XML, `vr_json_parse` the JSON content format. Both return the
+same `(pages, meta)`. vedicreader keeps `meaning` and `etymology` on the `<section>`, not on the
+line, and its etymology is either `word: gloss; word: gloss` or prose: `_vr_etym` takes both and
+`_etym_terms` splits on separators, because a `\w` token class breaks a Devanagari word at every
+matra. In JSON one `role` per line replaces the two display flags, and `verse` is the only role
+that is both printed and recited.
 
 ## Prose in notebooks
 

@@ -2,8 +2,8 @@
 
 # %% auto #0
 __all__ = ['VERSE_TARGET', 'VERSE_MAX', 'TIME_RE', 'ETYM_RE', 'verse_spans', 'chunk_verses', 'VerseChunker', 'ProseChunker',
-           'gretil_parse', 'tei_parse', 'time_marker', 'line_times', 'line_etyms', 'vr_xml_parse', 'dcs_parse',
-           'is_sanskrit', 'sanskrit_parse']
+           'gretil_parse', 'tei_parse', 'time_marker', 'line_times', 'line_etyms', 'vr_xml_parse', 'vr_json_parse',
+           'dcs_parse', 'is_sanskrit', 'sanskrit_parse']
 
 # %% ../nbs/00_text.ipynb #e1773a74bd79
 import re
@@ -236,6 +236,12 @@ def line_etyms(text:str) -> L:
     'The `> etym:` lines of a chunk — the per-word grammar and gloss the source itself supplies.'
     return L(m[1].strip() for m in ETYM_RE.finditer(text or '') if m[1].strip())
 
+def _vr_etym(e) -> str:
+    'One `> etym:` payload from either shape vedicreader stores: `[{w, g}]` pairs or prose.'
+    if not e: return ''
+    if isinstance(e, str): return e.strip()
+    return '; '.join(f"{x.get('w')}: {x.get('g')}" for x in e if x.get('w') and x.get('g'))
+
 _VR_SKIP = ('exclude_from_display', 'ignore')
 
 def _vr_recited(l) -> bool:
@@ -272,10 +278,50 @@ def vr_xml_parse(src) -> tuple:
         tail = TIME_RE.sub('', '\n'.join(b for b in buf if not b.startswith('>')))
         if not re.search(r'[।॥]\s*$', tail): body += '\n॥'
         if (sm := (s.get('meaning') or '').strip()): body += '\n> ' + sm
+        # vedicreader keeps meaning and etymology on the `<section>`, not on the line
+        if (se := _vr_etym(s.get('etymology'))): body += '\n> etym: ' + se
         pages.append((len(pages), body))
     cat = (root.findtext('category') or '').strip()
     tags = (root.findtext('tags') or '').strip()
     return _merge_pages(pages), dict(fmt='vedicreader', title=ttl, category=cat, tags=tags)
+
+# vedicreader's JSON content format: one role per line replaces the two display flags, and
+# `verse` is the only role that is both printed and recited.
+def _vr_jtext(l) -> str: return str(l.get('t') or l.get('text') or '').strip()
+
+def _vr_jrecited(l) -> bool:
+    'A JSON line that is verse: `heading` is printed but not recited, `audio` recited but not printed.'
+    return bool(_vr_jtext(l)) and str(l.get('role') or 'verse') == 'verse'
+
+def _vr_jline(l) -> str:
+    'One JSON line with its audio span appended, when the line is aligned.'
+    s, a, b = _vr_jtext(l), l.get('s'), l.get('e')
+    if not (isinstance(a, int) and isinstance(b, int) and b > a): return s
+    return f'{s} {time_marker(a, b)}'
+
+def vr_json_parse(src) -> tuple:
+    'vedicreader content JSON to `(pages, meta)`, the same shape the `<lyrics>` reader returns.'
+    import json
+    raw = Path(src).read_text(encoding='utf-8', errors='replace') if _isfile(src) else str(src)
+    d, pages = json.loads(raw), []
+    for so, s in enumerate(d.get('sections') or []):
+        lines = [l for l in (s.get('lines') or []) if _vr_jrecited(l)]
+        if not lines: continue
+        pages.append((len(pages), f"## {s.get('name') or f'section {so}'}"))
+        buf = []
+        for l in lines:
+            buf.append(_vr_jline(l))
+            if (g := str(l.get('cap') or l.get('caption') or '').strip()): buf.append('> ' + g)
+        body = '\n'.join(buf)
+        tail = TIME_RE.sub('', '\n'.join(b for b in buf if not b.startswith('>')))
+        if not re.search(r'[।॥]\s*$', tail): body += '\n॥'
+        if (sm := str(s.get('meaning') or '').strip()): body += '\n> ' + sm
+        if (se := _vr_etym(s.get('etym') or s.get('etymology'))): body += '\n> etym: ' + se
+        pages.append((len(pages), body))
+    tags = d.get('tags')
+    return _merge_pages(pages), dict(fmt='vedicreader', title=str(d.get('title') or '').strip(),
+                                     category=str(d.get('category') or '').strip(),
+                                     tags=tags if isinstance(tags, str) else ','.join(tags or []))
 
 def dcs_parse(src) -> tuple:
     'DCS / ambuda analysed text to `(pages, meta)`.'
@@ -320,7 +366,11 @@ def _has_sanskrit(block:str) -> bool:
     return bool(DEVANAGARI.search(block) or _IAST_DIAC.search(block)
                 or DANDA in block or DDANDA in block or CITE_RE.search(block))
 
-_SANSKRIT_EXTS = '.xml,.tei,.htm,.html,.conllu,.txt'
+def _is_vr_json(raw:str) -> bool:
+    'Whether a blob is a vedicreader content JSON: its own keys, not any JSON with Sanskrit in it.'
+    return raw.lstrip().startswith('{') and '"sections"' in raw and '"lines"' in raw
+
+_SANSKRIT_EXTS = '.xml,.json,.tei,.htm,.html,.conllu,.txt'
 
 _DANDA_EOL = re.compile(r'(?:[।॥]|//|/|\|\||\|)[ \t]*$', re.M)
 
@@ -341,6 +391,7 @@ def sanskrit_parse(src) -> tuple:
     raw = p.read_text(encoding='utf-8', errors='replace')[:4000] if p else str(src)[:4000]
     sfx = p.suffix.lower() if p else ''
     if sfx in ('.conllu',) or re.search(r'^#\s*id\s*=', raw, re.M): return dcs_parse(src)
+    if _is_vr_json(raw): return vr_json_parse(src)
     if '<lyrics' in raw: return vr_xml_parse(src)
     if 'tei-c.org' in raw or '<TEI' in raw or '<teiHeader' in raw: return tei_parse(src)
     if sfx in ('.htm', '.html') or 'GRETIL' in raw: return gretil_parse(src)

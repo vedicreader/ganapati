@@ -11,7 +11,7 @@ from fastcore.all import AttrDict, L, Path, ifnone, patch
 from fastlite import Database
 from litesearch.sanskrit import fold_token, DEVANAGARI
 from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, line_etyms
-from .text import _detag, _LINENUM, _IAST_DIAC
+from .text import _detag, _LINENUM, _IAST_DIAC, _is_vr_json, _has_sanskrit
 from .metre import Meter, metrical_text, verse_meta
 
 # %% ../nbs/02_lemma.ipynb #01a6fd0be60f
@@ -235,7 +235,9 @@ def lemma_facets(text:str,          # chunk text
 # case, number, tense: worth keeping out of an English gloss, and no loss when the lemma has them
 _GRAM = frozenset('''nom acc ins dat abl gen loc voc sng dual plu masc fem neut adj adv indecl
 pres impf perf aor opt imp fut part ppp abs inf caus desid pass root stem cpd sandhi'''.split())
-_ETYM_TOK  = re.compile(r"[^\W\d_]+(?:[-'][^\W\d_]+)*")
+# One separator-based split serves both sides: a `\w` token class breaks a Devanagari word at
+# every matra (a nonspacing mark is not a word character), and an ASCII class breaks `agnā` at `agn`.
+_ETYM_TOK  = re.compile(r"[^\s;:|,.()\[\]।॥]+")
 _ETYM_HEAD = re.compile(r"(?:^|[;|])\s*([^\s;:|]+)\s*:")     # the headword of a `word: gloss` entry
 
 def _english(w:str) -> bool:
@@ -312,6 +314,7 @@ def _sniff(text:str) -> bool:
     'Whether a shared extension (`.xml`, `.txt`, `.htm`) holds Sanskrit this module can read.'
     raw = (text or '')[:60000]
     if '<lyrics' in raw[:4000]: return True
+    if _is_vr_json(raw[:4000]) and _has_sanskrit(raw[:20000]): return True
     # TEI states its language, which beats sniffing: a 16 KB edition can be almost entirely header,
     # and TEI keeps the citation in an `xml:id` attribute where no content sniff will find it.
     if ('tei-c.org' in raw or '<teiHeader' in raw) and re.search(r'xml:lang=["\'](sa|pi|pra)\b', raw): return True
@@ -325,7 +328,7 @@ def register_profiles(nlp=None, mw:dict=None):
     'Register the Sanskrit profiles. Called on import; safe to call again.'
     from litesearch.data import Profile, register_profile
     meta = sanskrit_meta(nlp, mw)
-    register_profile(Profile(name='sanskrit_verse', exts='.xml,.tei,.htm,.html,.conllu,.txt',
+    register_profile(Profile(name='sanskrit_verse', exts='.xml,.json,.tei,.htm,.html,.conllu,.txt',
                              parse=sanskrit_parse, chunker=VerseChunker, mode='verse',
                              detect=_sniff, kind='sanskrit', meta=meta))
     register_profile(Profile(name='sanskrit_prose', exts='', parse=sanskrit_parse,

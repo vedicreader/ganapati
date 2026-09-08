@@ -2,6 +2,18 @@
 
 <!-- do not remove -->
 
+## 0.0.3
+
+The vedicreader JSON content format, and an etymology split that survives Devanagari.
+
+- `vr_json_parse` reads vedicreader's JSON content format; `sanskrit_parse` picks it by shape, and
+  `.json` joins the `sanskrit_verse` profile's extensions behind a reader-specific sniff.
+- `vr_xml_parse` reads section-level `etymology`, which is where vedicreader keeps it. Previously
+  only a line-level attribute was read, and no library file has one.
+- `_etym_terms` splits an etymology entry on separators. A `\w` token class turned `धर्मक्षेत्रे`
+  into `धर` and `मक`; an ASCII one turned `agnā` into `agn`. Both fragments are gone from the
+  `lemma` and `gloss` facets.
+
 ## 0.0.2
 
 Partial verses, audio timings, and the analysis a source already carries.
