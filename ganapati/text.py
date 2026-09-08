@@ -237,10 +237,19 @@ def line_etyms(text:str) -> L:
     return L(m[1].strip() for m in ETYM_RE.finditer(text or '') if m[1].strip())
 
 def _vr_etym(e) -> str:
-    'One `> etym:` payload from either shape vedicreader stores: `[{w, g}]` pairs or prose.'
+    'One etymology payload from either shape vedicreader stores: `[{w, g}]` pairs or its own text.'
     if not e: return ''
     if isinstance(e, str): return e.strip()
-    return '; '.join(f"{x.get('w')}: {x.get('g')}" for x in e if x.get('w') and x.get('g'))
+    return '\n'.join(f"{x.get('w')}, {x.get('g')}" for x in e if x.get('w') and x.get('g'))
+
+def _quoted(prefix:str, txt) -> list:
+    """A gloss or etymology as `>`-prefixed lines, one per physical line of the source.
+
+    Every line needs the prefix: vedicreader writes a whole word-by-word analysis into one
+    attribute, and an unprefixed continuation line reaches the scansion as if it were a pāda.
+    """
+    t = txt if isinstance(txt, str) else _vr_etym(txt)
+    return [prefix + ln.strip() for ln in (t or '').splitlines() if ln.strip()]
 
 _VR_SKIP = ('exclude_from_display', 'ignore')
 
@@ -271,15 +280,14 @@ def vr_xml_parse(src) -> tuple:
         buf = []
         for l in lines:
             buf.append(_vr_line(l))
-            if (g := (l.get('meaning') or l.get('caption') or '').strip()): buf.append('> ' + g)
-            if (e := (l.get('etymology') or '').strip()): buf.append('> etym: ' + e)
+            buf += _quoted('> ', l.get('meaning') or l.get('caption'))
+            buf += _quoted('> etym: ', l.get('etymology'))
         body = '\n'.join(buf)
         # the last recited line, markers and glosses off: a verse boundary the chunker can see
         tail = TIME_RE.sub('', '\n'.join(b for b in buf if not b.startswith('>')))
         if not re.search(r'[।॥]\s*$', tail): body += '\n॥'
-        if (sm := (s.get('meaning') or '').strip()): body += '\n> ' + sm
-        # vedicreader keeps meaning and etymology on the `<section>`, not on the line
-        if (se := _vr_etym(s.get('etymology'))): body += '\n> etym: ' + se
+        # the corpus keeps both on the line; a section carries them only where an LLM pass has run
+        for x in _quoted('> ', s.get('meaning')) + _quoted('> etym: ', s.get('etymology')): body += '\n' + x
         pages.append((len(pages), body))
     cat = (root.findtext('category') or '').strip()
     tags = (root.findtext('tags') or '').strip()
@@ -311,12 +319,12 @@ def vr_json_parse(src) -> tuple:
         buf = []
         for l in lines:
             buf.append(_vr_jline(l))
-            if (g := str(l.get('cap') or l.get('caption') or '').strip()): buf.append('> ' + g)
+            buf += _quoted('> ', l.get('cap') or l.get('caption'))
+            buf += _quoted('> etym: ', l.get('etym') or l.get('etymology'))
         body = '\n'.join(buf)
         tail = TIME_RE.sub('', '\n'.join(b for b in buf if not b.startswith('>')))
         if not re.search(r'[।॥]\s*$', tail): body += '\n॥'
-        if (sm := str(s.get('meaning') or '').strip()): body += '\n> ' + sm
-        if (se := _vr_etym(s.get('etym') or s.get('etymology'))): body += '\n> etym: ' + se
+        for x in _quoted('> ', s.get('meaning')) + _quoted('> etym: ', s.get('etym') or s.get('etymology')): body += '\n' + x
         pages.append((len(pages), body))
     tags = d.get('tags')
     return _merge_pages(pages), dict(fmt='vedicreader', title=str(d.get('title') or '').strip(),

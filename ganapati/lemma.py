@@ -239,17 +239,42 @@ pres impf perf aor opt imp fut part ppp abs inf caus desid pass root stem cpd sa
 # every matra (a nonspacing mark is not a word character), and an ASCII class breaks `agnā` at `agn`.
 _ETYM_TOK  = re.compile(r"[^\s;:|,.()\[\]।॥]+")
 _ETYM_HEAD = re.compile(r"(?:^|[;|])\s*([^\s;:|]+)\s*:")     # the headword of a `word: gloss` entry
+_GRAM_F = _GRAM | frozenset('''nominative accusative instrumental ablative genitive locative vocative
+masculine feminine neuter singular dual plural tense mood person number gender case voice present past
+future imperfect perfect pluperfect aorist optative imperative indicative conditional benedictive
+precative potential desiderative intensive denominative participle indeclinable particle prefix suffix
+adverb adjective pronoun noun verb absolutive infinitive causal passive active middle
+first second third compound'''.split())
 
 def _english(w:str) -> bool:
     'An ASCII word, hyphens and apostrophes allowed, long enough to be worth a gloss.'
     return len(w) > 2 and w.isascii() and w.replace('-', '').replace("'", '').isalpha()
 
+def _gram_field(f:str) -> bool:
+    'Whether one comma-field of an etymology entry is a grammar label rather than a gloss.'
+    ws = [w for w in re.split(r'[\s=]+', f.strip().strip('.').lower()) if w and not w.isdigit()]
+    return bool(ws) and all(w in _GRAM_F for w in ws)
+
+def _etym_row(e:str) -> tuple:
+    'A `surface, lemma, grammar…, gloss` entry as `(headwords, gloss)`; None when it is not that shape.'
+    f = [x.strip() for x in e.split(',')]
+    # surface and lemma are single tokens; a `word: gloss` entry has neither, and must not match here
+    if len(f) < 3 or not f[0] or any(':' in x or ' ' in x for x in f[:2]): return None
+    rest, i = f[2:], 0
+    while i < len(rest) and (not rest[i] or _gram_field(rest[i])): i += 1
+    return f[:2], ', '.join(rest[i:])
+
 def _etym_terms(e:str) -> tuple:
     'One etymology entry split into its Sanskrit side and its English side.'
-    heads = dict.fromkeys(h.lower() for h in _ETYM_HEAD.findall(e))
-    ws = L(_ETYM_TOK.findall(e)).map(str.lower)
-    lem = L(list(heads)) + ws.filter(lambda w: len(w) > 1 and (DEVANAGARI.search(w) or _IAST_DIAC.search(w)))
-    glo = ws.filter(lambda w: _english(w) and w not in GLOSS_STOP and w not in _GRAM and w not in heads)
+    if (row := _etym_row(e)):
+        # the grammar fields are neither: they repeat what the lemma already implies
+        lem = L(w.lower().strip('-') for w in row[0] if w)
+        ws = L(_ETYM_TOK.findall(row[1])).map(str.lower)
+    else:
+        heads = dict.fromkeys(h.lower() for h in _ETYM_HEAD.findall(e))
+        ws = L(_ETYM_TOK.findall(e)).map(str.lower)
+        lem = L(list(heads)) + ws.filter(lambda w: len(w) > 1 and (DEVANAGARI.search(w) or _IAST_DIAC.search(w)))
+    glo = ws.filter(lambda w: _english(w) and w not in GLOSS_STOP and w not in _GRAM_F and w not in lem)
     return lem, glo
 
 def etym_facets(text:str,           # chunk text

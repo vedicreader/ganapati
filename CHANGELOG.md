@@ -4,15 +4,21 @@
 
 ## 0.0.3
 
-The vedicreader JSON content format, and an etymology split that survives Devanagari.
+The vedicreader JSON content format, and an etymology reader measured against the real corpus.
 
 - `vr_json_parse` reads vedicreader's JSON content format; `sanskrit_parse` picks it by shape, and
   `.json` joins the `sanskrit_verse` profile's extensions behind a reader-specific sniff.
-- `vr_xml_parse` reads section-level `etymology`, which is where vedicreader keeps it. Previously
-  only a line-level attribute was read, and no library file has one.
-- `_etym_terms` splits an etymology entry on separators. A `\w` token class turned `धर्मक्षेत्रे`
-  into `धर` and `मक`; an ASCII one turned `agnā` into `agn`. Both fragments are gone from the
-  `lemma` and `gloss` facets.
+- Both readers prefix every physical line of a gloss or etymology. vedicreader writes a whole
+  word-by-word analysis into one attribute, and only its first line used to get `> etym:`, so
+  8685 lines of grammar prose reached the scansion as if they were verse. **Breaking** for anyone
+  reading the emitted page text: `line_etyms` now returns one entry per physical line.
+- `_etym_terms` reads the corpus's own `surface, lemma, grammar…, gloss` layout: surface and lemma
+  to the `lemma` facet, the gloss tail to `gloss`, the grammar fields to neither. `word: gloss`
+  entries and prose split as before.
+- That separator split no longer fragments a word. A `\w` token class turned `धर्मक्षेत्रे` into
+  `धर` and `मक`; an ASCII one turned `agnā` into `agn`.
+- `nbs/mahabharata.htm` (GRETIL Mahābhārata 1.1) is in the repo, so the end-to-end `Index.add`
+  assertions run. Notebook cell ids are fixed, so `nbdev_export` is deterministic.
 
 ## 0.0.2
 

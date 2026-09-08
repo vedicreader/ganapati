@@ -44,11 +44,19 @@ Brackets and `>` are exactly what `metrical_text` strips, so neither reaches the
 ## Two vedicreader readers, one shape
 
 `vr_xml_parse` reads the `<lyrics>` XML, `vr_json_parse` the JSON content format. Both return the
-same `(pages, meta)`. vedicreader keeps `meaning` and `etymology` on the `<section>`, not on the
-line, and its etymology is either `word: gloss; word: gloss` or prose: `_vr_etym` takes both and
-`_etym_terms` splits on separators, because a `\w` token class breaks a Devanagari word at every
-matra. In JSON one `role` per line replaces the two display flags, and `verse` is the only role
-that is both printed and recited.
+same `(pages, meta)`. In JSON one `role` per line replaces the two display flags, and `verse` is
+the only role that is both printed and recited.
+
+## What a vedicreader etymology looks like
+
+Line-level, not section-level: 1689 of the corpus's 2619 lines carry one, against one section.
+Each entry is `surface, lemma, grammar…, gloss` and a whole word-by-word analysis sits in one
+attribute, newline-separated. Two consequences. `_quoted` prefixes every physical line, because
+an unprefixed continuation line reaches the scansion as if it were a pāda: that was 8685 lines of
+grammar prose being scanned as verse. And `_etym_terms` reads the comma layout, sending surface
+and lemma to `lemma`, the gloss tail to `gloss`, and the grammar fields to neither, since the
+lemma already implies them. `word: gloss` entries and free prose still split as before, on
+separators, because a `\w` token class breaks a Devanagari word at every matra.
 
 ## Prose in notebooks
 
