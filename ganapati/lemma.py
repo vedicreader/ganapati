@@ -238,7 +238,8 @@ pres impf perf aor opt imp fut part ppp abs inf caus desid pass root stem cpd sa
 # One separator-based split serves both sides: a `\w` token class breaks a Devanagari word at
 # every matra (a nonspacing mark is not a word character), and an ASCII class breaks `agnā` at `agn`.
 _ETYM_TOK  = re.compile(r"[^\s;:|,.()\[\]।॥]+")
-_ETYM_HEAD = re.compile(r"(?:^|[;|])\s*([^\s;:|]+)\s*:")     # the headword of a `word: gloss` entry
+# the headword of a `word: gloss` entry, bullet and all: vedicreader writes `- word: gloss`
+_ETYM_HEAD = re.compile(r"(?:^|[;|])\s*(?:[-*\u2022]\s+)?([^\s;:|]+)\s*:")
 _GRAM_F = _GRAM | frozenset('''nominative accusative instrumental ablative genitive locative vocative
 masculine feminine neuter singular dual plural tense mood person number gender case voice present past
 future imperfect perfect pluperfect aorist optative imperative indicative conditional benedictive

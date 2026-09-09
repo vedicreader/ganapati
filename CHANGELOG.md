@@ -17,6 +17,8 @@ The vedicreader JSON content format, and an etymology reader measured against th
   entries and prose split as before.
 - That separator split no longer fragments a word. A `\w` token class turned `धर्मक्षेत्रे` into
   `धर` and `मक`; an ASCII one turned `agnā` into `agn`.
+- `_ETYM_HEAD` skips a leading bullet, so the headword of vedicreader's canonical `- word: gloss`
+  entry reaches the `lemma` facet instead of only its Devanagari tokens.
 - `nbs/mahabharata.htm` (GRETIL Mahābhārata 1.1) is in the repo, so the end-to-end `Index.add`
   assertions run. Notebook cell ids are fixed, so `nbdev_export` is deterministic.
 

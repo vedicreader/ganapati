@@ -49,7 +49,11 @@ the only role that is both printed and recited.
 
 ## What a vedicreader etymology looks like
 
-Line-level, not section-level: 1689 of the corpus's 2619 lines carry one, against one section.
+Two shapes, one per source. A line's own etymology is `surface, lemma, grammar…, gloss`; a
+section's is the LLM pass's, normalised by vedicreader to a bare header line then `- word: gloss`
+per word, which `_ETYM_HEAD` reads bullet and all.
+
+Line-level, not section-level in the source XML: 1689 of the corpus's 2619 lines carry one, against one section.
 Each entry is `surface, lemma, grammar…, gloss` and a whole word-by-word analysis sits in one
 attribute, newline-separated. Two consequences. `_quoted` prefixes every physical line, because
 an unprefixed continuation line reaches the scansion as if it were a pāda: that was 8685 lines of
