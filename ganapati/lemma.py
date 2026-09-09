@@ -235,10 +235,7 @@ def lemma_facets(text:str,          # chunk text
 # case, number, tense: worth keeping out of an English gloss, and no loss when the lemma has them
 _GRAM = frozenset('''nom acc ins dat abl gen loc voc sng dual plu masc fem neut adj adv indecl
 pres impf perf aor opt imp fut part ppp abs inf caus desid pass root stem cpd sandhi'''.split())
-# One separator-based split serves both sides: a `\w` token class breaks a Devanagari word at
-# every matra (a nonspacing mark is not a word character), and an ASCII class breaks `agnā` at `agn`.
 _ETYM_TOK  = re.compile(r"[^\s;:|,.()\[\]।॥]+")
-# the headword of a `word: gloss` entry, bullet and all: vedicreader writes `- word: gloss`
 _ETYM_HEAD = re.compile(r"(?:^|[;|])\s*(?:[-*\u2022]\s+)?([^\s;:|]+)\s*:")
 _GRAM_F = _GRAM | frozenset('''nominative accusative instrumental ablative genitive locative vocative
 masculine feminine neuter singular dual plural tense mood person number gender case voice present past
@@ -259,7 +256,6 @@ def _gram_field(f:str) -> bool:
 def _etym_row(e:str) -> tuple:
     'A `surface, lemma, grammar…, gloss` entry as `(headwords, gloss)`; None when it is not that shape.'
     f = [x.strip() for x in e.split(',')]
-    # surface and lemma are single tokens; a `word: gloss` entry has neither, and must not match here
     if len(f) < 3 or not f[0] or any(':' in x or ' ' in x for x in f[:2]): return None
     rest, i = f[2:], 0
     while i < len(rest) and (not rest[i] or _gram_field(rest[i])): i += 1
@@ -268,7 +264,6 @@ def _etym_row(e:str) -> tuple:
 def _etym_terms(e:str) -> tuple:
     'One etymology entry split into its Sanskrit side and its English side.'
     if (row := _etym_row(e)):
-        # the grammar fields are neither: they repeat what the lemma already implies
         lem = L(w.lower().strip('-') for w in row[0] if w)
         ws = L(_ETYM_TOK.findall(row[1])).map(str.lower)
     else:

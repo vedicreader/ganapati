@@ -243,11 +243,7 @@ def _vr_etym(e) -> str:
     return '\n'.join(f"{x.get('w')}, {x.get('g')}" for x in e if x.get('w') and x.get('g'))
 
 def _quoted(prefix:str, txt) -> list:
-    """A gloss or etymology as `>`-prefixed lines, one per physical line of the source.
-
-    Every line needs the prefix: vedicreader writes a whole word-by-word analysis into one
-    attribute, and an unprefixed continuation line reaches the scansion as if it were a pāda.
-    """
+    'A gloss or etymology as `>`-prefixed lines: an unprefixed continuation reaches the scansion as a pāda.'
     t = txt if isinstance(txt, str) else _vr_etym(txt)
     return [prefix + ln.strip() for ln in (t or '').splitlines() if ln.strip()]
 
@@ -286,15 +282,12 @@ def vr_xml_parse(src) -> tuple:
         # the last recited line, markers and glosses off: a verse boundary the chunker can see
         tail = TIME_RE.sub('', '\n'.join(b for b in buf if not b.startswith('>')))
         if not re.search(r'[।॥]\s*$', tail): body += '\n॥'
-        # the corpus keeps both on the line; a section carries them only where an LLM pass has run
         for x in _quoted('> ', s.get('meaning')) + _quoted('> etym: ', s.get('etymology')): body += '\n' + x
         pages.append((len(pages), body))
     cat = (root.findtext('category') or '').strip()
     tags = (root.findtext('tags') or '').strip()
     return _merge_pages(pages), dict(fmt='vedicreader', title=ttl, category=cat, tags=tags)
 
-# vedicreader's JSON content format: one role per line replaces the two display flags, and
-# `verse` is the only role that is both printed and recited.
 def _vr_jtext(l) -> str: return str(l.get('t') or l.get('text') or '').strip()
 
 def _vr_jrecited(l) -> bool:
