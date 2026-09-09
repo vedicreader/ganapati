@@ -4,7 +4,13 @@
 
 ## 0.0.3
 
-The vedicreader JSON content format, and an etymology reader measured against the real corpus.
+The vedicreader JSON content format, an etymology reader measured against the real corpus, and
+the ardhasamavṛtta metres.
+
+- `detect_ardhasama` names a metre whose odd and even pādas differ in length, which neither the
+  pāda table nor the mora family could reach. `ARDHASAMA` holds viyoginī (10 + 11) and puṣpitāgrā
+  (12 + 13), both read off Kumārasambhava 4. Kumārasambhava now scans 605 of 613 verses against
+  559 before, and its fourth sarga 46 of 46 against 1.
 
 - `vr_json_parse` reads vedicreader's JSON content format; `sanskrit_parse` picks it by shape, and
   `.json` joins the `sanskrit_verse` profile's extensions behind a reader-specific sniff.

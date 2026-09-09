@@ -24,7 +24,9 @@ is called only for the chunks that lack one.
 
 ## Test with real verses
 
-The metre assertions use Meghadūta 1.1 and Gītā 1.1. A metre detector that passes on invented
+The metre assertions use Meghadūta 1.1, Gītā 1.1 and Kumārasambhava 4.1, whose viyoginī is the
+ardhasamavṛtta case: odd pādas of 10 syllables, even of 11, so neither the pāda table nor the
+mora family can name it. A metre detector that passes on invented
 syllables has not been tested. `nbs/mahabharata.htm` is GRETIL's Mahābhārata 1.1, 210 verses: the
 end-to-end `Index.add` assertions in `02_lemma` read it, so the test run needs it present.
 
