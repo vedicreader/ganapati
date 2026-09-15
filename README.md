@@ -61,6 +61,21 @@ detect_meter('kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ '
 
     <Meter.MANDAKRANTA: 'mandākrāntā'>
 
+## A line at a time
+
+Forced alignment and ASR hand you lines, not verses. `match_pada` names a metre from one pāda and
+`group_verses` finds how many lines make a verse.
+
+``` python
+padas = ['kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ',
+         'śāpenāstaṃgamitamahimā varṣabhogyeṇa bhartuḥ',
+         'yakṣaścakre janakatanayāsnānapuṇyodakeṣu',
+         'snigdhacchāyātaruṣu vasatiṃ rāmagiryāśrameṣu']
+match_pada(padas[0]), group_verses(padas).size
+```
+
+    ([<Meter.MANDAKRANTA: 'mandākrāntā'>], 4)
+
 ## The three modules
 
 | module | what is in it |
@@ -76,4 +91,4 @@ pip install ganapati
 ```
 
 Lemmas and glosses need `vidyut` and an 81 MB data download, both reached on first use. Without
-them a store still gets metre.
+them a store still gets metre, audio timings, and whatever analysis the source itself carries.

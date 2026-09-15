@@ -2,14 +2,16 @@
 
 # %% auto #0
 __all__ = ['MW_URL', 'GLOSS_STOP', 'sanskrit_home', 'vidyut_data', 'to_slp1', 'from_slp1', 'vidyut_pipe', 'sanskrit_terms',
-           'mw_lexicon', 'gloss_facets', 'lemma_facets', 'sanskrit_meta', 'register_profiles']
+           'mw_lexicon', 'gloss_facets', 'lemma_facets', 'etym_facets', 'source_meta', 'sanskrit_meta',
+           'register_profiles']
 
 # %% ../nbs/02_lemma.ipynb #90cb21f760cd
 import re
 from fastcore.all import AttrDict, L, Path, ifnone, patch
 from fastlite import Database
 from litesearch.sanskrit import fold_token, DEVANAGARI
-from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, _detag, _LINENUM, _IAST_DIAC
+from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, line_etyms
+from .text import _detag, _LINENUM, _IAST_DIAC, _is_vr_json, _has_sanskrit
 from .metre import Meter, metrical_text, verse_meta
 
 # %% ../nbs/02_lemma.ipynb #01a6fd0be60f
@@ -230,14 +232,70 @@ def lemma_facets(text:str,          # chunk text
         if len(out) >= max_terms: break
     return {'lemma': ' '.join(out)} if out else {}
 
-def sanskrit_meta(nlp=None, mw:dict=None):
-    'The `Profile.meta` callable: metre always, lemmas and glosses when their sources are supplied.'
-    if nlp is None: return verse_meta
-    if mw is None:
-        def meta(text:str) -> dict: return {**verse_meta(text), **lemma_facets(text, nlp)}
+# case, number, tense: worth keeping out of an English gloss, and no loss when the lemma has them
+_GRAM = frozenset('''nom acc ins dat abl gen loc voc sng dual plu masc fem neut adj adv indecl
+pres impf perf aor opt imp fut part ppp abs inf caus desid pass root stem cpd sandhi'''.split())
+_ETYM_TOK  = re.compile(r"[^\s;:|,.()\[\]।॥]+")
+_ETYM_HEAD = re.compile(r"(?:^|[;|])\s*(?:[-*\u2022]\s+)?([^\s;:|]+)\s*:")
+_GRAM_F = _GRAM | frozenset('''nominative accusative instrumental ablative genitive locative vocative
+masculine feminine neuter singular dual plural tense mood person number gender case voice present past
+future imperfect perfect pluperfect aorist optative imperative indicative conditional benedictive
+precative potential desiderative intensive denominative participle indeclinable particle prefix suffix
+adverb adjective pronoun noun verb absolutive infinitive causal passive active middle
+first second third compound'''.split())
+
+def _english(w:str) -> bool:
+    'An ASCII word, hyphens and apostrophes allowed, long enough to be worth a gloss.'
+    return len(w) > 2 and w.isascii() and w.replace('-', '').replace("'", '').isalpha()
+
+def _gram_field(f:str) -> bool:
+    'Whether one comma-field of an etymology entry is a grammar label rather than a gloss.'
+    ws = [w for w in re.split(r'[\s=]+', f.strip().strip('.').lower()) if w and not w.isdigit()]
+    return bool(ws) and all(w in _GRAM_F for w in ws)
+
+def _etym_row(e:str) -> tuple:
+    'A `surface, lemma, grammar…, gloss` entry as `(headwords, gloss)`; None when it is not that shape.'
+    f = [x.strip() for x in e.split(',')]
+    if len(f) < 3 or not f[0] or any(':' in x or ' ' in x for x in f[:2]): return None
+    rest, i = f[2:], 0
+    while i < len(rest) and (not rest[i] or _gram_field(rest[i])): i += 1
+    return f[:2], ', '.join(rest[i:])
+
+def _etym_terms(e:str) -> tuple:
+    'One etymology entry split into its Sanskrit side and its English side.'
+    if (row := _etym_row(e)):
+        lem = L(w.lower().strip('-') for w in row[0] if w)
+        ws = L(_ETYM_TOK.findall(row[1])).map(str.lower)
     else:
-        def meta(text:str) -> dict:
-            return {**verse_meta(text), **lemma_facets(text, nlp), **gloss_facets(text, nlp, mw)}
+        heads = dict.fromkeys(h.lower() for h in _ETYM_HEAD.findall(e))
+        ws = L(_ETYM_TOK.findall(e)).map(str.lower)
+        lem = L(list(heads)) + ws.filter(lambda w: len(w) > 1 and (DEVANAGARI.search(w) or _IAST_DIAC.search(w)))
+    glo = ws.filter(lambda w: _english(w) and w not in GLOSS_STOP and w not in _GRAM_F and w not in lem)
+    return lem, glo
+
+def etym_facets(text:str,           # chunk text
+                max_lemmas:int=96,  # cap on the Sanskrit side
+                max_terms:int=24    # cap on the English side
+                ) -> dict:
+    "`{'lemma': ..., 'gloss': ...}` from the source's own `> etym:` lines. Needs no vidyut."
+    parts = L(line_etyms(text)).map(_etym_terms)
+    lem = dict.fromkeys(parts.itemgot(0).concat())
+    glo = dict.fromkeys(w for w in parts.itemgot(1).concat() if w not in lem)
+    return {k: ' '.join(list(v)[:n]) for k, v, n in
+            (('lemma', lem, max_lemmas), ('gloss', glo, max_terms)) if v}
+
+def source_meta(text:str) -> dict:
+    'Every facet the source itself pays for: metre, audio timings, and its own etymology.'
+    return {**verse_meta(text), **etym_facets(text)}
+
+def sanskrit_meta(nlp=None, mw:dict=None):
+    'The `Profile.meta` callable: what the source carries always, vidyut only for what it lacks.'
+    if nlp is None: return source_meta
+    def meta(text:str) -> dict:
+        out = source_meta(text)
+        if 'lemma' not in out: out |= lemma_facets(text, nlp)
+        if mw and 'gloss' not in out: out |= gloss_facets(text, nlp, mw)
+        return out
     return meta
 
 @patch
@@ -277,6 +335,7 @@ def _sniff(text:str) -> bool:
     'Whether a shared extension (`.xml`, `.txt`, `.htm`) holds Sanskrit this module can read.'
     raw = (text or '')[:60000]
     if '<lyrics' in raw[:4000]: return True
+    if _is_vr_json(raw[:4000]) and _has_sanskrit(raw[:20000]): return True
     # TEI states its language, which beats sniffing: a 16 KB edition can be almost entirely header,
     # and TEI keeps the citation in an `xml:id` attribute where no content sniff will find it.
     if ('tei-c.org' in raw or '<teiHeader' in raw) and re.search(r'xml:lang=["\'](sa|pi|pra)\b', raw): return True
@@ -290,7 +349,7 @@ def register_profiles(nlp=None, mw:dict=None):
     'Register the Sanskrit profiles. Called on import; safe to call again.'
     from litesearch.data import Profile, register_profile
     meta = sanskrit_meta(nlp, mw)
-    register_profile(Profile(name='sanskrit_verse', exts='.xml,.tei,.htm,.html,.conllu,.txt',
+    register_profile(Profile(name='sanskrit_verse', exts='.xml,.json,.tei,.htm,.html,.conllu,.txt',
                              parse=sanskrit_parse, chunker=VerseChunker, mode='verse',
                              detect=_sniff, kind='sanskrit', meta=meta))
     register_profile(Profile(name='sanskrit_prose', exts='', parse=sanskrit_parse,
