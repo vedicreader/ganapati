@@ -78,9 +78,9 @@ match_pada(padas[0]), group_verses(padas).size
 
 | module | what is in it |
 |----|----|
-| `ganapati.text` | verse boundaries, the two chunkers, readers for GRETIL, TEI, VR XML and DCS |
-| `ganapati.metre` | IAST transliteration, syllable weights, the gaṇas, 80 metres, mātrā metres |
-| `ganapati.lemma` | vidyut lemmas, Monier-Williams glosses, the reader profiles |
+| `ganapati.text` | verse boundaries, pādas and verse numbers, the two chunkers, readers for GRETIL, TEI, VR XML and DCS |
+| `ganapati.metre` | IAST transliteration, syllable weights, the gaṇas, 80 metres, mātrā metres, a metre by name |
+| `ganapati.lemma` | vidyut lemmas, Monier-Williams glosses, the source’s own etymology entries, the reader profiles |
 
 ## Install
 

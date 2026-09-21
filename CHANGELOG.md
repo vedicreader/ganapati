@@ -7,6 +7,7 @@
 - `detect_ardhasama` and `ARDHASAMA` name the ardhasamavṛtta metres viyoginī and puṣpitāgrā; Kumārasambhava scans 605 of 613 verses, up from 559.
 - `vr_json_parse` reads vedicreader's JSON content format; `sanskrit_parse` and the `.json` extension pick it by shape.
 - **Breaking**: `line_etyms` returns one entry per physical line, so multi-line glosses and etymologies no longer reach the scansion as verse.
+- `padas`, `split_mantras` and `deva_num` cut a recitation source into pāda lines with Devanagari verse numbers; `etym_entries` returns a source's word-by-word analysis as records; `meter_name` gives a metre label without raising.
 
 ## 0.0.2
 

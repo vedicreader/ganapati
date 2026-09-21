@@ -2,12 +2,12 @@
 
 # %% auto #0
 __all__ = ['MW_URL', 'GLOSS_STOP', 'sanskrit_home', 'vidyut_data', 'to_slp1', 'from_slp1', 'vidyut_pipe', 'sanskrit_terms',
-           'mw_lexicon', 'gloss_facets', 'lemma_facets', 'etym_facets', 'source_meta', 'sanskrit_meta',
+           'mw_lexicon', 'gloss_facets', 'lemma_facets', 'etym_entries', 'etym_facets', 'source_meta', 'sanskrit_meta',
            'register_profiles']
 
 # %% ../nbs/02_lemma.ipynb #90cb21f760cd
 import re
-from fastcore.all import AttrDict, L, Path, ifnone, patch
+from fastcore.all import AttrDict, L, Path, ifnone, patch, first
 from fastlite import Database
 from litesearch.sanskrit import fold_token, DEVANAGARI
 from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, line_etyms
@@ -248,18 +248,28 @@ def _english(w:str) -> bool:
     'An ASCII word, hyphens and apostrophes allowed, long enough to be worth a gloss.'
     return len(w) > 2 and w.isascii() and w.replace('-', '').replace("'", '').isalpha()
 
+# the labels a field may carry beyond the categories above: parts of speech, compound types, the connectives inside `form of the pronoun`
+_GRAM_FIELD = _GRAM_F | frozenset('''a adjectival an and avyayībhāva bahuvrīhi base conjugated dative declined demonstrative du dual-form dvandva dvigu finite form gerund gerundive in indefinite inflected interrogative into karmadhāraya nominal numeral of or personal pl plural-form possessive pronominal reflexive relative singular-form tatpuruṣa the to upapada verbal with'''.split())
+
 def _gram_field(f:str) -> bool:
     'Whether one comma-field of an etymology entry is a grammar label rather than a gloss.'
     ws = [w for w in re.split(r'[\s=]+', f.strip().strip('.').lower()) if w and not w.isdigit()]
-    return bool(ws) and all(w in _GRAM_F for w in ws)
+    return bool(ws) and all(w in _GRAM_FIELD for w in ws)
+
+def etym_entries(text:str) -> L:
+    'A source\'s per-word analysis as `AttrDict(w, lemma, gram, g)`, one per `surface, lemma, grammar…, gloss` line; a line of another shape is skipped.'
+    out = L()
+    for ln in (text or '').splitlines():
+        f = [x.strip() for x in ln.split(',')]
+        if len(f) < 3 or not f[0] or any(':' in x or ' ' in x for x in f[:2]): continue
+        rest, i = f[2:], 0
+        while i < len(rest) and (not rest[i] or _gram_field(rest[i])): i += 1
+        out.append(AttrDict(w=f[0], lemma=f[1], gram=', '.join(x for x in rest[:i] if x) or None, g=', '.join(rest[i:]).strip() or None))
+    return out
 
 def _etym_row(e:str) -> tuple:
     'A `surface, lemma, grammar…, gloss` entry as `(headwords, gloss)`; None when it is not that shape.'
-    f = [x.strip() for x in e.split(',')]
-    if len(f) < 3 or not f[0] or any(':' in x or ' ' in x for x in f[:2]): return None
-    rest, i = f[2:], 0
-    while i < len(rest) and (not rest[i] or _gram_field(rest[i])): i += 1
-    return f[:2], ', '.join(rest[i:])
+    return ([x.w, x.lemma], x.g or '') if (x := first(etym_entries(e))) else None
 
 def _etym_terms(e:str) -> tuple:
     'One etymology entry split into its Sanskrit side and its English side.'

@@ -55,6 +55,12 @@ Two shapes, one per source. A line's own etymology is `surface, lemma, grammar�
 section's is the LLM pass's, normalised by vedicreader to a bare header line then `- word: gloss`
 per word, which `_ETYM_HEAD` reads bullet and all.
 
+`etym_entries` reads the line layout into `AttrDict(w, lemma, gram, g)` records and is what `_etym_row`
+builds on; `_GRAM_FIELD` is the vocabulary that decides whether a comma-field is grammar or gloss, wider
+than `_GRAM_F` because it also has to accept parts of speech, compound types and the connectives inside
+a label like `form of the pronoun`. `text.padas`, `split_mantras` and `deva_num` are the cuts a recitation
+source needs before it becomes lines: one pāda per line, a glued `…उवाच` on its own, `॥ n ॥` in Devanagari.
+
 Line-level, not section-level in the source XML: 1689 of the corpus's 2619 lines carry one, against one section.
 Each entry is `surface, lemma, grammar…, gloss` and a whole word-by-word analysis sits in one
 attribute, newline-separated. Two consequences. `_quoted` prefixes every physical line, because

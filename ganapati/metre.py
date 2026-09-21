@@ -4,7 +4,7 @@
 __all__ = ['GANAS', 'METERS', 'VRTTA_EXTRA', 'MATRA_METERS', 'CATURMATRA', 'ARDHASAMA', 'Meter', 'TIMING_TOL', 'PADA_RANGE',
            'deva2iast', 'syllables', 'scan', 'mora_weights', 'ganas', 'gana_pattern', 'metrical_text', 'matras',
            'detect_matra_meter', 'detect_ardhasama', 'detect_meter', 'match_pada', 'group_verses', 'mora_rate',
-           'timing_check', 'guru_laghu_ratio', 'verse_units', 'verse_meta']
+           'timing_check', 'guru_laghu_ratio', 'verse_units', 'verse_meta', 'meter_name']
 
 # %% ../nbs/01_metre.ipynb #e0ab60d2a614
 import re, unicodedata
@@ -412,3 +412,10 @@ def verse_meta(text:str) -> dict:
         out['mora_rate'] = str(round(med))
         if len(rs) > 2 and any(abs(r - med) / med > TIMING_TOL for _, r in rs): out['timing'] = 'off'
     return out
+
+# %% ../nbs/01_metre.ipynb #ac3075b4
+def meter_name(text:str) -> str:
+    "The metre one verse scans as, by name, else '': `detect_meter` for a caller that wants a label and never an exception."
+    try: m = detect_meter(text)
+    except Exception: return ''
+    return str(m.name.value) if m is not None and m.name else ''
