@@ -63,8 +63,8 @@ detect_meter('kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ '
 
 ## A line at a time
 
-Forced alignment and ASR hand you lines, not verses. `match_pada` names a metre from one pāda and
-`group_verses` finds how many lines make a verse.
+Forced alignment and ASR hand you lines, not verses. [`match_pada`](https://vedicreader.github.io/ganapati/metre.html#match_pada) names a metre from one pāda and
+[`group_verses`](https://vedicreader.github.io/ganapati/metre.html#group_verses) finds how many lines make a verse.
 
 ``` python
 padas = ['kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ',
@@ -73,8 +73,6 @@ padas = ['kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ',
          'snigdhacchāyātaruṣu vasatiṃ rāmagiryāśrameṣu']
 match_pada(padas[0]), group_verses(padas).size
 ```
-
-    ([<Meter.MANDAKRANTA: 'mandākrāntā'>], 4)
 
 ## The three modules
 
