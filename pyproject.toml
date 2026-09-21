@@ -45,4 +45,10 @@ include = ["/ganapati", "/README.md", "/pyproject.toml"]
 path = "ganapati/__init__.py"
 
 [dependency-groups]
-dev = ["ipykernel>=7.3.0", "nbdev>=3.3.4", "notebook>=7.6.1", "vidyut>=0.4.0"]
+dev = [
+    "aksharamukha>=2.3",
+    "ipykernel>=7.3.0",
+    "nbdev>=3.3.4",
+    "notebook>=7.6.1",
+    "vidyut>=0.4.0",
+]

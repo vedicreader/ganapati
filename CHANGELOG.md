@@ -2,6 +2,11 @@
 
 <!-- do not remove -->
 
+## 0.0.4
+
+- `delatinize` reads back an English gloss that an LLM wrote in Devanagari as if it were IAST; `gloss_vocab` is the corpus's own English reference, `latin_frac` the measure, `fix_etym` the per-blob repair. Reading back needs aksharamukha, imported on first call and not a dependency.
+- `_GRAM_FIELD` widens the grammar-label test used by `etym_entries` and `_etym_row` to parts of speech, compound types and the connectives inside a label; the gloss-facet stoplist is unchanged.
+
 ## 0.0.3
 
 - `detect_ardhasama` and `ARDHASAMA` name the ardhasamavṛtta metres viyoginī and puṣpitāgrā; Kumārasambhava scans 605 of 613 verses, up from 559.

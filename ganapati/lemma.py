@@ -3,10 +3,10 @@
 # %% auto #0
 __all__ = ['MW_URL', 'GLOSS_STOP', 'sanskrit_home', 'vidyut_data', 'to_slp1', 'from_slp1', 'vidyut_pipe', 'sanskrit_terms',
            'mw_lexicon', 'gloss_facets', 'lemma_facets', 'etym_entries', 'etym_facets', 'source_meta', 'sanskrit_meta',
-           'register_profiles']
+           'register_profiles', 'gloss_vocab', 'latin_frac', 'delatinize', 'fix_etym']
 
 # %% ../nbs/02_lemma.ipynb #90cb21f760cd
-import re
+import re, unicodedata
 from fastcore.all import AttrDict, L, Path, ifnone, patch, first
 from fastlite import Database
 from litesearch.sanskrit import fold_token, DEVANAGARI
@@ -367,3 +367,65 @@ def register_profiles(nlp=None, mw:dict=None):
                              detect=lambda _t: False, kind='sanskrit', meta=meta))
 
 register_profiles()
+
+# %% ../nbs/02_lemma.ipynb #c44822a0
+_EN_TOK  = re.compile(r"[A-Za-z']{2,}")
+_DEV_RUN = re.compile(r'[\u0900-\u097f][\u0900-\u097f\s]*')
+_SCHEMES = ('IAST', 'ITRANS', 'HK', 'Velthuis')
+_LAT_FIX = (('kṣ', 'x'), ('ś', 'sh'), ('ṣ', 'sh'), ('_', ''), ('।', '.'))
+_FUNC = frozenset('the of a an and or to in is are was for from with by as it its this that not so'.split())
+
+def _deacc(s:str) -> str: return ''.join(c for c in unicodedata.normalize('NFD', s) if not unicodedata.combining(c))
+
+def gloss_vocab(texts) -> set:
+    "The English words the corpus's own parseable glosses use: the reference for spotting an entry that is not English at all."
+    out = set()
+    for t in texts:
+        for e in etym_entries(t):
+            if e.g: out |= {w.lower() for w in _EN_TOK.findall(_deacc(e.g))}
+    return out
+
+def _reverse(s:str, scheme:str='IAST') -> str:
+    'Devanagari back to a roman scheme. aksharamukha, imported here so the rest of the module needs none of it.'
+    try: from aksharamukha.transliterate import process
+    except ImportError as ex: raise ImportError('delatinize needs aksharamukha: pip install aksharamukha') from ex
+    try: return process('Devanagari', scheme, s)
+    except Exception: return s
+
+def latin_frac(s:str,          # one Devanagari line
+               vocab:set,      # the corpus's English gloss words, from `gloss_vocab`
+               scheme:str='IAST'
+               ) -> tuple:
+    'How much of a line reads back as English, as `(fraction, n_words)`. Multi-word runs only: one surface word proves nothing.'
+    ws = []
+    for run in _DEV_RUN.findall(s or ''):
+        r = _EN_TOK.findall(_deacc(_reverse(run, scheme)).lower())
+        if len(r) > 1: ws += r
+    return (sum(w in vocab for w in ws) / len(ws), len(ws)) if ws else (0.0, 0)
+
+def _mend(w:str, vocab:set) -> str:
+    'One reversed token with its leftover diacritics dropped, but only when that makes it an English word.'
+    c = w
+    for a, b in _LAT_FIX: c = c.replace(a, b)
+    d = _deacc(c)
+    for cand in (c, d, d.replace('hh', 'h'), d.replace('^', '')):
+        if cand.lower().strip('.,;:()[]"\'') in vocab: return cand
+    return w
+
+def delatinize(s:str, vocab:set) -> str:
+    'A mis-transliterated English gloss read back; a well-formed entry or real Sanskrit is returned as it came.'
+    if not (s and DEVANAGARI.search(s)) or etym_entries(s): return s
+    (frac, n), sc = max(((latin_frac(s, vocab, x), x) for x in _SCHEMES), key=lambda x: (x[0][0], x[0][1]))
+    if not n: return s
+    out = ' '.join(_mend(w, vocab) for w in _reverse(s.replace('ऽ', "'"), sc).split())
+    fw = len({w.lower().strip('.,;:()[]"\'') for w in out.split()} & _FUNC)
+    if not (fw > 1 or (fw and frac >= 0.5 and n > 2) or (n > 1 and frac == 1.0)): return s
+    return re.sub(r'\s+', ' ', out).strip()
+
+def fix_etym(text:str, vocab:set) -> tuple:
+    'One etymology blob with its Latinised lines read back, as `(text, n_fixed)`.'
+    out, n = [], 0
+    for ln in (text or '').splitlines():
+        n += (f := delatinize(ln, vocab)) != ln
+        out.append(f)
+    return '\n'.join(out), n
