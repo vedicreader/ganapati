@@ -4,29 +4,9 @@
 
 ## 0.0.3
 
-The vedicreader JSON content format, an etymology reader measured against the real corpus, and
-the ardhasamavṛtta metres.
-
-- `detect_ardhasama` names a metre whose odd and even pādas differ in length, which neither the
-  pāda table nor the mora family could reach. `ARDHASAMA` holds viyoginī (10 + 11) and puṣpitāgrā
-  (12 + 13), both read off Kumārasambhava 4. Kumārasambhava now scans 605 of 613 verses against
-  559 before, and its fourth sarga 46 of 46 against 1.
-
-- `vr_json_parse` reads vedicreader's JSON content format; `sanskrit_parse` picks it by shape, and
-  `.json` joins the `sanskrit_verse` profile's extensions behind a reader-specific sniff.
-- Both readers prefix every physical line of a gloss or etymology. vedicreader writes a whole
-  word-by-word analysis into one attribute, and only its first line used to get `> etym:`, so
-  8685 lines of grammar prose reached the scansion as if they were verse. **Breaking** for anyone
-  reading the emitted page text: `line_etyms` now returns one entry per physical line.
-- `_etym_terms` reads the corpus's own `surface, lemma, grammar…, gloss` layout: surface and lemma
-  to the `lemma` facet, the gloss tail to `gloss`, the grammar fields to neither. `word: gloss`
-  entries and prose split as before.
-- That separator split no longer fragments a word. A `\w` token class turned `धर्मक्षेत्रे` into
-  `धर` and `मक`; an ASCII one turned `agnā` into `agn`.
-- `_ETYM_HEAD` skips a leading bullet, so the headword of vedicreader's canonical `- word: gloss`
-  entry reaches the `lemma` facet instead of only its Devanagari tokens.
-- `nbs/mahabharata.htm` (GRETIL Mahābhārata 1.1) is in the repo, so the end-to-end `Index.add`
-  assertions run. Notebook cell ids are fixed, so `nbdev_export` is deterministic.
+- `detect_ardhasama` and `ARDHASAMA` name the ardhasamavṛtta metres viyoginī and puṣpitāgrā; Kumārasambhava scans 605 of 613 verses, up from 559.
+- `vr_json_parse` reads vedicreader's JSON content format; `sanskrit_parse` and the `.json` extension pick it by shape.
+- **Breaking**: `line_etyms` returns one entry per physical line, so multi-line glosses and etymologies no longer reach the scansion as verse.
 
 ## 0.0.2
 
