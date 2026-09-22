@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 0.0.6
+
+- The unclosed verse marker 0.0.5 accepts at a line end is a double daṇḍa only: `॥७`, not `। १`. DharmicData's paryāya sūktas (AV 16.8) write a running count after the marker, `॥४॥ ४। १`, and 0.0.5 read that count as another verse, leaving `४ ॥ १ ॥` sections.
+
 ## 0.0.5
 
 - `_VMARK` also accepts a verse marker left open at a line end — `॥७` with no closing daṇḍa, as DharmicData prints Atharvaveda 2.36.7 — so `split_mantras` ends the verse there instead of merging it into the next, and `padas` no longer leaves the bare `७` glued mid-line. A number after a daṇḍa mid-line is still text.

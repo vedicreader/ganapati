@@ -75,7 +75,7 @@ def _atoms(seg:str, max_chars:int) -> L:
 
 # %% ../nbs/00_text.ipynb #6e86a87e
 PUNCT = frozenset('।॥|.,;:!?"\'()-–—')
-_VMARK = re.compile(r'[।॥]+\s*([०-९\d]+[०-९\d.]*)\s*(?:[।॥]+|(?=[ \t]*(?:\n|$)))')   # `॥ १८ ॥`, `।। 1.1 ।।`; or `॥७` left open at a line end, as DharmicData prints AV 2.36.7
+_VMARK = re.compile(r'(?:[।॥]+\s*([०-९\d]+[०-९\d.]*)\s*[।॥]+|॥+\s*([०-९\d]+[०-९\d.]*)(?=[ \t]*(?:\n|$)))')   # `॥ १८ ॥`, `।। 1.1 ।।`; or `॥७` left open at a line end (AV 2.36.7) — a double daṇḍa only, since `४। १` after a marker is a paryāya count
 _UVACA = re.compile(r'^([^।]{0,22}?(?:उ|ु)वाच)\s*(?=\S)')          # `धृतराष्ट्र उवाच` glued to the first pāda
 _NUM2DEVA = str.maketrans('0123456789', '०१२३४५६७८९')
 
@@ -92,14 +92,14 @@ def split_mantras(text:str) -> L:
     out, last = L(), 0
     for m in _VMARK.finditer(text or ''):
         body = text[last:m.start()].strip(); last = m.end()
-        if body: out.append((m[1], body))
+        if body: out.append((m[1] or m[2], body))
     return out
 
 def padas(verse:str,    # one verse, on one line or several, with or without its end-marker
           num=None      # the verse number to close it with; None keeps the one the verse carries
           ) -> L:
     'A verse as pāda lines: cut at the daṇḍa, a glued `…उवाच` speaker tag on its own line first, the last line closed with `॥ num ॥`.'
-    if num is None and (m := _VMARK.search(verse or '')): num = m[1]
+    if num is None and (m := _VMARK.search(verse or '')): num = m[1] or m[2]
     t = re.sub(r'\s+', ' ', _VMARK.sub(' ', (verse or '').replace('\n', ' ')).replace(DDANDA, ' ')).strip()
     out = L()
     if (m := _UVACA.match(t)): out.append(m[1].strip()); t = t[m.end():]
