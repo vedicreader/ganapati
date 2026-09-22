@@ -75,7 +75,7 @@ def _atoms(seg:str, max_chars:int) -> L:
 
 # %% ../nbs/00_text.ipynb #6e86a87e
 PUNCT = frozenset('।॥|.,;:!?"\'()-–—')
-_VMARK = re.compile(r'[।॥]+\s*([०-९\d]+[०-९\d.]*)\s*[।॥]+')   # `॥ १८ ॥`, `।। 1.1 ।।`: a verse number between daṇḍas
+_VMARK = re.compile(r'[।॥]+\s*([०-९\d]+[०-९\d.]*)\s*(?:[।॥]+|(?=[ \t]*(?:\n|$)))')   # `॥ १८ ॥`, `।। 1.1 ।।`; or `॥७` left open at a line end, as DharmicData prints AV 2.36.7
 _UVACA = re.compile(r'^([^।]{0,22}?(?:उ|ु)वाच)\s*(?=\S)')          # `धृतराष्ट्र उवाच` glued to the first pāda
 _NUM2DEVA = str.maketrans('0123456789', '०१२३४५६७८९')
 

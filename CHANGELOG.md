@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 0.0.5
+
+- `_VMARK` also accepts a verse marker left open at a line end — `॥७` with no closing daṇḍa, as DharmicData prints Atharvaveda 2.36.7 — so `split_mantras` ends the verse there instead of merging it into the next, and `padas` no longer leaves the bare `७` glued mid-line. A number after a daṇḍa mid-line is still text.
+
 ## 0.0.4
 
 - `delatinize` reads back an English gloss that an LLM wrote in Devanagari as if it were IAST; `gloss_vocab` is the corpus's own English reference, `latin_frac` the measure, `fix_etym` the per-blob repair. Reading back needs aksharamukha, imported on first call and not a dependency.
