@@ -9,10 +9,18 @@ run `nbdev_export`, never edit the `.py`. `README.md` comes from `nbs/index.ipyn
 ganapati imports litesearch. Never the reverse, in code or in `pyproject.toml`: litesearch
 naming ganapati in any dependency group, dev included, is a cycle.
 
-## Three modules, in order
+## Four modules, in order
 
 `text` has no ganapati dependencies. `metre` imports `verse_spans` from `text`. `lemma` imports
-from both and registers the reader profiles. Keep that order.
+from both and registers the reader profiles. `names` imports `deva2iast` from `metre` and reaches
+`lemma` only inside `term_gloss`'s Monier-Williams fallback. Keep that order.
+
+## Names are one-way tables
+
+`EPITHETS` and `TERMS` are plain text in `nbs/03_names.ipynb`, keyed by `name_key`. An epithet
+reaches its canonical names, never the reverse. A name that is mostly another word (Śrī, Ramā,
+Guha) stays out; the notebook's assertions fail if an epithet's key is another group's canonical
+name or two terms share a key.
 
 ## vidyut is optional and must stay optional
 

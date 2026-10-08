@@ -74,13 +74,24 @@ padas = ['kaścit kāntāvirahaguruṇā svādhikārātpramattaḥ',
 match_pada(padas[0]), group_verses(padas).size
 ```
 
-## The three modules
+## Names and terms
+
+A reader asks about Sri Ranganatha where the translation writes Viṣṇu, or about anumana where it says inference.
+
+``` python
+canonical('Sri Ranganatha'), canonical('Partha'), term_gloss('anumana')
+```
+
+    (('viṣṇu', 'nārāyaṇa', 'hari'), ('arjuna',), ('inference',))
+
+## The four modules
 
 | module | what is in it |
 |----|----|
 | `ganapati.text` | verse boundaries, pādas and verse numbers, the two chunkers, readers for GRETIL, TEI, VR XML and DCS |
 | `ganapati.metre` | IAST transliteration, syllable weights, the gaṇas, 80 metres, mātrā metres, a metre by name |
 | `ganapati.lemma` | vidyut lemmas, Monier-Williams glosses, the source’s own etymology entries and their repair, the reader profiles |
+| `ganapati.names` | one key per romanised name, deity and figure epithets, English for śāstra and jyotiṣa terms |
 
 ## Install
 
