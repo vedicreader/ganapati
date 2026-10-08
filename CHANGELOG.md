@@ -2,6 +2,12 @@
 
 <!-- do not remove -->
 
+## 0.0.7
+
+- New module `ganapati.names`. `name_key` gives one key to the IAST, plain-roman, Indian-English and Devanagari spellings of a name (Bhīṣma, Bheeshma, भीष्म are `bisma`); `name_variants` finds the keys in a pool one vowel longer or shorter (krsna, krishna), never a consonant apart (Bhīma is not Bhīṣma).
+- `epithets()` and `canonical()` map 165 epithets of 36 deities and epic figures one way to the names a translation writes: Raṅganātha, Śrīnivāsa, Veṅkaṭeśvara to Viṣṇu, Nārāyaṇa, Hari; Dāśarathi to Rāma; Pārtha to Arjuna; Vaidehī to Sītā; Māruti to Hanumān.
+- `term_gloss()` gives short English for 126 śāstra and jyotiṣa terms (anumāna: inference; sthitaprajña: steady wisdom; lagna: ascendant), falling back to a downloaded `mw_lexicon`; it never downloads.
+
 ## 0.0.6
 
 - The unclosed verse marker 0.0.5 accepts at a line end is a double daṇḍa only: `॥७`, not `। १`. DharmicData's paryāya sūktas (AV 16.8) write a running count after the marker, `॥४॥ ४। १`, and 0.0.5 read that count as another verse, leaving `४ ॥ १ ॥` sections.
