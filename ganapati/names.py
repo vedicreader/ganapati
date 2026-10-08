@@ -88,16 +88,18 @@ def epithets() -> dict:
     'Every epithet in `EPITHETS` by `name_key`, to the canonical names a translation writes: `ranganata` gives Viṣṇu, Nārāyaṇa, Hari.'
     return dict(_EPI)
 
-_HON, _KEYS = ('srimat', 'sri', 'bagavan'), set(_EPI) | set(_CAN)
+_HON = ('srimat', 'sri', 'bagavan')
+def _plural(k): return [k[:-1]] if k.endswith('s') and len(k) > 4 else []   # an English plural: padārthas, guṇas
+_PLAIN_R = re.compile('(?<=[^aeiou])r(?=[^aeiou]|$)')
 
 def canonical(name:str) -> tuple:
-    "The canonical names for `name`: an epithet's, a canonical name's own group, else `()`; allows a leading Śrī, a dropped final `a`, and one vowel more or less."
+    "The canonical names for `name`: an epithet's, a canonical name's own group, else `()`; allows a leading Śrī, ṛ typed as `r`, an English plural, and from five letters a dropped final `a`."
     k = name_key(name)
     ks = [k] + [k[len(h):] for h in _HON if k.startswith(h) and len(k) > len(h) + 2]
-    for k in ks + [k + 'a' for k in ks]:
+    ks = list(dict.fromkeys(ks + [_PLAIN_R.sub('ri', k) for k in ks] + _plural(k)))
+    for k in ks + [k + 'a' for k in ks if len(k) >= 5]:
         if (r := _EPI.get(k) or _CAN.get(k)): return r
-    vs = sorted(v for k in ks for v in name_variants(k, _KEYS))
-    return tuple(dict.fromkeys(c for v in vs for c in _EPI.get(v) or _CAN[v]))
+    return ()
 
 # %% ../nbs/03_names.ipynb #1d52fce73ef1
 TERMS = """
@@ -187,7 +189,6 @@ dharma: duty, righteousness
 svadharma: one's own duty
 jñāna: knowledge
 bhakti: devotion
-śraddhā: faith
 yajña: sacrifice
 sthitaprajña: steady wisdom
 niṣkāma: desireless
@@ -243,8 +244,9 @@ def _mw_local():
 def term_gloss(term:str,   # IAST, plain roman or Devanagari
                mw:dict=None # a `mw_lexicon()`; None uses the downloaded one if there is one
                ) -> tuple:
-    'Short English for a Sanskrit technical term: `TERMS` first, then Monier-Williams for IAST or Devanagari; `()` when neither knows it.'
-    if (g := _TERMS.get(name_key(term))): return g
+    'Short English for a Sanskrit technical term, or its English plural: `TERMS` first, then Monier-Williams for IAST or Devanagari; `()` when neither knows it.'
+    k = name_key(term)
+    if (g := next((_TERMS[x] for x in [k] + _plural(k) if x in _TERMS), None)): return g
     if not (mw := _mw_local() if mw is None else mw) or not term: return ()
     from ganapati.lemma import to_slp1
     return tuple(s for x in (mw.get(to_slp1(term.strip())) or '').split(';') if (s := x.strip()))[:3]

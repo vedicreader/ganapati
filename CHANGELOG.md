@@ -5,8 +5,8 @@
 ## 0.0.7
 
 - New module `ganapati.names`. `name_key` gives one key to the IAST, plain-roman, Indian-English and Devanagari spellings of a name (Bhīṣma, Bheeshma, भीष्म are `bisma`); `name_variants` finds the keys in a pool one vowel longer or shorter (krsna, krishna), never a consonant apart (Bhīma is not Bhīṣma).
-- `epithets()` and `canonical()` map 165 epithets of 36 deities and epic figures one way to the names a translation writes: Raṅganātha, Śrīnivāsa, Veṅkaṭeśvara to Viṣṇu, Nārāyaṇa, Hari; Dāśarathi to Rāma; Pārtha to Arjuna; Vaidehī to Sītā; Māruti to Hanumān.
-- `term_gloss()` gives short English for 126 śāstra and jyotiṣa terms (anumāna: inference; sthitaprajña: steady wisdom; lagna: ascendant), falling back to a downloaded `mw_lexicon`; it never downloads.
+- `epithets()` and `canonical()` map 165 epithets of 36 deities and epic figures one way to the names a translation writes: Raṅganātha, Śrīnivāsa, Veṅkaṭeśvara to Viṣṇu, Nārāyaṇa, Hari; Dāśarathi to Rāma; Pārtha to Arjuna; Vaidehī to Sītā; Māruti to Hanumān. A leading Śrī, ṛ typed as `r` (krsna), an English plural and, from five letters, a dropped final `a` (Ganesh, Arjun) are read as the name.
+- `term_gloss()` gives short English for 125 śāstra and jyotiṣa terms (anumāna: inference; sthitaprajña: steady wisdom; lagna: ascendant), falling back to a downloaded `mw_lexicon`; it never downloads.
 
 ## 0.0.6
 
