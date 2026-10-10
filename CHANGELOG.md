@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 0.0.9
+
+- `padas` detaches a speaker tag glued to the pāda with no space again: DharmicData's Gītā writes 11 (`अर्जुन उवाचएवं…`, 12.1; `भगवानुवाचमय्यावेश्य…`, 12.2), and 0.0.8 left them on the pāda because it read any letter after `वाच` as the word going on. Only a vowel sign, virama, nukta, anusvāra, candrabindu or visarga after `वाच`, or a word-final halant (`वाचम्`), keeps the word whole now.
+
 ## 0.0.8
 
 - `padas` detaches a `…उवाच` speaker tag only where `वाच` ends the word. GRETIL's Chāndogya 4.2.3 `प्रत्युवाचाह हारेत्वा…` was cut into `प्रत्युवाच` and a line opening on the bare sign `ाह`; a vowel sign, virama, anusvāra, visarga or letter after `वाच` (`वाचं`, `वाचः`, `वाचा`) now keeps the word whole. `धृतराष्ट्र उवाच`, `श्रीभगवानुवाच` and `अर्जुन उवाच ।` are cut as before.

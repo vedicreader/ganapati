@@ -76,7 +76,7 @@ def _atoms(seg:str, max_chars:int) -> L:
 # %% ../nbs/00_text.ipynb #6e86a87e
 PUNCT = frozenset('।॥|.,;:!?"\'()-–—')
 _VMARK = re.compile(r'(?:[।॥]+\s*([०-९\d]+[०-९\d.]*)\s*[।॥]+|॥+\s*([०-९\d]+[०-९\d.]*)(?=[ \t]*(?:\n|$)))')   # `॥ १८ ॥`, `।। 1.1 ।।`; or `॥७` left open at a line end (AV 2.36.7) — a double daṇḍa only, since `४। १` after a marker is a paryāya count
-_UVACA = re.compile(r'^([^।]{0,22}?(?:उ|ु)वाच)(?![\u0900-\u0963\u0971-\u097f])\s*(?=\S)')   # `धृतराष्ट्र उवाच` glued to the first pāda; a sign or letter after `वाच` (प्रत्युवाचाह, वाचं) means the word goes on
+_UVACA = re.compile(r'^([^।]{0,22}?(?:उ|ु)वाच)(?![\u0900-\u0903\u093a-\u094f\u0951-\u0957\u0962\u0963]|[\u0915-\u0939\u0958-\u095f]\u094d(?![\u0915-\u0939\u0958-\u095f]))\s*(?=\S)')   # `धृतराष्ट्र उवाच` glued to the first pāda, also with no space (`अर्जुन उवाचएवं`); a sign or a word-final halant after `वाच` (प्रत्युवाचाह, वाचं, वाचम्) means the word goes on
 _NUM2DEVA = str.maketrans('0123456789', '०१२३४५६७८९')
 
 def is_word(t:str) -> bool:
