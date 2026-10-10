@@ -2,6 +2,11 @@
 
 <!-- do not remove -->
 
+## 0.0.8
+
+- `padas` detaches a `…उवाच` speaker tag only where `वाच` ends the word. GRETIL's Chāndogya 4.2.3 `प्रत्युवाचाह हारेत्वा…` was cut into `प्रत्युवाच` and a line opening on the bare sign `ाह`; a vowel sign, virama, anusvāra, visarga or letter after `वाच` (`वाचं`, `वाचः`, `वाचा`) now keeps the word whole. `धृतराष्ट्र उवाच`, `श्रीभगवानुवाच` and `अर्जुन उवाच ।` are cut as before.
+- The scansion reads IAST in NFC: decomposed IAST (`a` + U+0304 for `ā`) lost its long vowels, so Gītā 1.1 scanned 48 morae instead of 50.
+
 ## 0.0.7
 
 - New module `ganapati.names`. `name_key` gives one key to the IAST, plain-roman, Indian-English and Devanagari spellings of a name (Bhīṣma, Bheeshma, भीष्म are `bisma`); `name_variants` finds the keys in a pool one vowel longer or shorter (krsna, krishna), never a consonant apart (Bhīma is not Bhīṣma).

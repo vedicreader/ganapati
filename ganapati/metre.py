@@ -56,7 +56,7 @@ _WORDS = re.compile(r'[^\W\d_]+')
 
 def _phones(text:str) -> list:
     "`[('V'|'C', unit)]` for a Sanskrit string, matched word by word so a vowel never fuses across a gap."
-    s = deva2iast(text) if DEVANAGARI.search(text or '') else (text or '')
+    s = unicodedata.normalize('NFC', deva2iast(text) if DEVANAGARI.search(text or '') else (text or ''))   # NFD `ā` is `a` + U+0304, which `_WORDS` stops before
     out = []
     for w in _WORDS.findall(s.lower()):
         i, n = 0, len(w)
