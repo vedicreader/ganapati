@@ -2,6 +2,11 @@
 
 <!-- do not remove -->
 
+## 0.1.0
+
+- ganapati no longer depends on litesearch. The Devanagari primitives it read from `litesearch.sanskrit` (`strip_vedic`, `fold_token`, `roman_fold`, `deva2ascii`, `detect_script`, `DEVANAGARI`, `DANDA`, `DDANDA`, `VIRAMA`, `DEVA_DIGITS`, `CITE_RE`, `cite_parts`) live in the new `ganapati.sanskrit`; the runtime needs only fastcore, fastlite and vidyut. A project pinned to an old numpy or tokenizers (vachaka, for Vāgdhenu) can now scan metre with ganapati.
+- The Sanskrit profiles no longer register on import. ganapati declares a `litesearch.profiles` entry point and litesearch 0.1.38 calls `register_profiles` the first time it looks a profile up, so `pip install 'ganapati[search]'` gives litesearch the profiles without either package importing the other. Call `register_profiles(nlp=, mw=)` yourself to add lemmas and glosses, as before.
+
 ## 0.0.9
 
 - `padas` detaches a speaker tag glued to the pāda with no space again: DharmicData's Gītā writes 11 (`अर्जुन उवाचएवं…`, 12.1; `भगवानुवाचमय्यावेश्य…`, 12.2), and 0.0.8 left them on the pāda because it read any letter after `वाच` as the word going on. Only a vowel sign, virama, nukta, anusvāra, candrabindu or visarga after `वाच`, or a word-final halant (`वाचम्`), keeps the word whole now.

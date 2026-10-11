@@ -22,9 +22,12 @@ classifiers = [
 ]
 dependencies = [
     "fastcore>=2.2.15",
-    "litesearch>=0.1.33",
+    "fastlite",
     "vidyut"
 ]
+
+[project.optional-dependencies]
+search = ["litesearch>=0.1.38"]
 
 [project.urls]
 Repository = "https://github.com/vedicreader/ganapati"
@@ -32,6 +35,9 @@ Documentation = "https://vedicreader.github.io/ganapati/"
 
 [project.entry-points.nbdev]
 ganapati = "ganapati._modidx:d"
+
+[project.entry-points."litesearch.profiles"]
+ganapati = "ganapati.lemma:register_profiles"
 
 [tool.nbdev]
 
@@ -47,6 +53,7 @@ path = "ganapati/__init__.py"
 [dependency-groups]
 dev = [
     "aksharamukha>=2.3",
+    "litesearch>=0.1.37",
     "ipykernel>=7.3.0",
     "nbdev>=3.3.4",
     "notebook>=7.6.1",

@@ -9,7 +9,7 @@ __all__ = ['MW_URL', 'GLOSS_STOP', 'sanskrit_home', 'vidyut_data', 'to_slp1', 'f
 import re, unicodedata
 from fastcore.all import AttrDict, L, Path, ifnone, patch, first
 from fastlite import Database
-from litesearch.sanskrit import fold_token, DEVANAGARI
+from .sanskrit import fold_token, DEVANAGARI
 from .text import VerseChunker, ProseChunker, sanskrit_parse, is_sanskrit, line_etyms
 from .text import _detag, _LINENUM, _IAST_DIAC, _is_vr_json, _has_sanskrit
 from .metre import Meter, metrical_text, verse_meta
@@ -356,7 +356,7 @@ def _sniff(text:str) -> bool:
                                                 or re.search(r'[āīūṛṝḷḹṅñṭḍṇśṣṃḥ]', t)))
 
 def register_profiles(nlp=None, mw:dict=None):
-    'Register the Sanskrit profiles. Called on import; safe to call again.'
+    'Register the Sanskrit profiles with litesearch. litesearch calls this through the `litesearch.profiles` entry point; safe to call again.'
     from litesearch.data import Profile, register_profile
     meta = sanskrit_meta(nlp, mw)
     register_profile(Profile(name='sanskrit_verse', exts='.xml,.json,.tei,.htm,.html,.conllu,.txt',
@@ -366,7 +366,6 @@ def register_profiles(nlp=None, mw:dict=None):
                              chunker=ProseChunker, mode='verse',
                              detect=lambda _t: False, kind='sanskrit', meta=meta))
 
-register_profiles()
 
 # %% ../nbs/02_lemma.ipynb #c44822a0
 _EN_TOK  = re.compile(r"[A-Za-z']{2,}")

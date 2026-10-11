@@ -7,7 +7,7 @@ __all__ = ['EPITHETS', 'TERMS', 'name_key', 'name_variants', 'epithets', 'canoni
 import re
 from functools import lru_cache
 from fastcore.all import L
-from litesearch.sanskrit import fold_token, DEVANAGARI
+from .sanskrit import fold_token, DEVANAGARI
 from .metre import deva2iast
 
 # %% ../nbs/03_names.ipynb #ebfd30438141

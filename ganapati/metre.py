@@ -10,7 +10,7 @@ __all__ = ['GANAS', 'METERS', 'VRTTA_EXTRA', 'MATRA_METERS', 'CATURMATRA', 'ARDH
 import re, unicodedata
 from enum import Enum
 from fastcore.all import AttrDict, L
-from litesearch.sanskrit import strip_vedic, CITE_RE, DEVANAGARI, DEVA_DIGITS, VIRAMA
+from .sanskrit import strip_vedic, CITE_RE, DEVANAGARI, DEVA_DIGITS, VIRAMA
 from .text import verse_spans, line_times
 
 # %% ../nbs/01_metre.ipynb #49c88ea21c92

@@ -8,7 +8,7 @@ __all__ = ['PUNCT', 'VERSE_TARGET', 'VERSE_MAX', 'TIME_RE', 'ETYM_RE', 'verse_sp
 # %% ../nbs/00_text.ipynb #e1773a74bd79
 import re
 from fastcore.all import AttrDict, L, Path
-from litesearch.sanskrit import DANDA, DDANDA, CITE_RE, cite_parts, DEVANAGARI
+from .sanskrit import DANDA, DDANDA, CITE_RE, cite_parts, DEVANAGARI
 
 # %% ../nbs/00_text.ipynb #3e9c2e430d1e
 # A Devanagari verse number: `॥ १॥` or `॥ 12 ॥`
