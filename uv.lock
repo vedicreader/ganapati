@@ -1009,14 +1009,20 @@ name = "ganapati"
 source = { editable = "." }
 dependencies = [
     { name = "fastcore" },
-    { name = "litesearch" },
+    { name = "fastlite" },
     { name = "vidyut" },
+]
+
+[package.optional-dependencies]
+search = [
+    { name = "litesearch" },
 ]
 
 [package.dev-dependencies]
 dev = [
     { name = "aksharamukha" },
     { name = "ipykernel" },
+    { name = "litesearch" },
     { name = "nbdev" },
     { name = "notebook" },
     { name = "vidyut" },
@@ -1025,14 +1031,17 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "fastcore", specifier = ">=2.2.15" },
-    { name = "litesearch", specifier = ">=0.1.33" },
+    { name = "fastlite" },
+    { name = "litesearch", marker = "extra == 'search'", specifier = ">=0.1.38" },
     { name = "vidyut" },
 ]
+provides-extras = ["search"]
 
 [package.metadata.requires-dev]
 dev = [
     { name = "aksharamukha", specifier = ">=2.3" },
     { name = "ipykernel", specifier = ">=7.3.0" },
+    { name = "litesearch", specifier = ">=0.1.37" },
     { name = "nbdev", specifier = ">=3.3.4" },
     { name = "notebook", specifier = ">=7.6.1" },
     { name = "vidyut", specifier = ">=0.4.0" },
@@ -1598,7 +1607,7 @@ wheels = [
 
 [[package]]
 name = "litesearch"
-version = "0.1.34"
+version = "0.1.38"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "chonkie" },
@@ -1611,9 +1620,9 @@ dependencies = [
     { name = "tokenizers" },
     { name = "usearch" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/41/65/80e3b22458778c85e7bdd595c519d21cf3951a8c6ea42bf9fa6d1e96e1df/litesearch-0.1.34.tar.gz", hash = "sha256:4566b0f6a9af51776c139b4eff4d0f78584d8df9901a9961d9d976e633a3f75b", size = 68163, upload-time = "2026-08-29T23:09:25.311Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9d/52/a56a499a08cd93821c212342b42c58779b46be394ef17effc6f1712974b1/litesearch-0.1.38.tar.gz", hash = "sha256:0b0bc0e43751f51af30b117e371ce2ee2bcecda6f5dab69e444451ac1575a42a", size = 72573, upload-time = "2026-10-11T10:26:11.63Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ec/02/b3ffc5902cce2cf32183151e0254d5e7cfa75fda91c60b9676cb1303006f/litesearch-0.1.34-py3-none-any.whl", hash = "sha256:94e1896f4ab177099f4ac75d3be02ce866b34ec311f657c792fc3da42d01b61f", size = 73596, upload-time = "2026-08-29T23:09:23.923Z" },
+    { url = "https://files.pythonhosted.org/packages/ec/00/b176345e11f8b946f9f94e95a5a5f8a5dcc3c77ff423d101608af1df9b6f/litesearch-0.1.38-py3-none-any.whl", hash = "sha256:99efdc123cd8d811a382c8b834c4034505ef373db36a0f1fa68b61cb2248337e", size = 77661, upload-time = "2026-10-11T10:26:10.39Z" },
 ]
 
 [[package]]
