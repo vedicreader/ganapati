@@ -9,11 +9,12 @@ run `nbdev_export`, never edit the `.py`. `README.md` comes from `nbs/index.ipyn
 ganapati imports litesearch. Never the reverse, in code or in `pyproject.toml`: litesearch
 naming ganapati in any dependency group, dev included, is a cycle.
 
-## Four modules, in order
+## Five modules, in order
 
 `text` has no ganapati dependencies. `metre` imports `verse_spans` from `text`. `lemma` imports
 from both and registers the reader profiles. `names` imports `deva2iast` from `metre` and reaches
-`lemma` only inside `term_gloss`'s Monier-Williams fallback. Keep that order.
+`lemma` only inside `term_gloss`'s Monier-Williams fallback. `vyakarana` (derivations through vidyut's prakriya, a line's word-by-word placed
+on its written tokens, the sandhi at a join) imports from `text`, `sanskrit` and `lemma`, vidyut inside its functions. Keep that order.
 
 ## Names are one-way tables
 

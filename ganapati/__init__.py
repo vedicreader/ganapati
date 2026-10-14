@@ -3,3 +3,4 @@ from .metre import *
 from .text import *
 from .lemma import *
 from .names import *
+from .vyakarana import *
