@@ -1014,11 +1014,6 @@ dependencies = [
 ]
 
 [package.optional-dependencies]
-search = [
-    { name = "litesearch" },
-]
-
-[package.dev-dependencies]
 dev = [
     { name = "aksharamukha" },
     { name = "ipykernel" },
@@ -1027,25 +1022,32 @@ dev = [
     { name = "notebook" },
     { name = "vidyut" },
 ]
+search = [
+    { name = "litesearch" },
+]
+
+[package.dev-dependencies]
+dev = [
+    { name = "ganapati", extra = ["dev"] },
+]
 
 [package.metadata]
 requires-dist = [
+    { name = "aksharamukha", marker = "extra == 'dev'", specifier = ">=2.3" },
     { name = "fastcore", specifier = ">=2.2.15" },
     { name = "fastlite" },
+    { name = "ipykernel", marker = "extra == 'dev'", specifier = ">=7.3.0" },
+    { name = "litesearch", marker = "extra == 'dev'", specifier = ">=0.1.37" },
     { name = "litesearch", marker = "extra == 'search'", specifier = ">=0.1.38" },
+    { name = "nbdev", marker = "extra == 'dev'", specifier = ">=3.3.4" },
+    { name = "notebook", marker = "extra == 'dev'", specifier = ">=7.6.1" },
     { name = "vidyut" },
+    { name = "vidyut", marker = "extra == 'dev'", specifier = ">=0.4.0" },
 ]
-provides-extras = ["search"]
+provides-extras = ["dev", "search"]
 
 [package.metadata.requires-dev]
-dev = [
-    { name = "aksharamukha", specifier = ">=2.3" },
-    { name = "ipykernel", specifier = ">=7.3.0" },
-    { name = "litesearch", specifier = ">=0.1.37" },
-    { name = "nbdev", specifier = ">=3.3.4" },
-    { name = "notebook", specifier = ">=7.6.1" },
-    { name = "vidyut", specifier = ">=0.4.0" },
-]
+dev = [{ name = "ganapati", extras = ["dev"] }]
 
 [[package]]
 name = "ghapi"

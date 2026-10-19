@@ -28,6 +28,14 @@ dependencies = [
 
 [project.optional-dependencies]
 search = ["litesearch>=0.1.38"]
+dev = [
+    "aksharamukha>=2.3",
+    "litesearch>=0.1.37",
+    "ipykernel>=7.3.0",
+    "nbdev>=3.3.4",
+    "notebook>=7.6.1",
+    "vidyut>=0.4.0",
+]
 
 [project.urls]
 Repository = "https://github.com/vedicreader/ganapati"
@@ -50,12 +58,6 @@ include = ["/ganapati", "/README.md", "/pyproject.toml"]
 [tool.hatch.version]
 path = "ganapati/__init__.py"
 
+# CI and the docs build install `.[dev]`; the group points at the extra so `uv sync` keeps working.
 [dependency-groups]
-dev = [
-    "aksharamukha>=2.3",
-    "litesearch>=0.1.37",
-    "ipykernel>=7.3.0",
-    "nbdev>=3.3.4",
-    "notebook>=7.6.1",
-    "vidyut>=0.4.0",
-]
+dev = ["ganapati[dev]"]
