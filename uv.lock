@@ -1037,8 +1037,8 @@ requires-dist = [
     { name = "fastcore", specifier = ">=2.2.15" },
     { name = "fastlite" },
     { name = "ipykernel", marker = "extra == 'dev'", specifier = ">=7.3.0" },
-    { name = "litesearch", marker = "extra == 'dev'", specifier = ">=0.1.37" },
-    { name = "litesearch", marker = "extra == 'search'", specifier = ">=0.1.38" },
+    { name = "litesearch", marker = "extra == 'dev'", specifier = ">=0.1.44" },
+    { name = "litesearch", marker = "extra == 'search'", specifier = ">=0.1.44" },
     { name = "nbdev", marker = "extra == 'dev'", specifier = ">=3.3.4" },
     { name = "notebook", marker = "extra == 'dev'", specifier = ">=7.6.1" },
     { name = "vidyut" },
@@ -1609,7 +1609,7 @@ wheels = [
 
 [[package]]
 name = "litesearch"
-version = "0.1.38"
+version = "0.1.44"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "chonkie" },
@@ -1622,9 +1622,9 @@ dependencies = [
     { name = "tokenizers" },
     { name = "usearch" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9d/52/a56a499a08cd93821c212342b42c58779b46be394ef17effc6f1712974b1/litesearch-0.1.38.tar.gz", hash = "sha256:0b0bc0e43751f51af30b117e371ce2ee2bcecda6f5dab69e444451ac1575a42a", size = 72573, upload-time = "2026-10-11T10:26:11.63Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/48/05/cf162b0c30dec668e2592aebbdb6ecde2daa4b84f5739409009299f1798b/litesearch-0.1.44.tar.gz", hash = "sha256:ea8b9c106c13c91b0b8fba75e739b0e502db404e126b2a0b57052b7b7ce2e003", size = 80278, upload-time = "2026-10-19T06:54:28.344Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ec/00/b176345e11f8b946f9f94e95a5a5f8a5dcc3c77ff423d101608af1df9b6f/litesearch-0.1.38-py3-none-any.whl", hash = "sha256:99efdc123cd8d811a382c8b834c4034505ef373db36a0f1fa68b61cb2248337e", size = 77661, upload-time = "2026-10-11T10:26:10.39Z" },
+    { url = "https://files.pythonhosted.org/packages/7a/eb/bb64886d23455dd4ee2b6a9e809fead6d760fa43024a259524646e7e05ad/litesearch-0.1.44-py3-none-any.whl", hash = "sha256:be0f732e3da7621ecdb9325f6265d3f6902b40e81dd21c45340d3d7c0ce0f661", size = 85985, upload-time = "2026-10-19T06:54:27.06Z" },
 ]
 
 [[package]]

@@ -27,10 +27,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-search = ["litesearch>=0.1.38"]
+search = ["litesearch>=0.1.44"]
 dev = [
     "aksharamukha>=2.3",
-    "litesearch>=0.1.37",
+    "litesearch>=0.1.44",
     "ipykernel>=7.3.0",
     "nbdev>=3.3.4",
     "notebook>=7.6.1",

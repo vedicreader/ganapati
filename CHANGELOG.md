@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 0.1.5
+
+- The `search` extra needs litesearch 0.1.44 or later. The chunker tests check `VerseChunker` and `ProseChunker` against litesearch's public `pack_target` instead of `_pack_target`.
+
 ## 0.1.4
 
 - `dhatu` and `made` are public: `dhatu` turns a dhātu field into a vidyut `Dhatu`, and `made` gives the stem vidyut builds from it, alone or with a kṛt (`made('A\\px~,svAdi,,,pra', 'kta')` is prApta). `_dhatu` and `_made` still import.
