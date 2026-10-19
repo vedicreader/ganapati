@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 0.1.3
+
+- The wheel carries vidyut's licence in its `dist-info/licenses` as well as in `ganapati/data`, through `license-files`; the licence is declared as the SPDX expression `Apache-2.0`.
+
 ## 0.1.2
 
 - `join` writes the sandhi between two words given as each stands alone, and names the join with `join_rule`: `join('rAmaH', 'api')` is `('rAmo', "'pi", ('o_a', '-aḥ to -o', '6.1.113'))`, and `join('tava', 'iti')` is `('taveti', None, ...)`, the None marking two words written as one. `samhita` joins a line of words this way and lists the class of each join. A final visarga is read as s, or as r in punar, antar and prātar, and saḥ and eṣaḥ drop it before a consonant (6.1.132).
