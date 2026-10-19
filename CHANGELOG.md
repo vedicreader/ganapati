@@ -2,6 +2,14 @@
 
 <!-- do not remove -->
 
+## 0.1.1
+
+- New module `ganapati.vyakarana`, derivations through vidyut's prakriya. `pada` and `derive` read a one-string SLP1 spec (`s|rAma|puM|praTamA|eka`, `t|BU,BvAdi,,,|kartari|la~w|praTama|eka|P`) and return the vidyut `Pada` and its `Prakriya`; `derive(spec, surf)` returns only a derivation that reaches the written form. `steps` lists the sūtras applied, each once while the form stays the same. `spec_words`, `spec_lemma` and `spec_root` name a spec's grammar in English, its headword and its root; with the written form, `spec_words` reads a doer-voice verb as middle when only the ātmanepada endings reach it (kurute).
+- `stem` gives a feminine stem in -ā or -ī its feminine suffix (`Pratipadika.nyap`), so `s|sItA|strI|caturTI|eka` derives sītāyai, not sītaiḥ.
+- `align` places a line's word-by-word entries on its written tokens (स कालेनेह: सः, कालेन + इह), comparing `sandhi_skeleton` forms.
+- `join_rule` names the sandhi at a join as `(id, name, sūtra)` from `JOINS`, 25 classes from savarṇa dīrgha (6.1.101) to the visarga of saḥ dropped (6.1.132).
+- `dev` is an extra, so CI and the docs build install the notebooks' dependencies.
+
 ## 0.1.0
 
 - ganapati no longer depends on litesearch. The Devanagari primitives it read from `litesearch.sanskrit` (`strip_vedic`, `fold_token`, `roman_fold`, `deva2ascii`, `detect_script`, `DEVANAGARI`, `DANDA`, `DDANDA`, `VIRAMA`, `DEVA_DIGITS`, `CITE_RE`, `cite_parts`) live in the new `ganapati.sanskrit`; the runtime needs only fastcore, fastlite and vidyut. A project pinned to an old numpy or tokenizers (vachaka, for Vāgdhenu) can now scan metre with ganapati.
