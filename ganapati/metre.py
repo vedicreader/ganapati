@@ -26,7 +26,7 @@ _CI = {'क':'k','ख':'kh','ग':'g','घ':'gh','ङ':'ṅ','च':'c','छ':'ch
 _SI = {'ं':'ṃ','ः':'ḥ','ँ':'ṃ','ऽ':'','़':'','ॐ':'oṃ'}
 
 def deva2iast(s:str) -> str:
-    'Devanagari to IAST, keeping the vowel length that scansion depends on.'
+    'Transliterate Devanagari to IAST, keeping the vowel length that scansion needs.'
     s = strip_vedic(s or '')
     out, i, n = [], 0, len(s)
     while i < n:
@@ -72,7 +72,7 @@ def _phones(text:str) -> list:
     return out
 
 def syllables(text:str) -> L:
-    'The syllables of a Sanskrit string as `(syllable, guru)` pairs.'
+    'Divide a Sanskrit string in IAST or Devanagari into syllables, as `(syllable, heavy)` pairs.'
     ph = _phones(text)
     out, onset, coda_at = L(), '', -1
     for j, (k, u) in enumerate(ph):
@@ -94,11 +94,11 @@ def syllables(text:str) -> L:
     return out
 
 def scan(text:str) -> str:
-    'The guru/laghu skeleton of a string as `g`/`l` — what every metre is matched against.'
+    'Return the weight pattern of a string, `g` for each heavy syllable and `l` for each light one.'
     return ''.join('g' if h else 'l' for _, h in syllables(text))
 
 def mora_weights(text:str) -> L:
-    'The syllables as `(syllable, morae)` pairs — 2 for a guru, 1 for a laghu. What duration work needs.'
+    'Return the syllables as `(syllable, mātrās)` pairs, 2 for a heavy syllable and 1 for a light one.'
     return L((s, 2 if h else 1) for s, h in syllables(text))
 
 # %% ../nbs/01_metre.ipynb #d0714e23c6f0
@@ -108,14 +108,14 @@ GANAS = {'ya':'lgg', 'ma':'ggg', 'ta':'ggl', 'ra':'glg',
 _OF_GANA = {v: k for k, v in GANAS.items() if len(v) == 3}
 
 def ganas(pattern:str) -> L:
-    'The gaṇa names of a `g`/`l` pattern, three at a time; a trailing one or two become `ga`/`la`.'
+    'Name the gaṇas of a `g`/`l` pattern three syllables at a time, with a leftover one or two syllables as `ga` or `la`.'
     s, out = pattern or '', L()
     cut = len(s) - len(s) % 3
     out += L(_OF_GANA[s[i:i+3]] for i in range(0, cut, 3))
     return out + L('ga' if c == 'g' else 'la' for c in s[cut:])
 
 def gana_pattern(recipe:str) -> str:
-    'The `g`/`l` pattern a gaṇa recipe spells out: `ta ta ja ga ga` -> `gglgglglgg`.'
+    'Spell out a gaṇa recipe as a `g`/`l` pattern: `ta ta ja ga ga` gives `gglgglglgg`.'
     return ''.join(GANAS[x] for x in (recipe or '').split())
 
 METERS = {
@@ -193,7 +193,7 @@ _NOSCAN  = re.compile(r'^[ \t]*>[^\n]*'          # a gloss or translation line
                       r'|\[[^\]\n]*\]', re.M)    # [h: ... :h], [page 3], the [57M] variant number
 
 def metrical_text(s:str) -> str:
-    'A verse with everything removed that is printed beside it but does not scan.'
+    'Remove the citations, verse numbers, headings, gloss lines and bracketed notes that are printed with a verse but not scanned.'
     return _NOSCAN.sub(' ', _BARENUM.sub(' ', CITE_RE.sub(' ', s or '')))
 
 # %% ../nbs/01_metre.ipynb #3905c6cf
@@ -230,7 +230,7 @@ Meter.__doc__ = 'Sanskrit metre names with ASCII identifiers and traditional str
 
 # %% ../nbs/01_metre.ipynb #cb7c5b85
 def matras(text:str) -> int:
-    'The morae of a string: one for a laghu, two for a guru.'
+    'Count the mātrās of a string: one for each light syllable and two for each heavy one.'
     return sum(2 if h else 1 for _, h in syllables(text))
 
 # %% ../nbs/01_metre.ipynb #96ca6147
@@ -259,7 +259,7 @@ def _half_ok(pats, slots) -> bool:
 
 # %% ../nbs/01_metre.ipynb #738fad17
 def detect_matra_meter(text:str, weights:list=None):
-    'The āryā-family metre of a verse — `AttrDict(name, halves, ganas, matras)` — or None.'
+    'Find the āryā-family metre of a verse as `AttrDict(name, halves, ganas, matras)`, or None if none fits.'
     w = weights if weights is not None else [h for _, h in syllables(metrical_text(text))]
     for k in range(4, len(w)):
         a, b = list(w[:k]), list(w[k:])
@@ -276,7 +276,7 @@ def detect_matra_meter(text:str, weights:list=None):
 
 # %% ../nbs/01_metre.ipynb #c5b93c98
 def detect_ardhasama(text:str, weights:list=None):
-    'The ardhasamavṛtta of a verse — `AttrDict(name, padas, ganas)` — or None.'
+    'Find the ardhasamavṛtta of a verse, whose odd and even pādas differ, as `AttrDict(name, padas, ganas)`, or None.'
     w = weights if weights is not None else [h for _, h in syllables(metrical_text(text))]
     for nm, (a, b) in _ARDHA.items():
         la, lb = len(a), len(b)
@@ -287,7 +287,7 @@ def detect_ardhasama(text:str, weights:list=None):
     return None
 
 def detect_meter(text:str):
-    'One verse as `AttrDict(name, variant, syllables, per_pada, ganas, scan, matras, halves)`.'
+    'Find the metre of one whole verse, as `AttrDict(name, variant, syllables, per_pada, ganas, scan, matras, halves)`.'
     w = [h for _, h in syllables(metrical_text(text))]
     n = len(w)
     if not n: return None                           # the only None: nothing scanned at all
@@ -330,7 +330,7 @@ def _anustubh_pada(w) -> bool:
     return k == 'lgl' or k == _PATHYA or k in _VIPULA
 
 def match_pada(pada:str) -> L:
-    'The metres one pāda could belong to — what `detect_meter` cannot say from a partial verse.'
+    'List the metres whose pāda matches one pāda of text or one `g`/`l` pattern.'
     w = _weights(pada)
     if not w: return L()
     out = L(Meter(nm) for nm, pat in _PAT.items() if _pada_ok(w, pat))
@@ -340,7 +340,7 @@ def match_pada(pada:str) -> L:
 def group_verses(lines,             # the lines of a source, or one string of them
                  sizes=(1, 2, 4)    # lines per verse to try, in order
                 ):
-    'The line grouping that names the most metres, as `AttrDict(size, coverage, verses, meters)`.'
+    'Find how many lines make a verse by trying each size in `sizes`, returning `AttrDict(size, coverage, verses, meters)`.'
     ls = L(lines.splitlines() if isinstance(lines, str) else lines).map(str.strip).filter()
     best = AttrDict(size=0, coverage=0.0, verses=L(), meters=L())
     for k in sizes:
@@ -364,18 +364,18 @@ def _median(xs):
     return s[len(s)//2] if s else None
 
 def mora_rate(text:str) -> float:
-    'Milliseconds per mora over a chunk\'s timed lines, or None when the chunk carries no timings.'
+    'Return the median milliseconds per mātrā over a chunk\'s timed lines, or None if it has none.'
     return _median([r for _, r in _rates(line_times(text))])
 
 def timing_check(text:str, tol:float=TIMING_TOL) -> L:
-    'Timed lines more than `tol` off the chunk median in ms per mora — audio and scansion disagree.'
+    'List the timed lines whose milliseconds per mātrā are more than `tol` away from the chunk\'s median, where audio and scansion disagree.'
     rs = _rates(line_times(text))
     med = _median([r for _, r in rs])
     if not med or len(rs) < 3: return L()
     return L(t for t, r in rs if abs(r - med) / med > tol)
 
 def guru_laghu_ratio(texts) -> float:
-    'Guru:laghu duration over many timed lines, by least squares; None when the lines cannot fix it.'
+    'Estimate how many times longer a heavy syllable lasts than a light one, by least squares over timed lines, or None if the lines cannot tell.'
     ts = L([texts] if isinstance(texts, str) else texts).map(line_times).concat()
     gg = gl = ll = gy = ly = 0.0
     for t in ts:
@@ -392,11 +392,11 @@ def guru_laghu_ratio(texts) -> float:
 PADA_RANGE = (4, 26)
 
 def verse_units(text:str) -> L:
-    'The individual verses inside one chunk — a chunk may pack several, and metre is per verse.'
+    'Split one chunk into its verses, since a chunk may hold several and each has its own metre.'
     return L(t for _, _, t, _ in verse_spans(text)) or L([(text or '').strip()])
 
 def verse_meta(text:str) -> dict:
-    'The metrical facets of one chunk, as the dict that becomes its `metadata` JSON.'
+    'Return the metre facets of one chunk as the flat dict litesearch stores in its `metadata`.'
     ms = L(verse_units(text)).map(detect_meter).filter(lambda m: m is not None)
     out, named = {}, ms.filter(lambda m: m.name)
     if named:
@@ -415,7 +415,7 @@ def verse_meta(text:str) -> dict:
 
 # %% ../nbs/01_metre.ipynb #ac3075b4
 def meter_name(text:str) -> str:
-    "The metre one verse scans as, by name, else '': `detect_meter` for a caller that wants a label and never an exception."
+    "Return the name of the metre one verse scans as, or `''`, without ever raising an exception."
     try: m = detect_meter(text)
     except Exception: return ''
     return str(m.name.value) if m is not None and m.name else ''

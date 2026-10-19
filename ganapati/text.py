@@ -24,7 +24,7 @@ def _with_gloss(text:str, end:int) -> int:
     return end
 
 def verse_spans(text:str) -> L:
-    'Split `text` into verse units, returning `(start, end, text, citation)`.'
+    'Split `text` into verses, returning `(start, end, text, citation)` for each.'
     if not (text or '').strip(): return L()
     cuts = []
     for m in CITE_RE.finditer(text): cuts.append((_with_gloss(text, m.end()), f'{m.group(1)}_{m.group(2)}'))
@@ -80,15 +80,15 @@ _UVACA = re.compile(r'^([^।]{0,22}?(?:उ|ु)वाच)(?![\u0900-\u0903\u093
 _NUM2DEVA = str.maketrans('0123456789', '०१२३४५६७८९')
 
 def is_word(t:str) -> bool:
-    'A token with a letter in it: a daṇḍa, a verse number or a lone punctuation mark is not a word.'
+    'Return True if a token contains a letter, so a daṇḍa, a verse number or a lone punctuation mark is not a word.'
     return any(c.isalpha() for c in t or '')
 
 def deva_num(n) -> str:
-    'A verse number in Devanagari digits: `18` -> `१८`, `1.1` -> `१.१`.'
+    'Write a verse number in Devanagari digits: `18` gives `१८` and `1.1` gives `१.१`.'
     return str(n).translate(_NUM2DEVA)
 
 def split_mantras(text:str) -> L:
-    'A text blob as `(number, body)` pairs, cut at its `॥ n ॥` end-markers, the number as written.'
+    'Cut a text at its `॥ n ॥` verse markers and return `(number, body)` pairs, with each number as written.'
     out, last = L(), 0
     for m in _VMARK.finditer(text or ''):
         body = text[last:m.start()].strip(); last = m.end()
@@ -98,7 +98,7 @@ def split_mantras(text:str) -> L:
 def padas(verse:str,    # one verse, on one line or several, with or without its end-marker
           num=None      # the verse number to close it with; None keeps the one the verse carries
           ) -> L:
-    'A verse as pāda lines: cut at the daṇḍa, a glued `…उवाच` speaker tag on its own line first, the last line closed with `॥ num ॥`.'
+    'Lay out one verse as lines cut at its daṇḍas, with a glued speaker tag (`… उवाच`) on a line of its own and the last line closed by `॥ num ॥`.'
     if num is None and (m := _VMARK.search(verse or '')): num = m[1] or m[2]
     t = re.sub(r'\s+', ' ', _VMARK.sub(' ', (verse or '').replace('\n', ' ')).replace(DDANDA, ' ')).strip()
     out = L()
@@ -119,7 +119,7 @@ def chunk_verses(text:str,                 # source text
                  max_chars:int=VERSE_MAX,  # split a unit longer than this at clause boundaries
                  pack_cited:bool=False,    # let consecutive cited units share a chunk up to `target`
                  ) -> L:
-    'Verse-aware chunks: cut on citation/daṇḍa, pack short units, split long prose.'
+    'Cut a text into chunks on verse boundaries, joining short verses up to `target` and splitting long ones at their daṇḍas.'
     units = verse_spans(text)
     if not units: return L([text.strip()]) if (text or '').strip() else L()
     out, buf, cited = L(), [], False
@@ -163,7 +163,7 @@ def _mk_chunks(texts, src):
     return out
 
 class VerseChunker:
-    'A chonkie-shaped chunker whose cuts land on verse boundaries.'
+    'A chunker with the chonkie interface that cuts on verse boundaries, for short verses.'
     def __init__(self, target:int=VERSE_TARGET, max_chars:int=VERSE_MAX, pack_cited:bool=False):
         self.target, self.max_chars, self.chunk_size = target, max_chars, max_chars
         self.pack_cited = pack_cited
@@ -174,7 +174,7 @@ class VerseChunker:
         return f'{type(self).__name__}(target={self.target}, max_chars={self.max_chars}, pack_cited={self.pack_cited})'
 
 class ProseChunker(VerseChunker):
-    '`VerseChunker` tuned for Sanskrit prose — commentary, bhāṣya, the prose Upaniṣads.'
+    'A `VerseChunker` with larger chunks that packs cited units together, for commentaries, bhāṣyas and the prose Upaniṣads.'
     def __init__(self, target:int=700, max_chars:int=1400, pack_cited:bool=True):
         super().__init__(target, max_chars, pack_cited)
 
@@ -188,7 +188,7 @@ def _detag(t:str) -> str:
     return html.unescape(re.sub(r'<[^>]+>', '', t)).replace('\xa0', ' ')
 
 def gretil_parse(src) -> tuple:
-    'GRETIL plain-text (`*_u.htm`) to `(pages, meta)`.'
+    'Read a GRETIL plain-text edition (`*_u.htm`) into `(pages, meta)`, keeping its header in `meta`.'
     txt = _detag(Path(src).read_text(encoding='utf-8', errors='replace') if _isfile(src) else str(src))
     head, body = '', txt
     if (m := _GRETIL_END.search(txt)):
@@ -207,7 +207,7 @@ def gretil_parse(src) -> tuple:
     return pages or [(0, body)], dict(fmt='gretil', title=ttl, header=head.strip()[:2000])
 
 def tei_parse(src) -> tuple:
-    'GRETIL `corpustei` / SARIT TEI to `(pages, meta)`.'
+    'Read a TEI XML edition from GRETIL or SARIT into `(pages, meta)`, with one page per division heading, verse group or paragraph.'
     from xml.etree import ElementTree as ET
     raw = Path(src).read_text(encoding='utf-8', errors='replace') if _isfile(src) else str(src)
     root = ET.fromstring(raw)
@@ -254,11 +254,11 @@ def time_marker(start:int,          # line start in ms
                 end:int,            # line end in ms
                 aid:str=None        # the aligner's id for the span
                 ) -> str:
-    'The marker that carries one line\'s audio span through chunking as text.'
+    'Write one line\'s audio span as a text marker such as `[t 0-1800 a1]`, so the timing survives chunking.'
     return f'[t {int(start)}-{int(end)}{" " + aid if aid else ""}]'
 
 def line_times(text:str) -> L:
-    'Every timed line of a chunk as `AttrDict(text, start, end, aid, ms)`, in order.'
+    'Return every timed line in a chunk as `AttrDict(text, start, end, aid, ms)`, in order.'
     out = L()
     for ln in (text or '').splitlines():
         if ln.lstrip().startswith('>') or not (m := TIME_RE.search(ln)): continue
@@ -267,7 +267,7 @@ def line_times(text:str) -> L:
     return out
 
 def line_etyms(text:str) -> L:
-    'The `> etym:` lines of a chunk — the per-word grammar and gloss the source itself supplies.'
+    'Return the word-by-word analysis a source supplies on its `> etym:` lines, without the prefix.'
     return L(m[1].strip() for m in ETYM_RE.finditer(text or '') if m[1].strip())
 
 def _vr_etym(e) -> str:
@@ -294,7 +294,7 @@ def _vr_line(l) -> str:
     return f'{s} {time_marker(a, b, l.get("alignment_id"))}'
 
 def vr_xml_parse(src) -> tuple:
-    'vedicreader `<lyrics>` XML to `(pages, meta)`, keeping the audio spans and the etymology.'
+    'Read vedicreader `<lyrics>` XML into `(pages, meta)`, keeping audio timings and the word-by-word analysis.'
     from xml.etree import ElementTree as ET
     raw = Path(src).read_text(encoding='utf-8', errors='replace') if _isfile(src) else str(src)
     root = ET.fromstring(raw)
@@ -335,7 +335,7 @@ def _vr_jline(l) -> str:
     return f'{s} {time_marker(a, b)}'
 
 def vr_json_parse(src) -> tuple:
-    'vedicreader content JSON to `(pages, meta)`, the same shape the `<lyrics>` reader returns.'
+    'Read vedicreader content JSON into `(pages, meta)`, in the same shape as `vr_xml_parse`.'
     import json
     raw = Path(src).read_text(encoding='utf-8', errors='replace') if _isfile(src) else str(src)
     d, pages = json.loads(raw), []
@@ -359,7 +359,7 @@ def vr_json_parse(src) -> tuple:
                                      tags=tags if isinstance(tags, str) else ','.join(tags or []))
 
 def dcs_parse(src) -> tuple:
-    'DCS / ambuda analysed text to `(pages, meta)`.'
+    'Read a DCS CoNLL-U file into `(pages, meta)`, one page per sentence with its lemmas on a `> lemmas:` line.'
     raw = Path(src).read_text(encoding='utf-8', errors='replace') if _isfile(src) else str(src)
     pages, cur, lem, cid = [], [], [], None
     def flush():
@@ -410,7 +410,7 @@ _SANSKRIT_EXTS = '.xml,.json,.tei,.htm,.html,.conllu,.txt'
 _DANDA_EOL = re.compile(r'(?:[।॥]|//|/|\|\||\|)[ \t]*$', re.M)
 
 def is_sanskrit(text:str, thresh:float=0.15) -> bool:
-    'Whether `text` reads as Sanskrit — by script, by transliteration, or by structure.'
+    'Guess whether `text` is Sanskrit from its script, its IAST diacritics, or its citations and daṇḍas.'
     s = (text or '')[:20000]
     if not s.strip(): return False
     if len(DEVANAGARI.findall(s)) / max(len(s), 1) > thresh: return True
@@ -421,7 +421,7 @@ def is_sanskrit(text:str, thresh:float=0.15) -> bool:
     return (len(_IAST_DIAC.findall(s)) / max(len(s), 1) > 0.01) and loose >= 3 and loose / lines > 0.02
 
 def sanskrit_parse(src) -> tuple:
-    'Parse any supported Sanskrit source to `(pages, meta)`, picking the reader by shape.'
+    'Read any supported Sanskrit source into `(pages, meta)`, choosing the reader from the extension and the first 4,000 characters.'
     p = Path(src) if _isfile(src) else None
     raw = p.read_text(encoding='utf-8', errors='replace')[:4000] if p else str(src)[:4000]
     sfx = p.suffix.lower() if p else ''

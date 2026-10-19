@@ -15,7 +15,7 @@ from .text import is_word
 # %% ../nbs/04_vyakarana.ipynb #cd7ae80537cf
 @cache
 def vy():
-    "The process's `Vyakarana`, logging each step."
+    "Return the shared vidyut `Vyakarana`, which records each step of a derivation."
     from vidyut.prakriya import Vyakarana
     return Vyakarana(log_steps=True)
 
@@ -28,7 +28,7 @@ def _dhatu(f):
 
 # %% ../nbs/04_vyakarana.ipynb #2da978584793
 def pada(spec):
-    "The vidyut `Pada` a spec names; None for one it cannot read."
+    "Turn a spec into a vidyut `Pada`, or None if the spec cannot be read."
     from vidyut.prakriya import Pada, Pratipadika, Krt, Linga, Vibhakti, Vacana, Prayoga, Lakara, Purusha, DhatuPada
     f = (spec or '').split('|')
     try:
@@ -43,13 +43,13 @@ def pada(spec):
 
 # %% ../nbs/04_vyakarana.ipynb #2da0c33c03ab
 def norm(slp):
-    "A form as compared with a derivation's: svaras and marks gone, a final anusvāra written m."
+    "Prepare an SLP1 form for comparison with a derivation by removing accents and marks and writing a final anusvāra as m."
     t = re.sub(r"[^A-Za-z']", '', slp or '').replace("'", '')
     return t[:-1] + 'm' if t.endswith('M') else t
 
 # %% ../nbs/04_vyakarana.ipynb #a5c77674242f
 def derive(spec, surf=None):
-    "The derivation of `spec`, the one that reaches `surf` (SLP1) when given, else the first; None when there is none."
+    "Derive the word a spec names, returning the derivation that ends in `surf` (SLP1) when given, else the first, or None."
     if not (p := pada(spec)): return None
     try: ps = vy().derive(p)
     except Exception: return None
@@ -61,7 +61,7 @@ def derives(spec, surf): return derive(spec, surf) is not None
 
 # %% ../nbs/04_vyakarana.ipynb #b1d8e309ee99
 def steps(p):
-    "A derivation's steps as `(source, code, result)`: source `A` the Aṣṭādhyāyī, `D` the Dhātupāṭha, `U` the Uṇādipāṭha, `V` a vārttika, else the source's own name."
+    "List a derivation's steps as `(source, rule, result)`, the source being `A` (Aṣṭādhyāyī), `D` (Dhātupāṭha), `U` (Uṇādipāṭha), `V` (vārttika) or another source's own name."
     src = {'azwADyAyI': 'A', 'DAtupAWaH': 'D', 'uRAdipAWaH': 'U', 'vArttikAH': 'V'}
     return [(src.get(str(s.source), str(s.source)), s.code, ' '.join(x for x in s.result if x)) for s in (p.history if p else [])]
 
@@ -89,7 +89,7 @@ def _made(f, krt=''):
 
 # %% ../nbs/04_vyakarana.ipynb #682a254b7e91
 def spec_lemma(spec):
-    "The headword a spec stands on, SLP1: the stem, the indeclinable, a kṛdanta's stem (`prApta`), or a verb's root with its upasargas (`pra+Ap`)."
+    "Return the SLP1 headword a spec stands on: the stem, the indeclinable, a kṛt form's stem (`prApta`), or a verb's root with its prefixes (`pra+Ap`)."
     f = (spec or '').split('|')
     if f[0] in ('s', 'a'): return f[1] if len(f) > 1 else ''
     if f[0] in ('k', 'ka') and len(f) > 2: return _made(f[1], f[2])
@@ -97,7 +97,7 @@ def spec_lemma(spec):
 
 # %% ../nbs/04_vyakarana.ipynb #b0c8588a21a4
 def spec_root(spec):
-    "A kṛdanta's or verb's root with its upasargas (`pra+Ap`); '' for a noun from a plain stem."
+    "Return the root of a kṛt form or a verb with its prefixes (`pra+Ap`), or '' for a noun from a plain stem."
     f = (spec or '').split('|')
     if f[0] not in ('k', 'ka', 't') or len(f) < 2: return ''
     aup, g, ag, sn, px = (f[1].split(',') + [''] * 5)[:5]
@@ -105,7 +105,7 @@ def spec_root(spec):
 
 # %% ../nbs/04_vyakarana.ipynb #5f87b7861bfe
 def spec_words(spec):
-    "A spec's grammar as English words, in reading order: the kind (a kṛt's name), then case, number and gender, or tense, person, number and voice."
+    "Describe a spec's grammar in English words: the kṛt suffix's meaning if there is one, then case, number and gender, or tense, person, number and voice."
     f = (spec or '').split('|')
     match f[0]:
         case 's': return [GRAM_EN.get(x, x) for x in (f[3], f[4], f[2])]
@@ -117,15 +117,14 @@ def spec_words(spec):
 
 # %% ../nbs/04_vyakarana.ipynb #fc79b67a6f16
 def sandhi_skeleton(slp):
-    "A sandhi-tolerant skeleton: marks gone, a final s, r, H, m or M dropped, long vowels short."
+    "Reduce an SLP1 word to a form that survives sandhi: marks removed, a final s, r, H, m or M dropped, and long vowels made short."
     t = re.sub(r'[^A-Za-z]', '', slp)
     t = re.sub(r'[srHmM]$', '', t)
     return t.translate(str.maketrans('AIUFX', 'aiufx'))
 
 # %% ../nbs/04_vyakarana.ipynb #59728ec66b40
 def align(tk, es):
-    """Each token's entries: a monotone match of the line's tokens with its entries (sandhi undone, reading order), a token taking up to four
-    entries whose joined skeleton resembles its own, an entry no token fits dropped. Returns `[[entry positions] per token]`."""
+    "Match a line's written tokens to its word-by-word entries in order, returning the list of entry positions each token takes."
     T = [sandhi_skeleton(to_slp1(strip_vedic(t))) if is_word(t) else '' for t in tk]
     E = [sandhi_skeleton(to_slp1(e.w)) for e in es]
     n, m = len(T), len(E)
@@ -198,8 +197,7 @@ def _first(w): return re.sub(r"[^A-Za-z]", '', w)[:1] if w else ''
 
 # %% ../nbs/04_vyakarana.ipynb #d1dfd3180033
 def join_rule(left, right, written=''):
-    """The class of the join between `left` and `right` (both SLP1, sandhi undone), `written` the joined form when known (it tells pūrvarūpa
-    from ayādi, a dropped visarga from -o): `(id, name, sūtra)` from `JOINS`, or None for a join no class fits."""
+    "Name the sandhi between `left` and `right` (both SLP1, sandhi undone) as `(id, name, sūtra)` from `JOINS`, using the `written` form when given, or None if no class fits."
     L, R = re.sub(r"[^A-Za-z]", '', left or ''), re.sub(r"[^A-Za-z]", '', right or '')
     if not (L and R): return None
     a, b, w = L[-1], R[0], re.sub(r"[^A-Za-z']", '', written or '')

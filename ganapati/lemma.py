@@ -19,7 +19,7 @@ _VIDYUT_URL_NOTE = 'https://github.com/ambuda-org/vidyut'   # MIT
 MW_URL = 'https://raw.githubusercontent.com/sanskrit-lexicon/csl-orig/master/v02/mw/mw.txt'
 
 def sanskrit_home(name:str=None) -> Path:
-    'Where the downloaded Sanskrit data lives: `$LITESEARCH_HOME`, else the XDG cache.'
+    'Return the folder for downloaded Sanskrit data, or the file `name` in it, under `$LITESEARCH_HOME` or else the XDG cache.'
     import os
     d = Path(os.environ.get('LITESEARCH_HOME')
              or Path(os.environ.get('XDG_CACHE_HOME', Path.home()/'.cache'))/'litesearch')/'sanskrit'
@@ -27,7 +27,7 @@ def sanskrit_home(name:str=None) -> Path:
     return d/name if name else d
 
 def vidyut_data(path=None, force:bool=False) -> Path:
-    "vidyut's linguistic data, downloaded on first use (~81 MB) and cached thereafter."
+    "Return the folder of vidyut's data, downloading it (about 81 MB) on first use."
     d = Path(path) if path else sanskrit_home('vidyut')
     if force or not (d/'kosha').exists():
         try: import vidyut
@@ -37,12 +37,12 @@ def vidyut_data(path=None, force:bool=False) -> Path:
     return d
 
 def to_slp1(text:str) -> str:
-    'Any supported script to SLP1, which is what the kosha is keyed on. Needs no downloaded data.'
+    'Transliterate Devanagari or IAST to SLP1, the scheme the kosha is keyed on, with no downloaded data.'
     from vidyut.lipi import transliterate, Scheme
     return transliterate(text, Scheme.Devanagari if DEVANAGARI.search(text or '') else Scheme.Iast, Scheme.Slp1)
 
 def from_slp1(text:str, iast:bool=True) -> str:
-    'SLP1 back to something readable — IAST by default, Devanagari otherwise.'
+    'Transliterate SLP1 to IAST, or to Devanagari when `iast=False`.'
     from vidyut.lipi import transliterate, Scheme
     return transliterate(text or '', Scheme.Slp1, Scheme.Iast if iast else Scheme.Devanagari)
 
@@ -81,7 +81,7 @@ def _cover(w:str, sp, known, depth:int=0, max_depth:int=3, min_piece:int=2) -> t
     return ()
 
 def vidyut_pipe(path=None, split:bool=True):
-    "A spaCy-shaped lemmatiser backed by vidyut's kosha — the deterministic answer to inflection."
+    "Return a lemmatiser backed by vidyut's kosha that turns text into spaCy-style tokens with `.lemma_` and `.lemma_slp`."
     from vidyut.kosha import Kosha
     ko = Kosha(str(vidyut_data(path)/'kosha'))
     sp = _splitter(path) if split else None
@@ -107,11 +107,11 @@ def vidyut_pipe(path=None, split:bool=True):
     return pipe
 
 def sanskrit_terms(path=None,        # vidyut data dir; None -> `sanskrit_home()`
-                   topk:int=12,      # most frequent nominals kept per chunk
+                   topk:int=12,      # number of words kept per chunk, most frequent first
                    min_len:int=3,    # skip particles and one-syllable words
-                   split:bool=True   # undo sandhi on tokens the kosha does not know
+                   split:bool=True   # split a word the kosha does not know into the words sandhi joined
                    ):
-    'A `terms_fn` for `build_graph`: the nominal words of a Sanskrit chunk, via the kosha.'
+    "Return a `terms_fn` for litesearch's `build_graph` that lists the most frequent words of a chunk that are not finite verbs."
     from vidyut.kosha import Kosha, PadaEntry
     ko = Kosha(str(vidyut_data(path)/'kosha'))
     sp = _splitter(path) if split else None
@@ -167,7 +167,7 @@ def _clip(s:str, n:int) -> str:
     return s if len(s) <= n else s[:n].rsplit(' ', 1)[0].rstrip(' ,;')
 
 def mw_lexicon(path=None, force:bool=False, maxlen:int=110) -> dict:
-    'Monier-Williams as `{SLP1 headword: short English gloss}`, downloaded and reduced on first use.'
+    'Return Monier-Williams as `{SLP1 headword: short English gloss}`, downloading and reducing it on first use.'
     tsv = (Path(path) if path else sanskrit_home())/'mw.tsv'
     if force or not tsv.exists():
         import urllib.request
@@ -202,7 +202,7 @@ def gloss_facets(text:str,          # chunk text
                  mw:dict,           # a `mw_lexicon()`
                  max_terms:int=24   # cap, so the gloss cannot outgrow the verse
                  ) -> dict:
-    "`{'gloss': 'law duty; land soil; ...'}` — the English behind a chunk's Sanskrit words."
+    "Return `{'gloss': ...}`, the English words behind a chunk's Sanskrit, from a lemmatiser and `mw_lexicon`."
     if not (nlp and mw and (text or '').strip()): return {}
     out = {}
     for t in nlp(metrical_text(text)):
@@ -218,7 +218,7 @@ def lemma_facets(text:str,          # chunk text
                  nlp,               # a `vidyut_pipe()` (or any spaCy-shaped pipeline)
                  max_terms:int=96   # cap, so one chunk's metadata cannot outgrow its content
                  ) -> dict:
-    "`{'lemma': 'gam vac ...'}` for a chunk — the dictionary forms behind its inflected words."
+    "Return `{'lemma': ...}`, the dictionary forms behind a chunk's inflected words, leaving out those the text index already finds."
     if not (nlp and (text or '').strip()): return {}
     try: doc = nlp(metrical_text(text))
     except Exception: return {}
@@ -257,7 +257,7 @@ def _gram_field(f:str) -> bool:
     return bool(ws) and all(w in _GRAM_FIELD for w in ws)
 
 def etym_entries(text:str) -> L:
-    'A source\'s per-word analysis as `AttrDict(w, lemma, gram, g)`, one per `surface, lemma, grammar…, gloss` line; a line of another shape is skipped.'
+    'Read the lines of a word-by-word analysis in the form `surface, lemma, grammar…, gloss` into `AttrDict(w, lemma, gram, g)` records, skipping other lines.'
     out = L()
     for ln in (text or '').splitlines():
         f = [x.strip() for x in ln.split(',')]
@@ -287,7 +287,7 @@ def etym_facets(text:str,           # chunk text
                 max_lemmas:int=96,  # cap on the Sanskrit side
                 max_terms:int=24    # cap on the English side
                 ) -> dict:
-    "`{'lemma': ..., 'gloss': ...}` from the source's own `> etym:` lines. Needs no vidyut."
+    "Return `{'lemma': ..., 'gloss': ...}` from the source's own `> etym:` lines, without vidyut."
     parts = L(line_etyms(text)).map(_etym_terms)
     lem = dict.fromkeys(parts.itemgot(0).concat())
     glo = dict.fromkeys(w for w in parts.itemgot(1).concat() if w not in lem)
@@ -295,11 +295,11 @@ def etym_facets(text:str,           # chunk text
             (('lemma', lem, max_lemmas), ('gloss', glo, max_terms)) if v}
 
 def source_meta(text:str) -> dict:
-    'Every facet the source itself pays for: metre, audio timings, and its own etymology.'
+    'Return the facets the source supplies itself: metre, audio timings and its own word-by-word analysis.'
     return {**verse_meta(text), **etym_facets(text)}
 
 def sanskrit_meta(nlp=None, mw:dict=None):
-    'The `Profile.meta` callable: what the source carries always, vidyut only for what it lacks.'
+    "Build the function that fills a chunk's metadata: the source's own facets always, and vidyut's only where the source has none."
     if nlp is None: return source_meta
     def meta(text:str) -> dict:
         out = source_meta(text)
@@ -315,7 +315,7 @@ def by_lemma(self:Database,
              prefix:str=None,
              columns:list=None,
              limit:int=50) -> list:
-    'Chunks whose verses inflect `lemma`. Needs an index built with `register_profiles(nlp=...)`.'
+    'Return the chunks with a form of `lemma` in them, from an index built after `register_profiles(nlp=...)` or from sources with their own analysis.'
     cols = list(dict.fromkeys((columns or ['content']) + ['metadata', 'node_id', 'doc_id', 'page']))
     return self.t[ifnone(prefix, '') + store](
         select=', '.join(cols), where='metadata like :sa_l',
@@ -329,7 +329,7 @@ def by_meter(self:Database,
              prefix:str=None,
              columns:list=None,
              limit:int=50) -> list:
-    'Chunks whose verses are in a metre, or share a gaṇa signature. A filter, not a ranking.'
+    'Return the chunks with a verse in `meter` or with the gaṇa signature `gana`, unranked.'
     wh, wa = [], {}
     if meter:
         wh.append('metadata like :sa_m')
@@ -356,7 +356,7 @@ def _sniff(text:str) -> bool:
                                                 or re.search(r'[āīūṛṝḷḹṅñṭḍṇśṣṃḥ]', t)))
 
 def register_profiles(nlp=None, mw:dict=None):
-    'Register the Sanskrit profiles with litesearch. litesearch calls this through the `litesearch.profiles` entry point; safe to call again.'
+    'Register the `sanskrit_verse` and `sanskrit_prose` profiles with litesearch, which calls this through its `litesearch.profiles` entry point.'
     from litesearch.data import Profile, register_profile
     meta = sanskrit_meta(nlp, mw)
     register_profile(Profile(name='sanskrit_verse', exts='.xml,.json,.tei,.htm,.html,.conllu,.txt',
@@ -377,7 +377,7 @@ _FUNC = frozenset('the of a an and or to in is are was for from with by as it it
 def _deacc(s:str) -> str: return ''.join(c for c in unicodedata.normalize('NFD', s) if not unicodedata.combining(c))
 
 def gloss_vocab(texts) -> set:
-    "The English words the corpus's own parseable glosses use: the reference for spotting an entry that is not English at all."
+    "Collect the English words in a corpus's well-formed glosses, the reference `delatinize` checks against."
     out = set()
     for t in texts:
         for e in etym_entries(t):
@@ -395,7 +395,7 @@ def latin_frac(s:str,          # one Devanagari line
                vocab:set,      # the corpus's English gloss words, from `gloss_vocab`
                scheme:str='IAST'
                ) -> tuple:
-    'How much of a line reads back as English, as `(fraction, n_words)`. Multi-word runs only: one surface word proves nothing.'
+    'Return the share of a Devanagari line that reads back as English, counting only runs of two or more words, as `(fraction, n_words)`.'
     ws = []
     for run in _DEV_RUN.findall(s or ''):
         r = _EN_TOK.findall(_deacc(_reverse(run, scheme)).lower())
@@ -412,7 +412,7 @@ def _mend(w:str, vocab:set) -> str:
     return w
 
 def delatinize(s:str, vocab:set) -> str:
-    'A mis-transliterated English gloss read back; a well-formed entry or real Sanskrit is returned as it came.'
+    'Turn an English gloss wrongly written in Devanagari back into English, and return any other line unchanged.'
     if not (s and DEVANAGARI.search(s)) or etym_entries(s): return s
     (frac, n), sc = max(((latin_frac(s, vocab, x), x) for x in _SCHEMES), key=lambda x: (x[0][0], x[0][1]))
     if not n: return s
@@ -422,7 +422,7 @@ def delatinize(s:str, vocab:set) -> str:
     return re.sub(r'\s+', ' ', out).strip()
 
 def fix_etym(text:str, vocab:set) -> tuple:
-    'One etymology blob with its Latinised lines read back, as `(text, n_fixed)`.'
+    'Run `delatinize` on each line of a word-by-word analysis, returning `(text, n_fixed)`.'
     out, n = [], 0
     for ln in (text or '').splitlines():
         n += (f := delatinize(ln, vocab)) != ln

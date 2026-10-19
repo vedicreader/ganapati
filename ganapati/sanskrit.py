@@ -1,4 +1,4 @@
-"""Devanagari primitives: Vedic marks, daṇḍas, an ASCII fold for any script, citation sigla.
+"""Small helpers for Devanagari text: remove Vedic accents, give any spelling of a word one ASCII key, and read citation ids
 
 Docs: https://vedicreader.github.io/ganapati/sanskrit.html.md"""
 
@@ -37,12 +37,12 @@ VIRAMA = '्'
 DEVA_DIGITS = {chr(0x966+i): str(i) for i in range(10)}
 
 def strip_vedic(s:str) -> str:
-    'Drop Vedic tone marks from Devanagari, leaving Latin diacritics alone. NFC out.'
+    'Remove Vedic tone marks from Devanagari text, leaving Latin diacritics alone, and return it in NFC form.'
     if not s: return ''
     return unicodedata.normalize('NFC', VEDIC_MARKS.sub('', unicodedata.normalize('NFD', s)))
 
 def deva2ascii(s:str) -> str:
-    'Devanagari to a bare ASCII key, applying the implicit `a` of an unmarked consonant.'
+    'Transliterate Devanagari to plain ASCII without diacritics, writing the implicit `a` after each unmarked consonant.'
     out, i, n = [], 0, len(s)
     while i < n:
         ch = s[i]
@@ -69,7 +69,7 @@ def _latn_fold(s:str) -> str:
 DEVANAGARI = re.compile('[ऀ-ॿ᳐-᳹꣠-ꣿ]')
 
 def detect_script(s:str) -> str:
-    "`'deva'`, `'latn'` or `'other'` — enough to pick a folding path."
+    "Say whether `s` is mostly Devanagari (`'deva'`), Latin (`'latn'`) or neither (`'other'`)."
     if not s: return 'other'
     d = len(DEVANAGARI.findall(s))
     l = sum(1 for c in s if 'a' <= c.lower() <= 'z' or unicodedata.category(c) == 'Ll')
@@ -78,14 +78,7 @@ def detect_script(s:str) -> str:
 
 @lru_cache(maxsize=1<<16)
 def fold_token(s:str) -> str:
-    '''The ASCII index key for one token, whatever script it arrived in.
-
-    Cached because it is called once per token per FTS write *and* per query, and a corpus is a
-    small vocabulary repeated: 70,413 tokens of the eval corpus are 4,153 distinct strings, so
-    94% of the calls are asking a question that has already been answered. It is three unicode
-    normalisations and a per-character category scan deep, which is why it was a third of the cost
-    of indexing a corpus with no Sanskrit in it at all. Pure function of `s`, so the cache is only
-    ever a memo — same output, 5.5x fewer of them computed.'''
+    'Return the plain-ASCII search key for one token in any script: `भीष्म` and `Bhīṣma` both give `bhisma`.'
     s = strip_vedic(s)
     return _latn_fold(deva2ascii(s) if DEVANAGARI.search(s) else s)
 
@@ -96,10 +89,10 @@ _ENDINGS = ('ies', 'ied', 'ing', 'ed', 'es', 's', 'y')
 
 @lru_cache(maxsize=1<<16)
 def roman_fold(s:str,
-               doubles:bool=False,  # a doubled letter single: Lakshmana and Lakṣmaṇa, Raghuvamsha and Raghuvaṃśa
-               endings:bool=False   # an English plural or past ending off, leaving three letters: duties and duty
+               doubles:bool=False,  # make doubled letters single, so Kārttikeya and Kartikeya give one key
+               endings:bool=False   # cut an English plural or past-tense ending when three letters remain, so duties and duty give one key
               ) -> str:
-    "`fold_token` plus plain-English spellings: sh/ṣ/ś to s, th/ṭh to t, ee/ī to i, oo/ū to u, aa/ā to a, w to v."
+    "Fold like `fold_token`, then also merge informal English spellings (sh to s, th to t, ee to i, oo to u, w to v), so Bheeshma and Bhīṣma both give `bisma`."
     k = _VOCALIC_R.sub('r', fold_token(s).replace('w', 'v'))
     k = _LONG.sub(r'\1', _ASPIRATE.sub('', k).replace('ee', 'i').replace('oo', 'u'))
     if doubles: k = _DOUBLE.sub(r'\1', k)
@@ -110,7 +103,7 @@ def roman_fold(s:str,
 # %% ../nbs/00_sanskrit.ipynb #e5b6e88a
 CITE_RE = re.compile(r'(?:\|\||//)\s*([A-Za-zĀ-ſ]+)[_\s.]([\d,.\-]+[a-z]?(?:\[[^\]\n]{0,16}\])?)\s*(?:\|\||//)')
 def cite_parts(c:str) -> tuple:
-    "`'BrhUp_1,1.2'` -> `('BrhUp', ['1','1','2'])` — the siglum and its hierarchy."
+    "Split a citation id into its siglum and its numbers: `'BrhUp_1,1.2'` gives `('BrhUp', ['1', '1', '2'])`."
     c = re.sub(r'\[[^\]]*\]', '', (c or '')).strip()   # drop a `[57M]` alternate-edition number
     m = re.match(r'([^\s_]+)[_\s]([\d,.\-]+[a-z]?)$', c) or re.match(r'([A-Za-zĀ-ſ]+)[.]([\d,.\-]+[a-z]?)$', c)
     if not m: return (c, [])

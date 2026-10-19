@@ -15,7 +15,7 @@ _ASP = re.compile(r'([bcdgjkpt])h')
 
 @lru_cache(maxsize=1 << 15)
 def name_key(s:str) -> str:
-    'A romanisation-blind key for one Sanskrit name in IAST, plain roman, Indian-English or Devanagari: Bhīṣma, Bheeshma and भीष्म are `bisma`.'
+    'Return one key for every spelling of a Sanskrit name in IAST, plain roman, Indian English or Devanagari: Bhīṣma, Bheeshma and भीष्म all give `bisma`.'
     s = (s or '').strip().lower()
     if DEVANAGARI.search(s): s = deva2iast(s)
     s = fold_token(s.replace('ṛ', 'ri').replace('ṝ', 'ri'))
@@ -29,11 +29,11 @@ def _vowel1(a, b):
     i = next((i for i, (x, y) in enumerate(zip(a, b)) if x != y), len(a))
     return b[i] in 'aeiou' and a[i:] == b[i + 1:]
 
-def name_variants(key:str,       # a `name_key`, or any key the pool is keyed by
+def name_variants(key:str,       # a `name_key`, or any key in the same form as the pool's
                   pool,          # the keys to look in: a set, a dict's keys, an index vocabulary
-                  min_len:int=5  # shorter keys match only themselves; one vowel on a four-letter name is often another name
+                  min_len:int=5  # keys shorter than this match only themselves, since one vowel more on a short name often makes another name
                   ) -> set:
-    'The keys in `pool` that romanise the same name as `key`: itself, and from `min_len` letters those one vowel longer or shorter with the same first letter.'
+    'Return the keys in `pool` that spell the same name as `key`: the key itself and, from `min_len` letters on, keys one vowel longer or shorter with the same first letter.'
     pool = set(pool)
     got = {key} & pool
     if len(key) >= min_len: got |= {p for p in pool if p[:1] == key[:1] and _vowel1(key, p)}
@@ -85,7 +85,7 @@ _EPI, _CAN = _one_way(_groups(EPITHETS))
 
 # %% ../nbs/03_names.ipynb #6116acd44185
 def epithets() -> dict:
-    'Every epithet in `EPITHETS` by `name_key`, to the canonical names a translation writes: `ranganata` gives Viṣṇu, Nārāyaṇa, Hari.'
+    'Return the map from each epithet\'s `name_key` to the canonical names a translation writes, such as `ranganata` to Viṣṇu, Nārāyaṇa and Hari.'
     return dict(_EPI)
 
 _HON = ('srimat', 'sri', 'bagavan')
@@ -93,7 +93,7 @@ def _plural(k): return [k[:-1]] if k.endswith('s') and len(k) > 4 else []   # an
 _PLAIN_R = re.compile('(?<=[^aeiou])r(?=[^aeiou]|$)')
 
 def canonical(name:str) -> tuple:
-    "The canonical names for `name`: an epithet's, a canonical name's own group, else `()`; allows a leading Śrī, ṛ typed as `r`, an English plural, and from five letters a dropped final `a`."
+    "Return the canonical names that `name`, in any spelling, leads to, or `()` if the table does not have it."
     k = name_key(name)
     ks = [k] + [k[len(h):] for h in _HON if k.startswith(h) and len(k) > len(h) + 2]
     ks = list(dict.fromkeys(ks + [_PLAIN_R.sub('ri', k) for k in ks] + _plural(k)))
@@ -233,7 +233,7 @@ dakṣiṇāyana: southward course of the sun
 _TERMS = {name_key(t): tuple(g.strip() for g in gs.split(',')) for t, gs in (ln.split(':', 1) for ln in TERMS.strip().splitlines())}
 
 def terms() -> dict:
-    'Every term in `TERMS` by `name_key`, to its English glosses.'
+    'Return every term in `TERMS` by `name_key`, mapped to its English glosses.'
     return dict(_TERMS)
 
 @lru_cache(maxsize=1)
@@ -242,9 +242,9 @@ def _mw_local():
     return mw_lexicon() if sanskrit_home('mw.tsv').exists() else {}
 
 def term_gloss(term:str,   # IAST, plain roman or Devanagari
-               mw:dict=None # a `mw_lexicon()`; None uses the downloaded one if there is one
+               mw:dict=None # a `mw_lexicon()`; None uses the downloaded copy if there is one
                ) -> tuple:
-    'Short English for a Sanskrit technical term, or its English plural: `TERMS` first, then Monier-Williams for IAST or Devanagari; `()` when neither knows it.'
+    'Return short English glosses for a Sanskrit technical term from `TERMS`, else from Monier-Williams, or `()` if neither knows it.'
     k = name_key(term)
     if (g := next((_TERMS[x] for x in [k] + _plural(k) if x in _TERMS), None)): return g
     if not (mw := _mw_local() if mw is None else mw) or not term: return ()
