@@ -1,4 +1,4 @@
-__version__ = "0.1.3"
+__version__ = "0.1.4"
 from .metre import *
 from .text import *
 from .lemma import *
