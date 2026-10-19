@@ -8,7 +8,7 @@
 
 ## 0.1.4
 
-- `dhatu` and `made` are public: `dhatu` turns a dhātu field into a vidyut `Dhatu`, and `made` gives the stem vidyut builds from it, alone or with a kṛt (`made('A\\px~,svAdi,,,pra', 'kta')` is prApta). `_dhatu` and `_made` still import.
+- `dhatu` and `made` are public: `dhatu` turns a dhātu field into a vidyut `Dhatu`, and `made` gives the stem vidyut builds from it, alone or with a kṛt (`made('A\px~,svAdi,,,pra', 'kta')` is prApta). `_dhatu` and `_made` still import.
 
 ## 0.1.3
 
