@@ -2,6 +2,11 @@
 
 <!-- do not remove -->
 
+## 0.1.2
+
+- `join` writes the sandhi between two words given as each stands alone, and names the join with `join_rule`: `join('rAmaH', 'api')` is `('rAmo', "'pi", ('o_a', '-aḥ to -o', '6.1.113'))`, and `join('tava', 'iti')` is `('taveti', None, ...)`, the None marking two words written as one. `samhita` joins a line of words this way and lists the class of each join. A final visarga is read as s, or as r in punar, antar and prātar, and saḥ and eṣaḥ drop it before a consonant (6.1.132).
+- The joins come from vidyut's table of 1,468 sandhi rules, now shipped in the package as `ganapati/data/vidyut_sandhi_rules.csv` (`RULES`, read by `rules`). vidyut is MIT licensed; its copyright notice and licence are in `ganapati/data/LICENSE-vidyut`.
+
 ## 0.1.1
 
 - New module `ganapati.vyakarana`, derivations through vidyut's prakriya. `pada` and `derive` read a one-string SLP1 spec (`s|rAma|puM|praTamA|eka`, `t|BU,BvAdi,,,|kartari|la~w|praTama|eka|P`) and return the vidyut `Pada` and its `Prakriya`; `derive(spec, surf)` returns only a derivation that reaches the written form. `steps` lists the sūtras applied, each once while the form stays the same. `spec_words`, `spec_lemma` and `spec_root` name a spec's grammar in English, its headword and its root; with the written form, `spec_words` reads a doer-voice verb as middle when only the ātmanepada endings reach it (kurute).

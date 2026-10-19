@@ -93,7 +93,7 @@ canonical('Sri Ranganatha'), canonical('Partha'), term_gloss('anumana')
 | `ganapati.metre` | IAST transliteration, syllable weights, the gaṇas, 100 fixed-pattern metres, the āryā family, checks against recorded audio |
 | `ganapati.lemma` | vidyut lemmas, Monier-Williams glosses, a source’s own word-by-word analysis and its repair, the litesearch profiles and search filters |
 | `ganapati.names` | one key for every spelling of a name, epithets of deities and heroes, English for śāstra and jyotiṣa terms |
-| `ganapati.vyakarana` | derivations through the Aṣṭādhyāyī, a word-by-word analysis matched to its line, the sandhi rule at a join |
+| `ganapati.vyakarana` | derivations through the Aṣṭādhyāyī, a word-by-word analysis matched to its line, the sandhi rule at a join, two words joined into their saṃhitā |
 
 `from ganapati import *` brings in every module except `ganapati.sanskrit`, which you import by name.
 
@@ -104,3 +104,7 @@ pip install ganapati
 ```
 
 Use `pip install 'ganapati[search]'` to install litesearch with it. Lemmas need vidyut’s data, an 81 MB download made the first time you ask for a lemma, and glosses need Monier-Williams, downloaded the first time you call [`mw_lexicon`](https://vedicreader.github.io/ganapati/lemma.html#mw_lexicon). Without either, an index still gets each verse’s metre, its audio timings, and any analysis the source itself carries.
+
+## Credits
+
+The joiner in `ganapati.vyakarana` reads vidyut’s table of sandhi rules, shipped as `ganapati/data/vidyut_sandhi_rules.csv`. vidyut is by ambuda.org (https://github.com/ambuda-org/vidyut) and is MIT licensed. Its copyright notice and licence travel with the table in `ganapati/data/LICENSE-vidyut`.
