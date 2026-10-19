@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 0.1.4
+
+- `dhatu` and `made` are public: `dhatu` turns a dhātu field into a vidyut `Dhatu`, and `made` gives the stem vidyut builds from it, alone or with a kṛt (`made('A\\px~,svAdi,,,pra', 'kta')` is prApta). `_dhatu` and `_made` still import.
+
 ## 0.1.3
 
 - The wheel carries vidyut's licence in its `dist-info/licenses` as well as in `ganapati/data`, through `license-files`; the licence is declared as the SPDX expression `Apache-2.0`.
