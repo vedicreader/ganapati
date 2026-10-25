@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Find where verses end, lay a verse out by pādas, chunk a text for search, and read five source formats">
+
+<title>text – ganapati</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f2788e636de456f6409e966386820849.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="text – ganapati">
+<meta property="og:description" content="Find where verses end, lay a verse out by pādas, chunk a text for search, and read five source formats">
+<meta property="og:site_name" content="ganapati">
+<meta name="twitter:title" content="text – ganapati">
+<meta name="twitter:description" content="Find where verses end, lay a verse out by pādas, chunk a text for search, and read five source formats">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ganapati</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./text.html">text</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ganapati</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sanskrit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sanskrit</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./text.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">text</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">metre</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lemma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./names.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">names</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vyakarana.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">vyakarana</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#where-a-verse-ends" id="toc-where-a-verse-ends" class="nav-link active" data-scroll-target="#where-a-verse-ends">Where a verse ends</a></li>
+  <li><a href="#laying-out-a-verse" id="toc-laying-out-a-verse" class="nav-link" data-scroll-target="#laying-out-a-verse">Laying out a verse</a></li>
+  <li><a href="#chunkers" id="toc-chunkers" class="nav-link" data-scroll-target="#chunkers">Chunkers</a></li>
+  <li><a href="#reading-source-files" id="toc-reading-source-files" class="nav-link" data-scroll-target="#reading-source-files">Reading source files</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/vedicreader/ganapati/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="text.html.md"><i class="bi bi-file-code"></i>Markdown</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">text</h1>
+</div>
+
+<div>
+  <div class="description">
+    Find where verses end, lay a verse out by pādas, chunk a text for search, and read five source formats
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="where-a-verse-ends" class="level2">
+<h2 class="anchored" data-anchor-id="where-a-verse-ends">Where a verse ends</h2>
+<p>Sanskrit sources rarely put one verse on one line. A GRETIL file runs verses together and closes each with a citation, a recitation text glues the verse number onto the last line, and a plain edition may have nothing but daṇḍas. <a href="https://vedicreader.github.io/ganapati/text.html#verse_spans"><code>verse_spans</code></a> cuts a text into verses and returns each one as <code>(start, end, text, citation)</code>, where <code>start</code> and <code>end</code> are character offsets into the input and <code>citation</code> is the verse’s id, or None.</p>
+<p>It looks for one kind of marker at a time, and uses the first kind that occurs anywhere in the text:</p>
+<ol type="1">
+<li>a citation such as <code>// Mn_1.1 //</code>, which becomes the verse’s id;</li>
+<li>a Devanagari verse number such as <code>॥ १॥</code>, which becomes the id;</li>
+<li>a double daṇḍa, <code>||</code> or <code>//</code> at the end of a line, which gives no id.</li>
+</ol>
+<p>A text with none of these but with numbers at the start of its lines is cut at each number, and the number becomes the id. In the other cases a markdown heading also starts a new verse. A line that begins with <code>&gt;</code> holds a gloss or a translation, and it stays with the verse before it.</p>
+<div id="47028122" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.096765+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.339284+00:00&quot;,&quot;total&quot;:0.24252433200000212}}" data-execution_count="4">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L26" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="verse_spans" class="level3">
+<h3 class="anchored" data-anchor-id="verse_spans">verse_spans</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> verse_spans(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    text:<span class="bu">str</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.foundation.L:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Split <code>text</code> into verses, returning <code>(start, end, text, citation)</code> for each.</em></p>
+</section>
+</div>
+<p>The examples below split two verses of the Īśa Upaniṣad by their citations, and a numbered text with no daṇḍas by its line numbers. They also check <a href="https://vedicreader.github.io/ganapati/sanskrit.html#cite_parts"><code>cite_parts</code></a> from <code>ganapati.sanskrit</code>.</p>
+<div id="275ade78" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.339479+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.340505+00:00&quot;,&quot;total&quot;:0.0010309399999925972}}" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ganapati.text <span class="im">import</span> cite_parts, verse_spans</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4b32835099d7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cite_parts(<span class="st">'BrhUp_1,1.2'</span>) <span class="op">==</span> (<span class="st">'BrhUp'</span>, [<span class="st">'1'</span>,<span class="st">'1'</span>,<span class="st">'2'</span>])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cite_parts(<span class="st">'Mn_1.1'</span>) <span class="op">==</span> (<span class="st">'Mn'</span>, [<span class="st">'1'</span>,<span class="st">'1'</span>])</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cite_parts(<span class="st">'IsUp_4[57M]'</span>) <span class="op">==</span> (<span class="st">'IsUp'</span>, [<span class="st">'4'</span>])      <span class="co"># the alternate-edition number is dropped</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cite_parts(<span class="st">'not a citation'</span>) <span class="op">==</span> (<span class="st">'not a citation'</span>, [])</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>two <span class="op">=</span> (<span class="st">'īśā vāsyam idaṃ sarvaṃ | tena tyaktena bhuñjīthāḥ || IsUp_1 ||</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>       <span class="st">'kurvann eveha karmāṇi | evaṃ tvayi nānyatheto || IsUp_2 ||</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>sp <span class="op">=</span> verse_spans(two)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(sp) <span class="op">==</span> <span class="dv">2</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> [c <span class="cf">for</span> <span class="op">*</span>_, c <span class="kw">in</span> sp] <span class="op">==</span> [<span class="st">'IsUp_1'</span>, <span class="st">'IsUp_2'</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> sp[<span class="dv">0</span>][<span class="dv">2</span>].startswith(<span class="st">'īśā'</span>) <span class="kw">and</span> sp[<span class="dv">0</span>][<span class="dv">2</span>].endswith(<span class="st">'||'</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>numbered <span class="op">=</span> (<span class="st">'0nārāyaṇaṃ namaskṛtya</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">'  1</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">'lomaharṣaṇaputra ugraśravāḥ</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            <span class="st">'2samāsīnān abhyagacchat'</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>sp <span class="op">=</span> verse_spans(numbered)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(sp) <span class="op">==</span> <span class="dv">3</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> [s <span class="cf">for</span> <span class="op">*</span>_, s, _ <span class="kw">in</span> sp] <span class="op">==</span> [</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">'nārāyaṇaṃ namaskṛtya'</span>, <span class="st">'lomaharṣaṇaputra ugraśravāḥ'</span>, <span class="st">'samāsīnān abhyagacchat'</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="laying-out-a-verse" class="level2">
+<h2 class="anchored" data-anchor-id="laying-out-a-verse">Laying out a verse</h2>
+<p>A pāda is a quarter of a verse. A printed verse usually shows two pādas on each line, a single daṇḍa (।) after the first half, and a double daṇḍa with the verse number after the second: <code>॥ १ ॥</code>. Recitation sources often send the whole verse as one line, with a speaker tag such as धृतराष्ट्र उवाच (“Dhṛtarāṣṭra said”) glued to the front and the number in ASCII digits. These functions put such a verse back into the printed shape.</p>
+<p><a href="https://vedicreader.github.io/ganapati/text.html#padas"><code>padas</code></a> cuts one verse at each single daṇḍa, so each output line is a half-verse in the usual case. It puts a speaker tag on a line of its own and closes the last line with <code>॥ n ॥</code> in Devanagari digits. Pass <code>num</code> to set the number, or leave it out to keep the number the verse already carries. When you have a whole saṃhitā or chapter in one string, call <a href="https://vedicreader.github.io/ganapati/text.html#split_mantras"><code>split_mantras</code></a> first: it cuts the text at each <code>॥ n ॥</code> and returns <code>(number, body)</code> pairs that you can pass to <a href="https://vedicreader.github.io/ganapati/text.html#padas"><code>padas</code></a> one at a time. A single daṇḍa before a number does not count as a marker, because the paryāya hymns of the Atharvaveda print a running count that way. <a href="https://vedicreader.github.io/ganapati/text.html#deva_num"><code>deva_num</code></a> writes a number in Devanagari digits, and <a href="https://vedicreader.github.io/ganapati/text.html#is_word"><code>is_word</code></a> tells a word from a daṇḍa, a verse number or a stray punctuation mark.</p>
+<p>The examples below use Gītā 1.1 as the DharmicData corpus prints it, a verse of the Kumārasambhava, the opening of the Yajurveda, and edge cases from the Atharvaveda, the Chāndogya Upaniṣad and the Gītā.</p>
+<div id="450ee449" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.347280+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.353863+00:00&quot;,&quot;total&quot;:0.006586157999990405}}" data-execution_count="7">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L98" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="padas" class="level3">
+<h3 class="anchored" data-anchor-id="padas">padas</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> padas(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    verse:<span class="bu">str</span>, <span class="co"># one verse, on one line or several, with or without its end-marker</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    num:NoneType<span class="op">=</span><span class="va">None</span>, <span class="co"># the verse number to close it with; None keeps the one the verse carries</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.foundation.L:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Lay out one verse as lines cut at its daṇḍas, with a glued speaker tag (<code>… उवाच</code>) on a line of its own and the last line closed by <code>॥ num ॥</code>.</em></p>
+</section>
+</div>
+<div id="a9f4711d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.353974+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.359454+00:00&quot;,&quot;total&quot;:0.005485261000004016}}" data-execution_count="8">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L90" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="split_mantras" class="level3">
+<h3 class="anchored" data-anchor-id="split_mantras">split_mantras</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> split_mantras(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    text:<span class="bu">str</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.foundation.L:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Cut a text at its <code>॥ n ॥</code> verse markers and return <code>(number, body)</code> pairs, with each number as written.</em></p>
+</section>
+</div>
+<div id="ac2363e6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.359604+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.363956+00:00&quot;,&quot;total&quot;:0.004356455000007031}}" data-execution_count="9">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L86" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="deva_num" class="level3">
+<h3 class="anchored" data-anchor-id="deva_num">deva_num</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> deva_num(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    n</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">str</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Write a verse number in Devanagari digits: <code>18</code> gives <code>१८</code> and <code>1.1</code> gives <code>१.१</code>.</em></p>
+</section>
+</div>
+<div id="be7fd7a9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.364136+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.368716+00:00&quot;,&quot;total&quot;:0.004585041999987993}}" data-execution_count="10">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L82" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="is_word" class="level3">
+<h3 class="anchored" data-anchor-id="is_word">is_word</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_word(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    t:<span class="bu">str</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">bool</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Return True if a token contains a letter, so a daṇḍa, a verse number or a lone punctuation mark is not a word.</em></p>
+</section>
+</div>
+<div id="904b0ce9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.368873+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.369830+00:00&quot;,&quot;total&quot;:0.0009612589999932197}}" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> ganapati.text <span class="im">import</span> is_word, deva_num, split_mantras, padas</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="3452f74f" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> is_word(<span class="st">'धर्मक्षेत्रे'</span>) <span class="kw">and</span> is_word(<span class="st">'kṣetre'</span>) <span class="kw">and</span> is_word(<span class="st">'yuyutsavaḥ,'</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="kw">not</span> is_word(<span class="st">'॥'</span>) <span class="kw">and</span> <span class="kw">not</span> is_word(<span class="st">'।'</span>) <span class="kw">and</span> <span class="kw">not</span> is_word(<span class="st">'१८'</span>) <span class="kw">and</span> <span class="kw">not</span> is_word(<span class="st">'1.1'</span>) <span class="kw">and</span> <span class="kw">not</span> is_word(<span class="st">''</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> deva_num(<span class="dv">18</span>) <span class="op">==</span> <span class="st">'१८'</span> <span class="kw">and</span> deva_num(<span class="st">'1.1'</span>) <span class="op">==</span> <span class="st">'१.१'</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Gītā 1.1 as DharmicData prints it: one line, the speaker glued on, the chapter.verse marker at the end</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>g11 <span class="op">=</span> <span class="st">'धृतराष्ट्र उवाच धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः । मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय ।। 1.1 ।।'</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(g11, <span class="dv">1</span>) <span class="op">==</span> [<span class="st">'धृतराष्ट्र उवाच'</span>, <span class="st">'धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः ।'</span>, <span class="st">'मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय ॥ १ ॥'</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(g11)[<span class="op">-</span><span class="dv">1</span>].endswith(<span class="st">'॥ १.१ ॥'</span>)             <span class="co"># no number given: the one the verse carries, in Devanagari</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(<span class="st">'मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय'</span>)[<span class="op">-</span><span class="dv">1</span>].endswith(<span class="st">' ॥'</span>)   <span class="co"># no number anywhere: a bare close</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Kumārasambhava 4.1 across two lines with its own daṇḍas: the lines are only re-cut</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>K41 <span class="op">=</span> <span class="st">'अथ मोहपरायणा सती विवशा कामवधूर्विबोधिता ।</span><span class="ch">\n</span><span class="st">विधिना प्रतिपादयिष्यता नववैधव्यमसह्यवेदनम् ॥'</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(K41, <span class="dv">1</span>) <span class="op">==</span> [<span class="st">'अथ मोहपरायणा सती विवशा कामवधूर्विबोधिता ।'</span>, <span class="st">'विधिना प्रतिपादयिष्यता नववैधव्यमसह्यवेदनम् ॥ १ ॥'</span>]</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># a saṃhitā blob: two mantras, numbered as written, each then split into its pādas</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>blob <span class="op">=</span> <span class="st">'इषे त्वोर्जे त्वा वायव स्थ देवो वः सविता प्रार्पयतु ॥ १ ॥ वसोः पवित्रमसि शतधारं । वसोः पवित्रमसि सहस्रधारम् ॥ २ ॥'</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>ms <span class="op">=</span> split_mantras(blob)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> [n <span class="cf">for</span> n, _ <span class="kw">in</span> ms] <span class="op">==</span> [<span class="st">'१'</span>, <span class="st">'२'</span>] <span class="kw">and</span> ms[<span class="dv">0</span>][<span class="dv">1</span>].startswith(<span class="st">'इषे'</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(ms[<span class="dv">1</span>][<span class="dv">1</span>], ms[<span class="dv">1</span>][<span class="dv">0</span>]) <span class="op">==</span> [<span class="st">'वसोः पवित्रमसि शतधारं ।'</span>, <span class="st">'वसोः पवित्रमसि सहस्रधारम् ॥ २ ॥'</span>]</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> split_mantras(<span class="st">''</span>) <span class="op">==</span> [] <span class="kw">and</span> padas(<span class="st">''</span>) <span class="op">==</span> []</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co"># DharmicData prints AV 2.36.7's close as `॥७` with no closing daṇḍa and a newline: still a verse end, or 7 merges into 8 and `७` is left glued mid-line</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>av <span class="op">=</span> <span class="st">'अन्यं वेत्तवे ॥७</span><span class="ch">\n</span><span class="st">आ ते नयतु सविता ॥ ८ ॥'</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> split_mantras(av) <span class="op">==</span> [(<span class="st">'७'</span>, <span class="st">'अन्यं वेत्तवे'</span>), (<span class="st">'८'</span>, <span class="st">'आ ते नयतु सविता'</span>)]</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(<span class="st">'अन्यं वेत्तवे ॥७'</span>) <span class="op">==</span> [<span class="st">'अन्यं वेत्तवे ॥ ७ ॥'</span>]</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> split_mantras(<span class="st">'क । १० ख ॥ ११ ॥'</span>) <span class="op">==</span> [(<span class="st">'११'</span>, <span class="st">'क । १० ख'</span>)]                 <span class="co"># a number after a daṇḍa mid-line is text, not a marker</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co"># a paryāya sūkta (AV 16.8) writes a running count after the marker, `॥४॥ ४। १`: a single daṇḍa before a bare number is not a marker</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>py <span class="op">=</span> <span class="st">'पादयामि॥४॥ ४। १</span><span class="ch">\n</span><span class="st">जितमस्माकम्॥१॥'</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> split_mantras(py) <span class="op">==</span> [(<span class="st">'४'</span>, <span class="st">'पादयामि'</span>), (<span class="st">'१'</span>, <span class="st">'४। १</span><span class="ch">\n</span><span class="st">जितमस्माकम्'</span>)]</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co"># the speaker tag is cut only where `वाच` ends the word: Chāndogya 4.2.3's `प्रत्युवाचाह` goes on, and so do `वाचं`, `वाचः`, `वाचा`</span></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>ch <span class="op">=</span> <span class="st">'तमु ह परः प्रत्युवाचाह हारेत्वा शूद्र तवैव सह गोभिरस्त्विति ।'</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(ch) <span class="op">==</span> [<span class="st">'तमु ह परः प्रत्युवाचाह हारेत्वा शूद्र तवैव सह गोभिरस्त्विति ॥'</span>]</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(<span class="st">'श्रीभगवानुवाच कुतस्त्वा कश्मलमिदं विषमे समुपस्थितम् ।'</span>)[:<span class="dv">2</span>] <span class="op">==</span> [<span class="st">'श्रीभगवानुवाच'</span>, <span class="st">'कुतस्त्वा कश्मलमिदं विषमे समुपस्थितम् ॥'</span>]</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> padas(g11)[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'धृतराष्ट्र उवाच'</span> <span class="kw">and</span> padas(<span class="st">'अर्जुन उवाच ।'</span>) <span class="op">==</span> [<span class="st">'अर्जुन उवाच'</span>]</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> w <span class="kw">in</span> (<span class="st">'गुरुवाचं श्रुत्वा'</span>, <span class="st">'तदुवाचः स आह'</span>, <span class="st">'मधुवाचा वदति'</span>, <span class="st">'अनुवाचम् इति'</span>): <span class="cf">assert</span> padas(w) <span class="op">==</span> [<span class="ss">f'</span><span class="sc">{</span>w<span class="sc">}</span><span class="ss"> ॥'</span>], w</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co"># DharmicData glues 11 Gītā speaker tags to the pāda with no space (12.1, 12.2, 13.2, 14.1, 14.21, 14.22, 15.1, 17.1, 17.2, 18.73, 18.74): a letter after `वाच` starts the pāda</span></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>glued <span class="op">=</span> [</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'अर्जुन उवाचएवं सततयुक्ता ये भक्तास्त्वां पर्युपासते।येचाप्यक्षरमव्यक्तं तेषां के योगवित्तमाः।।12.1।।'</span>, <span class="dv">1</span>, [<span class="st">'अर्जुन उवाच'</span>, <span class="st">'एवं सततयुक्ता ये भक्तास्त्वां पर्युपासते ।'</span>, <span class="st">'येचाप्यक्षरमव्यक्तं तेषां के योगवित्तमाः ॥ १ ॥'</span>]),</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'श्री भगवानुवाचमय्यावेश्य मनो ये मां नित्ययुक्ता उपासते।श्रद्धया परयोपेतास्ते मे युक्ततमा मताः।।12.2।।'</span>, <span class="dv">2</span>, [<span class="st">'श्री भगवानुवाच'</span>, <span class="st">'मय्यावेश्य मनो ये मां नित्ययुक्ता उपासते ।'</span>, <span class="st">'श्रद्धया परयोपेतास्ते मे युक्ततमा मताः ॥ २ ॥'</span>]),</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'श्री भगवानुवाचइदं शरीरं कौन्तेय क्षेत्रमित्यभिधीयते।एतद्यो वेत्ति तं प्राहुः क्षेत्रज्ञ इति तद्विदः।।13.2।।'</span>, <span class="dv">2</span>, [<span class="st">'श्री भगवानुवाच'</span>, <span class="st">'इदं शरीरं कौन्तेय क्षेत्रमित्यभिधीयते ।'</span>, <span class="st">'एतद्यो वेत्ति तं प्राहुः क्षेत्रज्ञ इति तद्विदः ॥ २ ॥'</span>]),</span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'श्री भगवानुवाचपरं भूयः प्रवक्ष्यामि ज्ञानानां ज्ञानमुत्तमम्।यज्ज्ञात्वा मुनयः सर्वे परां सिद्धिमितो गताः।।14.1।।'</span>, <span class="dv">1</span>, [<span class="st">'श्री भगवानुवाच'</span>, <span class="st">'परं भूयः प्रवक्ष्यामि ज्ञानानां ज्ञानमुत्तमम् ।'</span>, <span class="st">'यज्ज्ञात्वा मुनयः सर्वे परां सिद्धिमितो गताः ॥ १ ॥'</span>]),</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'अर्जुन उवाचकैर्लिंगैस्त्रीन्गुणानेतानतीतो भवति प्रभो।किमाचारः कथं चैतांस्त्रीन्गुणानतिवर्तते।।14.21।।'</span>, <span class="dv">21</span>, [<span class="st">'अर्जुन उवाच'</span>, <span class="st">'कैर्लिंगैस्त्रीन्गुणानेतानतीतो भवति प्रभो ।'</span>, <span class="st">'किमाचारः कथं चैतांस्त्रीन्गुणानतिवर्तते ॥ २१ ॥'</span>]),</span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'श्री भगवानुवाचप्रकाशं च प्रवृत्तिं च मोहमेव च पाण्डव।न द्वेष्टि सम्प्रवृत्तानि न निवृत्तानि काङ्क्षति।।14.22।।'</span>, <span class="dv">22</span>, [<span class="st">'श्री भगवानुवाच'</span>, <span class="st">'प्रकाशं च प्रवृत्तिं च मोहमेव च पाण्डव ।'</span>, <span class="st">'न द्वेष्टि सम्प्रवृत्तानि न निवृत्तानि काङ्क्षति ॥ २२ ॥'</span>]),</span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'श्री भगवानुवाचऊर्ध्वमूलमधःशाखमश्वत्थं प्राहुरव्ययम्।छन्दांसि यस्य पर्णानि यस्तं वेद स वेदवित्।।15.1।।'</span>, <span class="dv">1</span>, [<span class="st">'श्री भगवानुवाच'</span>, <span class="st">'ऊर्ध्वमूलमधःशाखमश्वत्थं प्राहुरव्ययम् ।'</span>, <span class="st">'छन्दांसि यस्य पर्णानि यस्तं वेद स वेदवित् ॥ १ ॥'</span>]),</span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'अर्जुन उवाचये शास्त्रविधिमुत्सृज्य यजन्ते श्रद्धयाऽन्विताः।तेषां निष्ठा तु का कृष्ण सत्त्वमाहो रजस्तमः।।17.1।।'</span>, <span class="dv">1</span>, [<span class="st">'अर्जुन उवाच'</span>, <span class="st">'ये शास्त्रविधिमुत्सृज्य यजन्ते श्रद्धयाऽन्विताः ।'</span>, <span class="st">'तेषां निष्ठा तु का कृष्ण सत्त्वमाहो रजस्तमः ॥ १ ॥'</span>]),</span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'श्री भगवानुवाचत्रिविधा भवति श्रद्धा देहिनां सा स्वभावजा।सात्त्विकी राजसी चैव तामसी चेति तां श्रृणु।।17.2।।'</span>, <span class="dv">2</span>, [<span class="st">'श्री भगवानुवाच'</span>, <span class="st">'त्रिविधा भवति श्रद्धा देहिनां सा स्वभावजा ।'</span>, <span class="st">'सात्त्विकी राजसी चैव तामसी चेति तां श्रृणु ॥ २ ॥'</span>]),</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'अर्जुन उवाचनष्टो मोहः स्मृतिर्लब्धा त्वत्प्रसादान्मयाच्युत।स्थितोऽस्मि गतसन्देहः करिष्ये वचनं तव।।18.73।।'</span>, <span class="dv">73</span>, [<span class="st">'अर्जुन उवाच'</span>, <span class="st">'नष्टो मोहः स्मृतिर्लब्धा त्वत्प्रसादान्मयाच्युत ।'</span>, <span class="st">'स्थितोऽस्मि गतसन्देहः करिष्ये वचनं तव ॥ ७३ ॥'</span>]),</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'सञ्जय उवाचइत्यहं वासुदेवस्य पार्थस्य च महात्मनः।संवादमिममश्रौषमद्भुतं रोमहर्षणम्।।18.74।।'</span>, <span class="dv">74</span>, [<span class="st">'सञ्जय उवाच'</span>, <span class="st">'इत्यहं वासुदेवस्य पार्थस्य च महात्मनः ।'</span>, <span class="st">'संवादमिममश्रौषमद्भुतं रोमहर्षणम् ॥ ७४ ॥'</span>]),</span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t, n, exp <span class="kw">in</span> glued: <span class="cf">assert</span> padas(t, n) <span class="op">==</span> exp, (n, padas(t, n))</span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="co"># no piece opens on a dependent vowel sign, virama, anusvāra or visarga, over verses as vedicreader ships them: Gītā 1.2, 2.1, 2.2, 2.4; Kaṭha 1.1.1, 1.1.4; Kena 1.1, 1.2, 1.5; Chāndogya 4.1.3, 4.1.5, 4.2.3-5</span></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a>DEP <span class="op">=</span> re.<span class="bu">compile</span>(<span class="st">'^[</span><span class="ch">\u0900</span><span class="st">-</span><span class="ch">\u0903\u093a</span><span class="st">-</span><span class="ch">\u094f\u0951</span><span class="st">-</span><span class="ch">\u0957\u0962\u0963</span><span class="st">]'</span>)</span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a>real <span class="op">=</span> [g11, K41, blob,</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>        <span class="st">'सञ्जय उवाच दृष्ट्वा तु पाण्डवानीकं व्यूढं दुर्योधनस्तदा । आचार्यमुपसङ्गम्य राजा वचनमब्रवीत् ॥ २ ॥'</span>,</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>        <span class="st">'सञ्जय उवाच तं तथा कृपयाऽविष्टमश्रुपूर्णाकुलेक्षणम् । विषीदन्तमिदं वाक्यमुवाच मधुसूदनः ॥ १ ॥'</span>,</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>        <span class="st">'श्री भगवानुवाच कुतस्त्वा कश्मलमिदं विषमे समुपस्थितम् । अनार्यजुष्टमस्वर्ग्यमकीर्तिकरमर्जुन ॥ २ ॥'</span>,</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a>        <span class="st">'अर्जुन उवाच कथं भीष्ममहं संख्ये द्रोणं च मधुसूदन । इषुभिः प्रतियोत्स्यामि पूजार्हावरिसूदन ॥ ४ ॥'</span>,</span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>        <span class="st">'ॐ उशन् ह वै वाजश्रवसः सर्ववेदसं ददौ । तस्य ह नचिकेता नाम पुत्र आस ॥ १ ॥'</span>,</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>        <span class="st">'स होवाच पितरं तत कस्मै मां दास्यसीति । द्वितीयं तृतीयं तँ होवाच मृत्यवे त्वा ददामीति ॥ ४ ॥'</span>,</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>        <span class="st">'ॐ केनेषितं पतति प्रेषितं मनः केन प्राणः प्रथमः प्रैति युक्तः । केनेषितां वाचमिमां वदन्ति चक्षुः श्रोत्रं क उ देवो युनक्ति ॥ १ ॥'</span>,</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>        <span class="st">'श्रोत्रस्य श्रोत्रं मनसो मनो यद् वाचो ह वाचं स उ प्राणस्य प्राणः । चक्षुषश्चक्षुरतिमुच्य धीराः प्रेत्यास्माल्लोकादमृता भवन्ति ॥ २ ॥'</span>,</span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>        <span class="st">'यद्वाचाऽनभ्युदितं येन वागभ्युद्यते । तदेव ब्रह्म त्वं विद्धि नेदं यदिदमुपासते ॥ ५ ॥'</span>,</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>        <span class="st">'तमु ह परः प्रत्युवाच कं वर एनमेतत् सन्तं सयुग्वानमिव रैक्वमात्थ इति । यो नु कथं सयुग्वा रैक्व इति ॥ ३ ॥'</span>,</span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>        <span class="st">'तदु ह जानश्रुतिः पौत्रायण उपशुश्राव । स ह संजिहान एव क्षत्तारमुवाचाङ्गारे ह सयुग्वानमिव रैक्वमात्थेति । यो नु कथं सयुग्वा रैक्व इति ॥ ५ ॥'</span>,</span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>        <span class="st">'तमु ह परः प्रत्युवाचाह हारेत्वा शूद्र तवैव सह गोभिरस्त्विति । तदु ह पुनरेव जानश्रुतिः पौत्रायणः सहस्रं गवां निष्कमश्वतरीरथं दुहितरं तदादाय प्रतिचक्रमे ॥ ३ ॥'</span>,</span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>        <span class="st">'तं हाभ्युवाद । रैक्वेदं सहस्रं गवामयं निष्कोऽयमश्वतरीरथ इयं जायायं ग्रामो यस्मिन्नास्सेऽन्वेव मा भगवः शाधीति ॥ ४ ॥'</span>,</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a>        <span class="st">'तस्या ह मुखमुपोद्गृह्णन्नुवाचाजहारेमाः शूद्रानेनैव मुखेनालापयिष्यथा इति । ते हैते रैक्वपर्णा नाम महावृषेषु यत्रास्मा उवास । तस्मै होवाच ॥ ५ ॥'</span>]</span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">all</span>(<span class="kw">not</span> DEP.match(p) <span class="cf">for</span> v <span class="kw">in</span> real <span class="cf">for</span> p <span class="kw">in</span> padas(v)), [p <span class="cf">for</span> v <span class="kw">in</span> real <span class="cf">for</span> p <span class="kw">in</span> padas(v) <span class="cf">if</span> DEP.match(p)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="chunkers" class="level2">
+<h2 class="anchored" data-anchor-id="chunkers">Chunkers</h2>
+<p>A search index stores a text as chunks, and the chunk boundaries decide what a search result looks like: a chunk that ends mid-verse returns half a verse. <a href="https://vedicreader.github.io/ganapati/text.html#chunk_verses"><code>chunk_verses</code></a> cuts on the verse boundaries that <a href="https://vedicreader.github.io/ganapati/text.html#verse_spans"><code>verse_spans</code></a> finds. It joins short verses until a chunk reaches <code>target</code> characters, and splits a verse longer than <code>max_chars</code> at its daṇḍas, never inside a clause. A heading always starts a new chunk. A chunk normally ends as soon as it holds a verse with a citation, so that each cited verse is its own result; pass <code>pack_cited=True</code> to let cited verses share a chunk up to <code>target</code>.</p>
+<p><a href="https://vedicreader.github.io/ganapati/text.html#versechunker"><code>VerseChunker</code></a> and <a href="https://vedicreader.github.io/ganapati/text.html#prosechunker"><code>ProseChunker</code></a> wrap <a href="https://vedicreader.github.io/ganapati/text.html#chunk_verses"><code>chunk_verses</code></a> in the interface of a chonkie chunker, so you can pass either to litesearch’s <code>add_doc(chunker=...)</code>. Each chunk carries <code>start_index</code> and <code>end_index</code>, its offsets in the source. <a href="https://vedicreader.github.io/ganapati/text.html#versechunker"><code>VerseChunker</code></a> aims for 300 characters and allows 900. <a href="https://vedicreader.github.io/ganapati/text.html#prosechunker"><code>ProseChunker</code></a> is for prose such as commentaries, bhāṣyas and the prose Upaniṣads: it aims for 700, allows 1400, and packs cited units together. litesearch reads the chunker’s settings too, and packs text across pages only for a chunker that packs cited units, which the last two checks below confirm.</p>
+<div id="f213caf7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.382844+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.387724+00:00&quot;,&quot;total&quot;:0.004885494999996354}}" data-execution_count="13">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L176" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="prosechunker" class="level3">
+<h3 class="anchored" data-anchor-id="prosechunker">ProseChunker</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> ProseChunker(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    target:<span class="bu">int</span><span class="op">=</span><span class="dv">700</span>, max_chars:<span class="bu">int</span><span class="op">=</span><span class="dv">1400</span>, pack_cited:<span class="bu">bool</span><span class="op">=</span><span class="va">True</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A <a href="https://vedicreader.github.io/ganapati/text.html#versechunker"><code>VerseChunker</code></a> with larger chunks that packs cited units together, for commentaries, bhāṣyas and the prose Upaniṣads.</em></p>
+</section>
+</div>
+<div id="8acaf279" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.387879+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.392589+00:00&quot;,&quot;total&quot;:0.004714714999991543}}" data-execution_count="14">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L165" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="versechunker" class="level3">
+<h3 class="anchored" data-anchor-id="versechunker">VerseChunker</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> VerseChunker(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    target:<span class="bu">int</span><span class="op">=</span><span class="dv">300</span>, max_chars:<span class="bu">int</span><span class="op">=</span><span class="dv">900</span>, pack_cited:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>A chunker with the chonkie interface that cuts on verse boundaries, for short verses.</em></p>
+</section>
+</div>
+<div id="be45b0e8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.392736+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.399756+00:00&quot;,&quot;total&quot;:0.007024688999990758}}" data-execution_count="15">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L117" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="chunk_verses" class="level3">
+<h3 class="anchored" data-anchor-id="chunk_verses">chunk_verses</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> chunk_verses(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    text:<span class="bu">str</span>, <span class="co"># source text</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    target:<span class="bu">int</span><span class="op">=</span><span class="dv">300</span>, <span class="co"># pack short units forward up to this many chars</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    max_chars:<span class="bu">int</span><span class="op">=</span><span class="dv">900</span>, <span class="co"># split a unit longer than this at clause boundaries</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    pack_cited:<span class="bu">bool</span><span class="op">=</span><span class="va">False</span>, <span class="co"># let consecutive cited units share a chunk up to `target`</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.foundation.L:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Cut a text into chunks on verse boundaries, joining short verses up to <code>target</code> and splitting long ones at their daṇḍas.</em></p>
+</section>
+</div>
+<div id="b053fa2f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.399910+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.400748+00:00&quot;,&quot;total&quot;:0.0008423570000104519}}" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> litesearch.tree <span class="im">import</span> pack_target</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="30738a2f0830" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cs <span class="op">=</span> VerseChunker().chunk(two)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(cs) <span class="op">==</span> <span class="dv">2</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> two[cs[<span class="dv">0</span>].start_index:cs[<span class="dv">0</span>].end_index] <span class="op">==</span> cs[<span class="dv">0</span>].text   <span class="co"># offsets point back at the source</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ProseChunker packs cited units instead, which is what commentary wants</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(ProseChunker().chunk(two)) <span class="op">==</span> <span class="dv">1</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co"># with no citation to cut on, the budget decides. 3,040 characters of daṇḍa-separated prose:</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="bu">long</span> <span class="op">=</span> <span class="st">' | '</span>.join([<span class="st">'padam yatra tatra sarvatra gacchati'</span>] <span class="op">*</span> <span class="dv">80</span>) <span class="op">+</span> <span class="st">' ||'</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(chunk_verses(<span class="bu">long</span>, <span class="dv">300</span>, <span class="dv">900</span>)) <span class="op">==</span> <span class="dv">4</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(chunk_verses(<span class="bu">long</span>, <span class="dv">700</span>, <span class="dv">1400</span>)) <span class="op">==</span> <span class="dv">3</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># litesearch packs across segments only for a chunker that asks; the verse profile does not,</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># because a reader that emits one verse per page is already the right size</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> pack_target(VerseChunker()) <span class="op">==</span> <span class="dv">0</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> pack_target(ProseChunker()) <span class="op">==</span> <span class="dv">700</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="reading-source-files" class="level2">
+<h2 class="anchored" data-anchor-id="reading-source-files">Reading source files</h2>
+<p>Sanskrit texts are published in several file formats, and ganapati reads five. Each reader takes a path or the file’s contents as a string and returns <code>(pages, meta)</code>. <code>pages</code> is a list of <code>(index, text)</code> pairs, usually one per verse or section, and <code>meta</code> is a dict with the format, the title and whatever else the file states. When you don’t know the format, call <a href="https://vedicreader.github.io/ganapati/text.html#sanskrit_parse"><code>sanskrit_parse</code></a>: it looks at the extension and the first 4,000 characters and calls the right reader.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>reader</th>
+<th>source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://vedicreader.github.io/ganapati/text.html#gretil_parse"><code>gretil_parse</code></a></td>
+<td>GRETIL plain-text editions, the <code>*_u.htm</code> files</td>
+</tr>
+<tr class="even">
+<td><a href="https://vedicreader.github.io/ganapati/text.html#tei_parse"><code>tei_parse</code></a></td>
+<td>TEI XML, as GRETIL and SARIT publish it</td>
+</tr>
+<tr class="odd">
+<td><a href="https://vedicreader.github.io/ganapati/text.html#vr_xml_parse"><code>vr_xml_parse</code></a></td>
+<td>vedicreader <code>&lt;lyrics&gt;</code> XML, which carries audio timings and a word-by-word analysis</td>
+</tr>
+<tr class="even">
+<td><a href="https://vedicreader.github.io/ganapati/text.html#vr_json_parse"><code>vr_json_parse</code></a></td>
+<td>vedicreader content JSON, which carries the same information</td>
+</tr>
+<tr class="odd">
+<td><a href="https://vedicreader.github.io/ganapati/text.html#dcs_parse"><code>dcs_parse</code></a></td>
+<td>CoNLL-U files from the Digital Corpus of Sanskrit (DCS), which give each word’s lemma</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://vedicreader.github.io/ganapati/text.html#is_sanskrit"><code>is_sanskrit</code></a> answers a simpler question: whether a piece of text looks like Sanskrit at all, judged by its script, its IAST diacritics, or its citations and daṇḍas.</p>
+<p>The vedicreader formats need a few more words. A line marked <code>ignore="true"</code> is printed but not recited, such as a title or a rubric, so the reader leaves it out of the text; the first line of the <code>title</code> section becomes <code>meta['title']</code>. A line aligned to a recording carries <code>start_time_ms</code>, <code>end_time_ms</code> and <code>alignment_id</code>. <a href="https://vedicreader.github.io/ganapati/text.html#time_marker"><code>time_marker</code></a> writes these into the text as <code>[t 0-1800 a1]</code> so that they survive chunking, and <a href="https://vedicreader.github.io/ganapati/text.html#line_times"><code>line_times</code></a> reads them back from a chunk as <code>AttrDict(text, start, end, aid, ms)</code>. A line’s translation is written on a following line that starts with <code>&gt;</code>, and its word-by-word analysis on lines that start with <code>&gt; etym:</code>, which <a href="https://vedicreader.github.io/ganapati/text.html#line_etyms"><code>line_etyms</code></a> returns. The metre code ignores <code>&gt;</code> lines and anything in square brackets, so neither a gloss nor a timing is scanned as verse.</p>
+<div id="32403b38" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.437437+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.443377+00:00&quot;,&quot;total&quot;:0.005945238999998992}}" data-execution_count="18">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L423" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="sanskrit_parse" class="level3">
+<h3 class="anchored" data-anchor-id="sanskrit_parse">sanskrit_parse</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sanskrit_parse(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    src</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">tuple</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Read any supported Sanskrit source into <code>(pages, meta)</code>, choosing the reader from the extension and the first 4,000 characters.</em></p>
+</section>
+</div>
+<div id="9c4c65ec" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.443524+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.448999+00:00&quot;,&quot;total&quot;:0.00548088000000746}}" data-execution_count="19">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L412" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="is_sanskrit" class="level3">
+<h3 class="anchored" data-anchor-id="is_sanskrit">is_sanskrit</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_sanskrit(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    text:<span class="bu">str</span>, thresh:<span class="bu">float</span><span class="op">=</span><span class="fl">0.15</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">bool</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Guess whether <code>text</code> is Sanskrit from its script, its IAST diacritics, or its citations and daṇḍas.</em></p>
+</section>
+</div>
+<div id="37ac4d51" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.449182+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.455933+00:00&quot;,&quot;total&quot;:0.006756017000000725}}" data-execution_count="20">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L361" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="dcs_parse" class="level3">
+<h3 class="anchored" data-anchor-id="dcs_parse">dcs_parse</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dcs_parse(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    src</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">tuple</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Read a DCS CoNLL-U file into <code>(pages, meta)</code>, one page per sentence with its lemmas on a <code>&gt; lemmas:</code> line.</em></p>
+</section>
+</div>
+<div id="111fc476" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.456112+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.463547+00:00&quot;,&quot;total&quot;:0.007438734999993812}}" data-execution_count="21">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L337" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="vr_json_parse" class="level3">
+<h3 class="anchored" data-anchor-id="vr_json_parse">vr_json_parse</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vr_json_parse(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    src</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">tuple</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Read vedicreader content JSON into <code>(pages, meta)</code>, in the same shape as <a href="https://vedicreader.github.io/ganapati/text.html#vr_xml_parse"><code>vr_xml_parse</code></a>.</em></p>
+</section>
+</div>
+<div id="e8a2a677" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.463689+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.471156+00:00&quot;,&quot;total&quot;:0.007471945999995455}}" data-execution_count="22">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L296" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="vr_xml_parse" class="level3">
+<h3 class="anchored" data-anchor-id="vr_xml_parse">vr_xml_parse</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vr_xml_parse(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    src</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">tuple</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Read vedicreader <code>&lt;lyrics&gt;</code> XML into <code>(pages, meta)</code>, keeping audio timings and the word-by-word analysis.</em></p>
+</section>
+</div>
+<div id="d7b22afa" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.471303+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.475724+00:00&quot;,&quot;total&quot;:0.004424761999999305}}" data-execution_count="23">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L269" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="line_etyms" class="level3">
+<h3 class="anchored" data-anchor-id="line_etyms">line_etyms</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> line_etyms(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    text:<span class="bu">str</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.foundation.L:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Return the word-by-word analysis a source supplies on its <code>&gt; etym:</code> lines, without the prefix.</em></p>
+</section>
+</div>
+<div id="9fbc0a27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.475868+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.480990+00:00&quot;,&quot;total&quot;:0.005127487999999403}}" data-execution_count="24">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L260" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="line_times" class="level3">
+<h3 class="anchored" data-anchor-id="line_times">line_times</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> line_times(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    text:<span class="bu">str</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span>fastcore.foundation.L:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Return every timed line in a chunk as <code>AttrDict(text, start, end, aid, ms)</code>, in order.</em></p>
+</section>
+</div>
+<div id="707d3cfd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.481171+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.485803+00:00&quot;,&quot;total&quot;:0.004635797000005937}}" data-execution_count="25">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L253" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="time_marker" class="level3">
+<h3 class="anchored" data-anchor-id="time_marker">time_marker</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> time_marker(</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    start:<span class="bu">int</span>, <span class="co"># line start in ms</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    end:<span class="bu">int</span>, <span class="co"># line end in ms</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    aid:<span class="bu">str</span><span class="op">=</span><span class="va">None</span>, <span class="co"># the aligner's id for the span</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">str</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Write one line’s audio span as a text marker such as <code>[t 0-1800 a1]</code>, so the timing survives chunking.</em></p>
+</section>
+</div>
+<div id="ad65874d" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.485952+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.494751+00:00&quot;,&quot;total&quot;:0.008805132999995635}}" data-execution_count="26">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L209" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="tei_parse" class="level3">
+<h3 class="anchored" data-anchor-id="tei_parse">tei_parse</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tei_parse(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    src</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">tuple</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Read a TEI XML edition from GRETIL or SARIT into <code>(pages, meta)</code>, with one page per division heading, verse group or paragraph.</em></p>
+</section>
+</div>
+<div id="23b5c66c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.494919+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.501900+00:00&quot;,&quot;total&quot;:0.006986527999998771}}" data-execution_count="27">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/text.py#L190" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="gretil_parse" class="level3">
+<h3 class="anchored" data-anchor-id="gretil_parse">gretil_parse</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gretil_parse(</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    src</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>)<span class="op">-&gt;</span><span class="bu">tuple</span>:</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Read a GRETIL plain-text edition (<code>*_u.htm</code>) into <code>(pages, meta)</code>, keeping its header in <code>meta</code>.</em></p>
+</section>
+</div>
+<p>The first example below parses a short vedicreader XML file with a title line, a section translation, and two lines aligned to audio, one with its word-by-word analysis. The second gives the same content as JSON. The third shows <a href="https://vedicreader.github.io/ganapati/text.html#is_sanskrit"><code>is_sanskrit</code></a> on IAST, Devanagari and English, and the last reads GRETIL’s edition of Mahābhārata 1.1 from <code>mahabharata.htm</code>.</p>
+<div id="c0a996d2d949" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>VR <span class="op">=</span> <span class="st">"""&lt;lyrics&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;category&gt;vedic&lt;/category&gt;&lt;tags&gt;rudram&lt;/tags&gt;</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;section name="title"&gt;</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;line ignore="true"&gt;॥ श्रीरुद्रचमकप्रश्नः ॥&lt;/line&gt;</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;/section&gt;</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;section name="anuvaka 1" meaning="A dual invocation of Agni and Viṣṇu."&gt;</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;line start_time_ms="0" end_time_ms="1800" alignment_id="a1" caption="of one accord"</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="st">          etymology="अग्नाविष्णू, agni-viṣṇu, vocative case, dual number, O Agni and Viṣṇu.&amp;#10;सजोषसा, sajoṣas, instrumental case, singular number, of one accord."&gt;अग्नाविष्णू सजोषसेमा&lt;w start_time_ms="0" end_time_ms="900"&gt;अग्नाविष्णू&lt;/w&gt;&lt;w start_time_ms="900" end_time_ms="1800"&gt;सजोषसेमा&lt;/w&gt;&lt;/line&gt;</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="st">    &lt;line start_time_ms="1800" end_time_ms="3400" alignment_id="a2"&gt;वर्धन्तु वां गिरः ॥&lt;/line&gt;</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="st">  &lt;/section&gt;</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="st">&lt;/lyrics&gt;"""</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>pages, meta <span class="op">=</span> vr_xml_parse(VR)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> meta[<span class="st">'title'</span>] <span class="op">==</span> <span class="st">'॥ श्रीरुद्रचमकप्रश्नः ॥'</span>        <span class="co"># kept as the title</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="kw">not</span> <span class="bu">any</span>(<span class="st">'श्रीरुद्रचमकप्रश्नः'</span> <span class="kw">in</span> t <span class="cf">for</span> _, t <span class="kw">in</span> pages)   <span class="co"># and dropped from the content</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>ts <span class="op">=</span> line_times(pages[<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>])</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> [t.start <span class="cf">for</span> t <span class="kw">in</span> ts] <span class="op">==</span> [<span class="dv">0</span>, <span class="dv">1800</span>] <span class="kw">and</span> [t.ms <span class="cf">for</span> t <span class="kw">in</span> ts] <span class="op">==</span> [<span class="dv">1800</span>, <span class="dv">1600</span>]</span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> ts[<span class="dv">0</span>].aid <span class="op">==</span> <span class="st">'a1'</span> <span class="kw">and</span> ts[<span class="dv">0</span>].text <span class="op">==</span> <span class="st">'अग्नाविष्णू सजोषसेमा'</span>   <span class="co"># `&lt;w&gt;` children stay out of the line</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="co"># the corpus writes a whole word-by-word analysis into one attribute, so every physical line needs the</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="co"># `&gt; etym:` prefix: an unprefixed continuation line reaches the scansion as if it were a pāda</span></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>es <span class="op">=</span> line_etyms(pages[<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>])</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(es) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> es[<span class="dv">0</span>].startswith(<span class="st">'अग्नाविष्णू,'</span>) <span class="kw">and</span> es[<span class="dv">1</span>].startswith(<span class="st">'सजोषसा,'</span>)</span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>quoted <span class="op">=</span> <span class="kw">lambda</span> pg: <span class="bu">all</span>(ln.startswith((<span class="st">'&gt;'</span>, <span class="st">'##'</span>)) <span class="kw">or</span> <span class="st">'[t '</span> <span class="kw">in</span> ln <span class="cf">for</span> ln <span class="kw">in</span> pg.splitlines() <span class="cf">if</span> ln.strip())</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> quoted(pages[<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>])</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="vrjson01" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>VRJ <span class="op">=</span> <span class="st">"""{"title": "॥ श्रीरुद्रचमकप्रश्नः ॥", "category": "vedic", "tags": "rudram",</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="st"> "sections": [{"name": "anuvaka 1", "meaning": "A dual invocation of Agni and Viṣṇu.",</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="st">   "lines": [{"t": "अग्नाविष्णू सजोषसेमा", "s": 0, "e": 1800, "cap": "of one accord",</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="st">              "etym": "अग्नाविष्णू, agni-viṣṇu, vocative case, dual number, O Agni and Viṣṇu.</span><span class="ch">\\</span><span class="st">nसजोषसा, sajoṣas, instrumental case, singular number, of one accord.",</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="st">              "w": [["अग्नाविष्णू", 0, 900], ["सजोषसेमा", 900, 1800]]},</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="st">             {"t": "वर्धन्तु वां गिरः ॥", "s": 1800, "e": 3400},</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="st">             {"t": "[bell]", "role": "audio", "s": 3400, "e": 4000}]}]}"""</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>pj, mj <span class="op">=</span> vr_json_parse(VRJ)</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> mj[<span class="st">'title'</span>] <span class="op">==</span> meta[<span class="st">'title'</span>] <span class="kw">and</span> mj[<span class="st">'category'</span>] <span class="op">==</span> <span class="st">'vedic'</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> [t.ms <span class="cf">for</span> t <span class="kw">in</span> line_times(pj[<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>])] <span class="op">==</span> [<span class="dv">1800</span>, <span class="dv">1600</span>]   <span class="co"># `audio` is recited but not printed, so not verse</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="bu">len</span>(line_etyms(pj[<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>])) <span class="op">==</span> <span class="dv">2</span>                         <span class="co"># one entry per physical line, same as the XML reader</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> quoted(pj[<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>])</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> sanskrit_parse(VRJ)[<span class="dv">1</span>][<span class="st">'fmt'</span>] <span class="op">==</span> <span class="st">'vedicreader'</span>          <span class="co"># picked by shape, not by extension</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="599f5ecaef59" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> is_sanskrit(<span class="st">'śrīmātā śrīmahārājñī || LSN_1 ||</span><span class="ch">\n</span><span class="st">śrīmatsiṃhāsaneśvarī || LSN_2 ||</span><span class="ch">\n</span><span class="st">'</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                   <span class="st">'cidagnikuṇḍasambhūtā || LSN_3 ||'</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> is_sanskrit(<span class="st">'अथ योगानुशासनम् ॥ १॥'</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="kw">not</span> is_sanskrit(<span class="st">'This is an ordinary English paragraph about nothing in particular.'</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="kw">not</span> is_sanskrit(<span class="st">''</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> _detag(<span class="st">'dharma&amp;nbsp;artha'</span>) <span class="op">==</span> <span class="st">'dharma artha'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="fdb27d26" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>sanskrit_parse(<span class="st">'mahabharata.htm'</span>)[<span class="dv">0</span>][<span class="dv">0</span>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<pre><code>(0,
+ 'nārāyaṇaṃ namaskṛtya naraṃ caiva narottamam\ndevīṃ sarasvatīṃ caiva tato jayam udīrayet')</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/vedicreader\.github\.io\/ganapati");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/vedicreader/ganapati/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

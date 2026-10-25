@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.19">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Derive a word through Pāṇini’s grammar, match a word-by-word analysis to the written line, and name the sandhi rule at a join">
+
+<title>vyakarana – ganapati</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-bf27225e3a48a9273f3daa8f8e829971.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f2788e636de456f6409e966386820849.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="vyakarana – ganapati">
+<meta property="og:description" content="Derive a word through Pāṇini’s grammar, match a word-by-word analysis to the written line, and name the sandhi rule at a join">
+<meta property="og:site_name" content="ganapati">
+<meta name="twitter:title" content="vyakarana – ganapati">
+<meta name="twitter:description" content="Derive a word through Pāṇini’s grammar, match a word-by-word analysis to the written line, and name the sandhi rule at a join">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">ganapati</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./vyakarana.html">vyakarana</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">ganapati</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sanskrit.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">sanskrit</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./text.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">text</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metre.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">metre</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./lemma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">lemma</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./names.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">names</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./vyakarana.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">vyakarana</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#specs-and-derivations" id="toc-specs-and-derivations" class="nav-link active" data-scroll-target="#specs-and-derivations">Specs and derivations</a></li>
+  <li><a href="#placing-a-word-by-word-analysis-on-the-written-line" id="toc-placing-a-word-by-word-analysis-on-the-written-line" class="nav-link" data-scroll-target="#placing-a-word-by-word-analysis-on-the-written-line">Placing a word-by-word analysis on the written line</a></li>
+  <li><a href="#the-sandhi-at-a-join" id="toc-the-sandhi-at-a-join" class="nav-link" data-scroll-target="#the-sandhi-at-a-join">The sandhi at a join</a></li>
+  <li><a href="#joining-two-words" id="toc-joining-two-words" class="nav-link" data-scroll-target="#joining-two-words">Joining two words</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/vedicreader/ganapati/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div><div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="vyakarana.html.md"><i class="bi bi-file-code"></i>Markdown</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">vyakarana</h1>
+</div>
+
+<div>
+  <div class="description">
+    Derive a word through Pāṇini’s grammar, match a word-by-word analysis to the written line, and name the sandhi rule at a join
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<p>Vyākaraṇa is Sanskrit grammar, and its foundation is Pāṇini’s Aṣṭādhyāyī, about 4,000 rules (sūtras) numbered by book, chapter and rule, such as 3.1.68. vidyut includes a program that applies these rules step by step, and this module uses it to show how a written word is derived. The second section matches a word-by-word analysis of a line to the line’s written words, and the third names the sandhi rule at the join of two words.</p>
+<section id="specs-and-derivations" class="level2">
+<h2 class="anchored" data-anchor-id="specs-and-derivations">Specs and derivations</h2>
+<p>A pada is an inflected word. To ask vidyut for one, you describe it in a single string called a spec. A spec is written in SLP1 with its fields separated by <code>|</code>, and the first field says what kind of word it is:</p>
+<pre><code>s|&lt;stem&gt;|&lt;liṅga&gt;|&lt;vibhakti&gt;|&lt;vacana&gt;            a noun or adjective from a plain stem (a compound's stem written joined)
+a|&lt;text&gt;                                        an indeclinable (avyaya)
+k|&lt;dhātu&gt;|&lt;kṛt&gt;|&lt;liṅga&gt;|&lt;vibhakti&gt;|&lt;vacana&gt;     a noun from a root and a kṛt suffix, such as a participle
+ka|&lt;dhātu&gt;|&lt;kṛt&gt;                                an indeclinable kṛt form (ktvā, lyap, tumun)
+t|&lt;dhātu&gt;|&lt;prayoga&gt;|&lt;lakāra&gt;|&lt;puruṣa&gt;|&lt;vacana&gt;[|P|A]  a finite verb; P or A asks for active or middle endings</code></pre>
+<p>Liṅga is gender, vibhakti case, vacana number, prayoga voice, lakāra tense or mood, and puruṣa person, each given by vidyut’s SLP1 name. <code>s|rAma|puM|praTamA|eka</code> is rāmaḥ, masculine nominative singular. A dhātu (verbal root) is written <code>&lt;aupadeśika&gt;,&lt;gaṇa&gt;,&lt;antargaṇa&gt;,&lt;sanādi+…&gt;,&lt;upasarga+…&gt;</code>: the root as the Dhātupāṭha lists it, its verb class, its sub-class, any suffixes that make a new root such as the causative, and any prefixes, with unused fields left empty. <code>t|BU,BvAdi,,,|kartari|la~w|praTama|eka|P</code> is bhavati. <a href="https://vedicreader.github.io/ganapati/vyakarana.html#dhatu"><code>dhatu</code></a> turns such a field into a vidyut <code>Dhatu</code>, and <a href="https://vedicreader.github.io/ganapati/vyakarana.html#made"><code>made</code></a> gives the stem vidyut builds from it: the root alone, with its prefixes set apart, or with a kṛt suffix the kṛdanta’s stem. <code>made('Ra\\Sa~,divAdi')</code> is naS, <code>made('A\\px~,svAdi,,,pra', 'kta')</code> is prApta, and a field vidyut cannot read gives an empty string.</p>
+<p><a href="https://vedicreader.github.io/ganapati/vyakarana.html#pada"><code>pada</code></a> turns a spec into a vidyut <code>Pada</code>, its noun stem made by <a href="https://vedicreader.github.io/ganapati/vyakarana.html#stem"><code>stem</code></a>, which gives a feminine in -ā or -ī its feminine suffix so sītā declines as sītāyai, not sītaiḥ, and <a href="https://vedicreader.github.io/ganapati/vyakarana.html#derive"><code>derive</code></a> returns its derivation, a vidyut <code>Prakriya</code>. When you also pass the written word as <code>surf</code>, <a href="https://vedicreader.github.io/ganapati/vyakarana.html#derive"><code>derive</code></a> returns only a derivation that ends in that word, or None, so a wrong spec gives nothing rather than some other word. <code>derives(spec, surf)</code> asks the same question and returns True or False. <a href="https://vedicreader.github.io/ganapati/vyakarana.html#steps"><code>steps</code></a> lists a derivation’s steps as <code>(source, rule, result)</code>, each rule at most once while the form stays the same, with the source <code>A</code> for the Aṣṭādhyāyī, <code>D</code> for the Dhātupāṭha, <code>U</code> for the Uṇādipāṭha and <code>V</code> for a vārttika. <a href="https://vedicreader.github.io/ganapati/vyakarana.html#norm"><code>norm</code></a> prepares a form for comparison with a derivation by removing accents and writing a final anusvāra as m.</p>
+<p>To describe a spec in words, <a href="https://vedicreader.github.io/ganapati/vyakarana.html#spec_words"><code>spec_words</code></a> gives its grammar in English (given the written form, a doer-voice verb reads middle when only the ātmanepada endings reach it, as kurute), <a href="https://vedicreader.github.io/ganapati/vyakarana.html#spec_lemma"><code>spec_lemma</code></a> gives the headword it stands on, and <a href="https://vedicreader.github.io/ganapati/vyakarana.html#spec_root"><code>spec_root</code></a> gives the root with its prefixes, such as <code>pra+Ap</code>. <code>KRT</code> and <code>GRAM_EN</code> hold the English names behind <a href="https://vedicreader.github.io/ganapati/vyakarana.html#spec_words"><code>spec_words</code></a>.</p>
+<p>vidyut is imported inside the functions that need it, and only <code>vidyut.prakriya</code> is loaded, never the kosha or the segmenter. <a href="https://vedicreader.github.io/ganapati/vyakarana.html#vy"><code>vy</code></a> holds the one <code>Vyakarana</code> object, set to record every step.</p>
+<div id="25263c46" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.564227+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.580444+00:00&quot;,&quot;total&quot;:0.01622329100000286}}" data-execution_count="4">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L19" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="vy" class="level3">
+<h3 class="anchored" data-anchor-id="vy">vy</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> vy():</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Return the shared vidyut <code>Vyakarana</code>, which records each step of a derivation.</em></p>
+</section>
+</div>
+<div id="3217cc20" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.582213+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.585515+00:00&quot;,&quot;total&quot;:0.0033053679999994756}}" data-execution_count="6">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L25" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="dhatu" class="level3">
+<h3 class="anchored" data-anchor-id="dhatu">dhatu</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dhatu(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    f</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The vidyut <code>Dhatu</code> a dhātu field <code>upadeśa,gaṇa,antargaṇa,sanādi,prefixes</code> names: <code>BU,BvAdi</code> is bhū.</em></p>
+</section>
+</div>
+<div id="c81a8cd7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> dhatu(<span class="st">'BU,BvAdi'</span>).aupadeshika <span class="op">==</span> <span class="st">'BU'</span> <span class="kw">and</span> _dhatu <span class="kw">is</span> dhatu   <span class="co"># the old private name still imports</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="1ca48ec8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.586773+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.589619+00:00&quot;,&quot;total&quot;:0.002849663999995755}}" data-execution_count="8">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L36" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="stem" class="level3">
+<h3 class="anchored" data-anchor-id="stem">stem</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> stem(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    t, g</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Return the <code>Pratipadika</code> of stem <code>t</code> in gender <code>g</code>, a feminine in -ā or -ī carrying its feminine suffix (sītā, nadī) so vidyut declines it as one.</em></p>
+</section>
+</div>
+<div id="29713a51" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.591942+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.595837+00:00&quot;,&quot;total&quot;:0.0038986779999987675}}" data-execution_count="10">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L42" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="pada" class="level3">
+<h3 class="anchored" data-anchor-id="pada">pada</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pada(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    spec</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Turn a spec into a vidyut <code>Pada</code>, or None if the spec cannot be read.</em></p>
+</section>
+</div>
+<div id="cc3d1871" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.596832+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.599564+00:00&quot;,&quot;total&quot;:0.0027361220000017283}}" data-execution_count="12">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L57" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="norm" class="level3">
+<h3 class="anchored" data-anchor-id="norm">norm</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> norm(</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    slp</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Prepare an SLP1 form for comparison with a derivation by removing accents and marks and writing a final anusvāra as m.</em></p>
+</section>
+</div>
+<div id="ce82c863" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.600821+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.603747+00:00&quot;,&quot;total&quot;:0.0029292729999923495}}" data-execution_count="14">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L63" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="derive" class="level3">
+<h3 class="anchored" data-anchor-id="derive">derive</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> derive(</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    spec, surf:NoneType<span class="op">=</span><span class="va">None</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Derive the word a spec names, returning the derivation that ends in <code>surf</code> (SLP1) when given, else the first, or None.</em></p>
+</section>
+</div>
+<div id="7aabf8db" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.604561+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.607143+00:00&quot;,&quot;total&quot;:0.0025859809999957406}}" data-execution_count="16">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L72" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="derives" class="level3">
+<h3 class="anchored" data-anchor-id="derives">derives</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> derives(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    spec, surf</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</div>
+<div id="416e364c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.608743+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.612052+00:00&quot;,&quot;total&quot;:0.0033121590000035894}}" data-execution_count="18">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L75" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="steps" class="level3">
+<h3 class="anchored" data-anchor-id="steps">steps</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> steps(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    p</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>List a derivation’s steps as <code>(source, rule, result)</code>, the source being <code>A</code> (Aṣṭādhyāyī), <code>D</code> (Dhātupāṭha), <code>U</code> (Uṇādipāṭha), <code>V</code> (vārttika) or another source’s own name.</em></p>
+</section>
+</div>
+<div id="73f06862" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.615187+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.618167+00:00&quot;,&quot;total&quot;:0.002983094000001074}}" data-execution_count="22">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L101" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="made" class="level3">
+<h3 class="anchored" data-anchor-id="made">made</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> made(</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    f, krt:<span class="bu">str</span><span class="op">=</span><span class="st">''</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>The stem vidyut builds from dhātu field <code>f</code>, alone or with kṛt <code>krt</code>, or an empty string when it cannot.</em></p>
+</section>
+</div>
+<div id="519cd929" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> made(<span class="st">'Ra</span><span class="ch">\\</span><span class="st">Sa~,divAdi'</span>) <span class="op">==</span> <span class="st">'naS'</span> <span class="kw">and</span> made(<span class="st">'A</span><span class="ch">\\</span><span class="st">px~,svAdi,,,pra'</span>, <span class="st">'kta'</span>) <span class="op">==</span> <span class="st">'prApta'</span> <span class="kw">and</span> made(<span class="st">'BU,nogana'</span>) <span class="op">==</span> <span class="st">''</span> <span class="kw">and</span> _made <span class="kw">is</span> made</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="9d692d38" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.619510+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.622643+00:00&quot;,&quot;total&quot;:0.0031368920000005573}}" data-execution_count="24">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L110" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="spec_lemma" class="level3">
+<h3 class="anchored" data-anchor-id="spec_lemma">spec_lemma</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spec_lemma(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    spec</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Return the SLP1 headword a spec stands on: the stem, the indeclinable, a kṛt form’s stem (<code>prApta</code>), or a verb’s root with its prefixes (<code>pra+Ap</code>).</em></p>
+</section>
+</div>
+<div id="c3502dad" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.624488+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.627581+00:00&quot;,&quot;total&quot;:0.003096525999993105}}" data-execution_count="26">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L118" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="spec_root" class="level3">
+<h3 class="anchored" data-anchor-id="spec_root">spec_root</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spec_root(</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    spec</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Return the root of a kṛt form or a verb with its prefixes (<code>pra+Ap</code>), or ’’ for a noun from a plain stem.</em></p>
+</section>
+</div>
+<div id="59da0b45" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.630480+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.634152+00:00&quot;,&quot;total&quot;:0.003675631000007229}}" data-execution_count="29">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L133" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="spec_words" class="level3">
+<h3 class="anchored" data-anchor-id="spec_words">spec_words</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> spec_words(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    spec, surf:NoneType<span class="op">=</span><span class="va">None</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Describe a spec’s grammar in English words: the kṛt suffix’s meaning if there is one, then case, number and gender, or tense, person, number and voice.</em></p>
+</section>
+</div>
+<p>The checks below use two words with well-known derivations. Deriving रामः applies rules 4.1.2, 8.2.66 and 8.3.15, and deriving विजयते applies 3.4.78, 3.1.68, 7.3.84 and 6.1.78. The spec for rāmaḥ checked against the written form rāmeṇa gives None.</p>
+<div id="41488c29b816" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> codes(spec, surf): <span class="cf">return</span> [c <span class="cf">for</span> s, c, _ <span class="kw">in</span> steps(derive(spec, surf)) <span class="cf">if</span> s <span class="op">==</span> <span class="st">'A'</span>]</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> derive(<span class="st">'s|rAma|puM|praTamA|eka'</span>, <span class="st">'rAmaH'</span>).text <span class="op">==</span> <span class="st">'rAmaH'</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> {<span class="st">'4.1.2'</span>, <span class="st">'8.2.66'</span>, <span class="st">'8.3.15'</span>} <span class="op">&lt;=</span> <span class="bu">set</span>(codes(<span class="st">'s|rAma|puM|praTamA|eka'</span>, <span class="st">'rAmaH'</span>))</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> {<span class="st">'3.4.78'</span>, <span class="st">'3.1.68'</span>, <span class="st">'7.3.84'</span>, <span class="st">'6.1.78'</span>} <span class="op">&lt;=</span> <span class="bu">set</span>(codes(<span class="st">'t|ji</span><span class="ch">\\</span><span class="st">,BvAdi,,,vi|kartari|la~w|praTama|eka'</span>, <span class="st">'vijayate'</span>))</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> derive(<span class="st">'s|rAma|puM|praTamA|eka'</span>, <span class="st">'rAmeRa'</span>) <span class="kw">is</span> <span class="va">None</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> derive(<span class="st">'t|BU,BvAdi,,,|kartari|la~w|praTama|eka|P'</span>).text <span class="op">==</span> <span class="st">'Bavati'</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> spec_words(<span class="st">'s|rAma|puM|tftIyA|eka'</span>) <span class="op">==</span> [<span class="st">'instrumental'</span>, <span class="st">'singular'</span>, <span class="st">'masculine'</span>]</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> spec_lemma(<span class="st">'k|A</span><span class="ch">\\</span><span class="st">px~,svAdi,,,pra|kta|puM|dvitIyA|eka'</span>) <span class="op">==</span> <span class="st">'prApta'</span> <span class="kw">and</span> spec_root(<span class="st">'k|A</span><span class="ch">\\</span><span class="st">px~,svAdi,,,pra|kta|puM|dvitIyA|eka'</span>) <span class="op">==</span> <span class="st">'pra+Ap'</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> norm(<span class="st">'rAmaM'</span>) <span class="op">==</span> <span class="st">'rAmam'</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> derive(<span class="st">'s|sItA|strI|caturTI|eka'</span>, <span class="st">'sItAyE'</span>) <span class="kw">and</span> derive(<span class="st">'s|nadI|strI|tftIyA|eka'</span>, <span class="st">'nadyA'</span>) <span class="kw">and</span> derive(<span class="st">'s|lakzmI|strI|praTamA|eka'</span>, <span class="st">'lakzmIH'</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>kf <span class="op">=</span> <span class="st">'t|qukf</span><span class="ch">\\</span><span class="st">Y,tanAdi,,,|kartari|la~w|praTama|eka'</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> spec_words(kf, <span class="st">'kurute'</span>)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'middle'</span> <span class="kw">and</span> spec_words(kf, <span class="st">'karoti'</span>)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'active'</span> <span class="kw">and</span> spec_words(kf)[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">'active'</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>cs <span class="op">=</span> [c <span class="cf">for</span> _, c, _ <span class="kw">in</span> steps(derive(<span class="st">'s|rAma|puM|dvitIyA|eka'</span>, <span class="st">'rAmam'</span>))]</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> cs.count(<span class="st">'1.1.73'</span>) <span class="op">==</span> <span class="dv">1</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="placing-a-word-by-word-analysis-on-the-written-line" class="level2">
+<h2 class="anchored" data-anchor-id="placing-a-word-by-word-analysis-on-the-written-line">Placing a word-by-word analysis on the written line</h2>
+<p>A word-by-word analysis lists a line’s words in reading order with sandhi undone, so it has more, shorter entries than the line has written tokens. स कालेनेह is two written tokens and three entries: सः, कालेन, इह. <a href="https://vedicreader.github.io/ganapati/vyakarana.html#align"><code>align</code></a> works out which entries belong to which token. It takes the tokens and a list of entries, each an object with the word in <code>.w</code>, such as the records from <a href="https://vedicreader.github.io/ganapati/lemma.html#etym_entries"><code>etym_entries</code></a>, and returns one list of entry positions per token.</p>
+<p>The match keeps the order of both lists. A token may take up to four consecutive entries, and they fit when their joined sandhi skeleton is similar enough to the token’s: a difflib similarity ratio of at least 0.72, scored by the token’s length. An entry that no token fits is dropped at a cost of 0.5. That cost was tuned on Gītā 4.2. Any lower and कालेनेह loses इह; any higher and विदुः takes a सः that the analysis added but the line does not have.</p>
+<p><a href="https://vedicreader.github.io/ganapati/vyakarana.html#sandhi_skeleton"><code>sandhi_skeleton</code></a> is what makes the comparison tolerant of sandhi. It removes marks, drops a final s, r, ḥ, m or ṃ, and makes long vowels short, since a word’s final sound and its vowel length are what sandhi most often changes.</p>
+<div id="10462a14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.635769+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.638558+00:00&quot;,&quot;total&quot;:0.0027923069999928884}}" data-execution_count="31">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L145" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="sandhi_skeleton" class="level3">
+<h3 class="anchored" data-anchor-id="sandhi_skeleton">sandhi_skeleton</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sandhi_skeleton(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    slp</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Reduce an SLP1 word to a form that survives sandhi: marks removed, a final s, r, H, m or M dropped, and long vowels made short.</em></p>
+</section>
+</div>
+<div id="c2443d3c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.642487+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.647497+00:00&quot;,&quot;total&quot;:0.00501402500000836}}" data-execution_count="33">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L152" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="align" class="level3">
+<h3 class="anchored" data-anchor-id="align">align</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> align(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    tk, es</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Match a line’s written tokens to its word-by-word entries in order, returning the list of entry positions each token takes.</em></p>
+</section>
+</div>
+<div id="ca8ef645" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.647606+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.648243+00:00&quot;,&quot;total&quot;:0.0006393359999918857}}" data-execution_count="34">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> namedtuple</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="2e6b432df098" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>E <span class="op">=</span> namedtuple(<span class="st">'E'</span>, <span class="st">'w'</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>tk <span class="op">=</span> <span class="st">'स कालेनेह महता योगो नष्टः परन्तप'</span>.split()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>es <span class="op">=</span> [E(x) <span class="cf">for</span> x <span class="kw">in</span> (<span class="st">'सः'</span>, <span class="st">'कालेन'</span>, <span class="st">'इह'</span>, <span class="st">'महता'</span>, <span class="st">'योगः'</span>, <span class="st">'नष्टः'</span>, <span class="st">'परन्तप'</span>)]</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> align(tk, es) <span class="op">==</span> [[<span class="dv">0</span>], [<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">3</span>], [<span class="dv">4</span>], [<span class="dv">5</span>], [<span class="dv">6</span>]]</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> sandhi_skeleton(<span class="st">'rAmaH'</span>) <span class="op">==</span> <span class="st">'rama'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="the-sandhi-at-a-join" class="level2">
+<h2 class="anchored" data-anchor-id="the-sandhi-at-a-join">The sandhi at a join</h2>
+<p>Sandhi is the set of sound changes where two words meet: ca and eva are written caiva, and rāmaḥ before gacchati becomes rāmo. <a href="https://vedicreader.github.io/ganapati/vyakarana.html#join_rule"><code>join_rule</code></a> takes the word before the join and the word after, both in SLP1 with sandhi undone, and names the rule that joins them. It returns <code>(id, name, sūtra)</code> from <code>JOINS</code>, such as <code>('vrddhi', 'vṛddhi', '6.1.88')</code>, or None for a join that no class fits. <code>JOINS</code> describes 25 classes that cover the joins of classical verse, each with its Aṣṭādhyāyī sūtra and a one-line description, plus a <code>none</code> entry for words written apart.</p>
+<p>Pass the written form as <code>written</code> when you have it. Two pairs of rules can only be told apart that way: whether the y or v of ayādi was kept or dropped (te ime written tayime or ta ime), and whether t before ś became cch (tacchrutvā) or only c.</p>
+<div id="e0c45a1c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.656862+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.662096+00:00&quot;,&quot;total&quot;:0.005237874999991732}}" data-execution_count="42">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L226" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="join_rule" class="level3">
+<h3 class="anchored" data-anchor-id="join_rule">join_rule</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> join_rule(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    left, right, written:<span class="bu">str</span><span class="op">=</span><span class="st">''</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Name the sandhi between <code>left</code> and <code>right</code> (both SLP1, sandhi undone) as <code>(id, name, sūtra)</code> from <code>JOINS</code>, using the <code>written</code> form when given, or None if no class fits.</em></p>
+</section>
+</div>
+<div id="e74f7dac4818" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> l, r, w, k <span class="kw">in</span> [(<span class="st">'BIma'</span>, <span class="st">'arjuna'</span>, <span class="st">'BImArjuna'</span>, <span class="st">'6.1.101'</span>), (<span class="st">'mahA'</span>, <span class="st">'izvAsAH'</span>, <span class="st">'mahezvAsAH'</span>, <span class="st">'6.1.87'</span>), (<span class="st">'ca'</span>, <span class="st">'eva'</span>, <span class="st">'cEva'</span>, <span class="st">'6.1.88'</span>),</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">'karmaRi'</span>, <span class="st">'eva'</span>, <span class="st">'karmaRyeva'</span>, <span class="st">'6.1.77'</span>), (<span class="st">'karO'</span>, <span class="st">'uBO'</span>, <span class="st">'karAvuBO'</span>, <span class="st">'6.1.78'</span>), (<span class="st">'te'</span>, <span class="st">'api'</span>, <span class="st">"te'pi"</span>, <span class="st">'6.1.109'</span>),</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">'te'</span>, <span class="st">'ime'</span>, <span class="st">'ta ime'</span>, <span class="st">'8.3.19'</span>), (<span class="st">'rAmaH'</span>, <span class="st">'gacCati'</span>, <span class="st">'rAmo gacCati'</span>, <span class="st">'6.1.114'</span>), (<span class="st">'rAmaH'</span>, <span class="st">'api'</span>, <span class="st">"rAmo'pi"</span>, <span class="st">'6.1.113'</span>),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                   (<span class="st">'hariH'</span>, <span class="st">'gacCati'</span>, <span class="st">'harir gacCati'</span>, <span class="st">'8.2.66'</span>), (<span class="st">'tam'</span>, <span class="st">'vande'</span>, <span class="st">'taM vande'</span>, <span class="st">'8.3.23'</span>), (<span class="st">'vAk'</span>, <span class="st">'ISa'</span>, <span class="st">'vAgISa'</span>, <span class="st">'8.2.39'</span>), (<span class="st">'tat'</span>, <span class="st">'ca'</span>, <span class="st">'tacca'</span>, <span class="st">'8.4.40'</span>)]:</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">assert</span> join_rule(l, r, w)[<span class="dv">2</span>] <span class="op">==</span> k, (l, r, join_rule(l, r, w))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> join_rule(<span class="st">''</span>, <span class="st">'iti'</span>) <span class="kw">is</span> <span class="va">None</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="joining-two-words" class="level2">
+<h2 class="anchored" data-anchor-id="joining-two-words">Joining two words</h2>
+<p><a href="https://vedicreader.github.io/ganapati/vyakarana.html#join_rule"><code>join_rule</code></a> names a join that is already written. <a href="https://vedicreader.github.io/ganapati/vyakarana.html#join"><code>join</code></a> writes it. Give it two words in SLP1 as each stands alone and it returns the left word as written, the right word as written, and the class from <a href="https://vedicreader.github.io/ganapati/vyakarana.html#join_rule"><code>join_rule</code></a>. When the two words merge into one, as tava and iti do in taveti, the right word comes back as None.</p>
+<p>The joins come from vidyut’s table of 1,468 sandhi rules (<code>ganapati/data/vidyut_sandhi_rules.csv</code>, MIT licence, in <code>ganapati/data/LICENSE-vidyut</code>). vidyut’s Python binding has a splitter but no joiner, so ganapati reads the table itself. A final visarga is read as s, or as r in punar, antar and prātar, and saḥ and eṣaḥ drop their visarga before a consonant by 6.1.132.</p>
+<div id="1967dc6a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.664928+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.667980+00:00&quot;,&quot;total&quot;:0.0030552990000103364}}" data-execution_count="46">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L271" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="rules" class="level3">
+<h3 class="anchored" data-anchor-id="rules">rules</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rules(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    p:NoneType<span class="op">=</span><span class="va">None</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>vidyut’s joins from <code>p</code> (default <code>RULES</code>) as <code>{(left end, right first sound): result}</code>, a space in the result keeping the words apart.</em></p>
+</section>
+</div>
+<div id="5c503e44" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(rules()), rules()[(<span class="st">'a'</span>, <span class="st">'i'</span>)], rules()[(<span class="st">'as'</span>, <span class="st">'a'</span>)]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="752e4ce8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.670237+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.674099+00:00&quot;,&quot;total&quot;:0.0038657859999915445}}" data-execution_count="48">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L280" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="join" class="level3">
+<h3 class="anchored" data-anchor-id="join">join</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> join(</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    left, right</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Join <code>left</code> and <code>right</code> (SLP1, each as it stands alone) as <code>(left written, right written or None if they merge, class from join_rule or None)</code>.</em></p>
+</section>
+</div>
+<div id="1ab13d5b" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> join(<span class="st">'rAmaH'</span>, <span class="st">'api'</span>) <span class="op">==</span> (<span class="st">'rAmo'</span>, <span class="st">"'pi"</span>, (<span class="st">'o_a'</span>, <span class="st">'-aḥ to -o'</span>, <span class="st">'6.1.113'</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> join(<span class="st">'tava'</span>, <span class="st">'iti'</span>) <span class="op">==</span> (<span class="st">'taveti'</span>, <span class="va">None</span>, (<span class="st">'guna'</span>, <span class="st">'guṇa'</span>, <span class="st">'6.1.87'</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> join(<span class="st">'saH'</span>, <span class="st">'gacCati'</span>)[:<span class="dv">2</span>] <span class="op">==</span> (<span class="st">'sa'</span>, <span class="st">'gacCati'</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> join(<span class="st">'punaH'</span>, <span class="st">'api'</span>)[<span class="dv">0</span>] <span class="op">==</span> <span class="st">'punar'</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> join(<span class="st">''</span>, <span class="st">'iti'</span>) <span class="op">==</span> (<span class="st">''</span>, <span class="st">'iti'</span>, <span class="va">None</span>)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>join(<span class="st">'ca'</span>, <span class="st">'eva'</span>), join(<span class="st">'tat'</span>, <span class="st">'ca'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="e2c9d754" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-25T08:08:52.675723+00:00&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-25T08:08:52.678906+00:00&quot;,&quot;total&quot;:0.003186835000008159}}" data-execution_count="50">
+<hr>
+<p><a href="https://github.com/vedicreader/ganapati/blob/main/ganapati/vyakarana.py#L296" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="samhita" class="level3">
+<h3 class="anchored" data-anchor-id="samhita">samhita</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> samhita(</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    ws</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>):</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><em>Words in order (SLP1) as one saṃhitā line: <code>(line, [(k, class of the join between word k and k+1)])</code>, merged words written as one.</em></p>
+</section>
+</div>
+<div id="66d921d1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>line, js <span class="op">=</span> samhita([<span class="st">'rAmaH'</span>, <span class="st">'api'</span>, <span class="st">'vanam'</span>, <span class="st">'gacCati'</span>])</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> line <span class="op">==</span> <span class="st">"rAmo 'pi vanaM gacCati"</span>, line</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> [j[<span class="dv">2</span>] <span class="cf">if</span> j <span class="cf">else</span> <span class="va">None</span> <span class="cf">for</span> _, j <span class="kw">in</span> js] <span class="op">==</span> [<span class="st">'6.1.113'</span>, <span class="va">None</span>, <span class="st">'8.3.23'</span>]</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> samhita([]) <span class="op">==</span> (<span class="st">''</span>, [])</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>line, js</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/vedicreader\.github\.io\/ganapati");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/vedicreader/ganapati/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
