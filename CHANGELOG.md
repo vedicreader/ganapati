@@ -2,6 +2,10 @@
 
 <!-- do not remove -->
 
+## 0.1.6
+- The `search` extra needs litesearch>=0.1.61. litesearch 0.1.61 loads adhara, a native SQLite extension, into each connection.
+- The changelog's prApta example has one backslash.
+
 ## 0.1.5
 
 - The `search` extra needs litesearch 0.1.44 or later. The chunker tests check `VerseChunker` and `ProseChunker` against litesearch's public `pack_target` instead of `_pack_target`.
